@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  <meta name="google-site-verification" content="zo0LqAAU1ik3Yk5Gdqg2DpsQI1Xlhh7jC07I0IGeyVc" />
+  <meta name="baidu-site-verification" content="6LE45O63Sc" />
+  <!-- 谷歌广告-->
+  <script data-ad-client="ca-pub-6442249173079218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  
+  <title>Java排序号更新逻辑 | 当我遇上你</title>
+  <meta name="description" content="前言 在工作上遇到一个比较奇怪的逻辑, 根据唯一字段排序并且序号不得重复。这样的逻辑很可能会涉及到批量更新, 锁表等, 并不值得推荐。当然有历史原因不得不这样做。好的程序不只建立在程序本身上, 更加建立在优秀的逻辑设计上。本文仅作参考。  实现  首先定义一个需要排序的实体  1234567891011121314151617181920package com.example.javademo.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java排序号更新逻辑">
+<meta property="og:url" content="https://idea360.cn/2021/07/25/java-order/index.html">
+<meta property="og:site_name" content="当我遇上你">
+<meta property="og:description" content="前言 在工作上遇到一个比较奇怪的逻辑, 根据唯一字段排序并且序号不得重复。这样的逻辑很可能会涉及到批量更新, 锁表等, 并不值得推荐。当然有历史原因不得不这样做。好的程序不只建立在程序本身上, 更加建立在优秀的逻辑设计上。本文仅作参考。  实现  首先定义一个需要排序的实体  1234567891011121314151617181920package com.example.javademo.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-25T07:19:02.000Z">
+<meta property="article:modified_time" content="2021-07-25T07:24:50.658Z">
+<meta property="article:author" content="当我遇上你">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="排序">
+<meta property="article:tag" content="sort">
+<meta property="article:tag" content="序号">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://idea360.cn/2021/07/25/java-order/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-white" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/qidian360" target="_blank">
+          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/qidian360" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 固定广告位 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6442249173079218"
+     data-ad-slot="7881226079"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text"> 实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number">3.</span> <span class="toc-text"> 最后</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-java-order" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java排序号更新逻辑
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/07/25/java-order/" class="article-date">
+	  <time datetime="2021-07-25T07:19:02.000Z" itemprop="datePublished">2021-07-25</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/java/" rel="tag">java</a>, <a class="article-tag-link-link" href="/tags/sort/" rel="tag">sort</a>, <a class="article-tag-link-link" href="/tags/%E5%BA%8F%E5%8F%B7/" rel="tag">序号</a>, <a class="article-tag-link-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2021/07/25/java-order/" class="leancloud_visitors"  data-flag-title="Java排序号更新逻辑">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/07/25/java-order/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>在工作上遇到一个比较奇怪的逻辑, 根据唯一字段排序并且序号不得重复。这样的逻辑很可能会涉及到批量更新, 锁表等, 并不值得推荐。当然有历史原因不得不这样做。好的程序不只建立在程序本身上, 更加建立在优秀的逻辑设计上。本文仅作参考。</p>
+<h1 id="实现"><a class="markdownIt-Anchor" href="#实现"></a> 实现</h1>
+<ol>
+<li>首先定义一个需要排序的实体</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.javademo.sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> cuishiying</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021-07-23</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> Integer sortIndex;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(Integer id, String name, Integer sortIndex)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.sortIndex = sortIndex;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>然后就是我们的算法逻辑</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.javademo.sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.util.Assert;</span><br><span class="line"><span class="keyword">import</span> java.util.Comparator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 本排序方法适用于数据量较小的排序, 业务中要求按找1个字段排序且排序值需要唯一</span></span><br><span class="line"><span class="comment"> * 优秀的排序方案来源于优秀的产品设计及优秀的业务设计, 如根据排序值+更新时间多字段来决定排序等</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 排序类型分为几种</span></span><br><span class="line"><span class="comment"> * 1. 序号值刚好在目标位置, 无需排序</span></span><br><span class="line"><span class="comment"> * 2. 目标位置存在间隙, 可以直接插入</span></span><br><span class="line"><span class="comment"> * 3. 目标位置间隙为1, 需要重排</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> cuishiying</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021-07-23</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 步长</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Integer STEP = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新排序值</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sortedNodes 参与排序的所有对象(默认正序)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> targetNodeId 需要调整排序的对象id</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> targetPosition 目标位置(从1开始, index=position-1)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateSortIndex</span><span class="params">(List&lt;Node&gt; sortedNodes, Integer targetNodeId, Integer targetPosition)</span> </span>&#123;</span><br><span class="line">        Assert.isTrue(targetPosition &gt; <span class="number">0</span>, <span class="string">&quot;序号必须&gt;0&quot;</span>);</span><br><span class="line"></span><br><span class="line">        Node targetNode = sortedNodes.stream().filter(node -&gt; node.getId().equals(targetNodeId)).findFirst().orElse(<span class="keyword">null</span>);</span><br><span class="line">        Assert.notNull(targetNode, String.format(<span class="string">&quot;id=%s的对象不存在&quot;</span>, targetNodeId));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. 判断是否存在相同序号的node, 如果存在则重排</span></span><br><span class="line">        <span class="keyword">long</span> distinctCount = sortedNodes.stream().map(Node::getSortIndex).distinct().count();</span><br><span class="line">        <span class="keyword">if</span> (distinctCount &lt; sortedNodes.size()) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;存在重复序号&quot;</span>);</span><br><span class="line">            resortIndex(sortedNodes);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 判断当前位置是否是目标位置</span></span><br><span class="line">        <span class="keyword">int</span> currentIndex = sortedNodes.indexOf(targetNode);</span><br><span class="line">        <span class="keyword">if</span> (currentIndex == targetPosition - <span class="number">1</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;当前位置即是目标位置, 无需排序&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 3. 判断目标位置是否存在间隙, 可以直接插入。</span></span><br><span class="line"><span class="comment">         * a. 如果移动元素当前在left位置, 目标位置在right位置, 则移动后左侧元素会变少, 应该+1的位置寻找目标位置</span></span><br><span class="line"><span class="comment">         * eg: N1,N2,N3,N4, 将N2的序号改为3, 则应该在N3和N4之间插入N2, 然后移除原始N2</span></span><br><span class="line"><span class="comment">         * b. 如果移动元素当前在right位置, 目标位置在left位置, 则可以直接插入</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">if</span> (currentIndex &lt; targetPosition - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> leftIndex = targetPosition - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> rightIndex = targetPosition;</span><br><span class="line">            <span class="keyword">if</span> (rightIndex &gt; sortedNodes.size() - <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">int</span> maxSortIndex = getMaxSortIndex(sortedNodes);</span><br><span class="line">                targetNode.setSortIndex(maxSortIndex + STEP);</span><br><span class="line">                System.out.println(<span class="string">&quot;目标右移, 尾部直接插入:&quot;</span>);</span><br><span class="line">                log(sortedNodes);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            Integer rightSortIndex = sortedNodes.get(rightIndex).getSortIndex();</span><br><span class="line">            Integer leftSortIndex = sortedNodes.get(leftIndex).getSortIndex();</span><br><span class="line">            <span class="keyword">if</span> (rightSortIndex - leftSortIndex &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="comment">// 计算所得目标排序号</span></span><br><span class="line">                <span class="keyword">int</span> targetSortIndex = leftSortIndex + (rightSortIndex - leftSortIndex) / <span class="number">2</span>;</span><br><span class="line">                targetNode.setSortIndex(targetSortIndex);</span><br><span class="line">                System.out.println(<span class="string">&quot;目标右移, 间隙&gt;1, 可以直接插入:&quot;</span>);</span><br><span class="line">                log(sortedNodes);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;目标右移, 间隙&lt;1, 需要重排序&quot;</span>);</span><br><span class="line">                sortedNodes.add(targetPosition - <span class="number">1</span>, sortedNodes.remove(sortedNodes.indexOf(targetNode)));</span><br><span class="line">                resortIndex(sortedNodes);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (currentIndex &gt; targetPosition - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> leftIndex = targetPosition - <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">int</span> rightIndex = targetPosition - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (leftIndex &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">int</span> minSortIndex = getMinSortIndex(sortedNodes);</span><br><span class="line">                <span class="keyword">if</span> (minSortIndex &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="comment">// 计算所得目标排序号</span></span><br><span class="line">                    <span class="keyword">int</span> targetSortIndex = <span class="number">1</span> + (minSortIndex - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">                    targetNode.setSortIndex(targetSortIndex);</span><br><span class="line">                    System.out.println(<span class="string">&quot;目标左移, 间隙&gt;1, 头部直接插入:&quot;</span>);</span><br><span class="line">                    log(sortedNodes);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    System.out.println(<span class="string">&quot;目标左移, 间隙&lt;1, 需要重排序&quot;</span>);</span><br><span class="line">                    sortedNodes.add(targetPosition - <span class="number">1</span>, sortedNodes.remove(sortedNodes.indexOf(targetNode)));</span><br><span class="line">                    resortIndex(sortedNodes);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            Integer rightSortIndex = sortedNodes.get(rightIndex).getSortIndex();</span><br><span class="line">            Integer leftSortIndex = sortedNodes.get(leftIndex).getSortIndex();</span><br><span class="line">            <span class="keyword">if</span> (rightSortIndex - leftSortIndex &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="comment">// 计算所得目标排序号</span></span><br><span class="line">                <span class="keyword">int</span> targetSortIndex = leftSortIndex + (rightSortIndex - leftSortIndex) / <span class="number">2</span>;</span><br><span class="line">                targetNode.setSortIndex(targetSortIndex);</span><br><span class="line">                System.out.println(<span class="string">&quot;目标左移, 间隙&gt;1, 可以直接插入:&quot;</span>);</span><br><span class="line">                log(sortedNodes);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;目标左移, 间隙&lt;1, 需要重排序&quot;</span>);</span><br><span class="line">                sortedNodes.add(targetPosition - <span class="number">1</span>, sortedNodes.remove(sortedNodes.indexOf(targetNode)));</span><br><span class="line">                resortIndex(sortedNodes);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取当前分组最大序号</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sortedNodes 原始list</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 最大序号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getMaxSortIndex</span><span class="params">(List&lt;Node&gt; sortedNodes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sortedNodes.stream().mapToInt(Node::getSortIndex).max().orElse(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取当前分组最小序号</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sortedNodes 原始list</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 最小序号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getMinSortIndex</span><span class="params">(List&lt;Node&gt; sortedNodes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sortedNodes.stream().mapToInt(Node::getSortIndex).min().orElse(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 数据整体重排序</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 需要重排序的时候集合现在内存中做好排序, 然后重新编排序号, 并更新数据库</span></span><br><span class="line"><span class="comment">     * sortedNodes.add(targetIndex - 1, sortedNodes.remove(sortedNodes.indexOf(targetNode)));</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> sortedNodes 原始顺序list</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">resortIndex</span><span class="params">(List&lt;Node&gt; sortedNodes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sortedNodes.size(); i++) &#123;</span><br><span class="line">            Node node = sortedNodes.get(i);</span><br><span class="line">            node.setSortIndex(STEP * i + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;重排序:&quot;</span>);</span><br><span class="line">        log(sortedNodes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">log</span><span class="params">(List&lt;Node&gt; sortedNodes)</span> </span>&#123;</span><br><span class="line">        sortedNodes.stream().sorted(Comparator.comparing(Node::getSortIndex)).forEach(System.out::println);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>最后验证下结果是否复合预期</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.javademo.sort;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> cuishiying</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021-07-23</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SortTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 初始化数据</span></span><br><span class="line">        List&lt;Node&gt; nodes = initData();</span><br><span class="line">        System.out.println(<span class="string">&quot;原始数据:&quot;</span>);</span><br><span class="line">        nodes.forEach(System.out::println);</span><br><span class="line">        <span class="comment">// 更新排序值</span></span><br><span class="line">        SortHandler sortHandler = <span class="keyword">new</span> SortHandler();</span><br><span class="line">        Node targetNode = nodes.get(<span class="number">2</span>);</span><br><span class="line">        <span class="keyword">int</span> targetPosition = <span class="number">3</span>;</span><br><span class="line">        System.out.printf(<span class="string">&quot;排序计划:node%s -&gt; position%s\n&quot;</span>, targetNode.getId(), targetPosition);</span><br><span class="line">        sortHandler.updateSortIndex(nodes, targetNode.getId(), targetPosition);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> List&lt;Node&gt; <span class="title">initData</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        List&lt;Node&gt; data = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">10</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            Node node = <span class="keyword">new</span> Node(i + <span class="number">1</span>, <span class="string">&quot;node&quot;</span> + (i + <span class="number">1</span>), i * <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line">            data.add(node);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="最后"><a class="markdownIt-Anchor" href="#最后"></a> 最后</h1>
+<p>本文到此结束，感谢阅读。如果您觉得不错，请关注公众号【当我遇上你】支持一下。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-6442249173079218"
+     data-ad-slot="9150075714"></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://idea360.cn/2021/07/25/java-order/" title="Java排序号更新逻辑" target="_blank" rel="external">https://idea360.cn/2021/07/25/java-order/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/qidian360" target="_blank"><span class="text-dark">当我遇上你</span><small class="ml-1x"></small></a></h3>
+        <div>勿在浮沙筑高楼</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/07/10/spring-cloud-gateway-gray/" title="spring-cloud-gateway灰度发布"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="wechat" data-mobile-sites="wechat"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/qidian360" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2021 当我遇上你
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'nPtA4r7LjqdHMXOW4Gs9yQz0',
+    appKey: 'UUYHyTz9su4cY3J1XDKWlxIH',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
