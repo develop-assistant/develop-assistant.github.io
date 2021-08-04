@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2021/08/04/mysql-left-join-page/</loc>
+    <lastmod>2021-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2020/06/07/docker-mongodb/</loc>
+    <lastmod>2021-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2021/08/04/java-options/</loc>
+    <lastmod>2021-08-04</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2021/05/01/code-format/</loc>
     <lastmod>2021-07-30</lastmod>
   </url>
@@ -582,10 +594,6 @@
   </url>
   <url>
     <loc>https://idea360.cn/2020/04/06/docker-oracle-intro/</loc>
-    <lastmod>2021-02-23</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2020/06/07/docker-mongodb/</loc>
     <lastmod>2021-02-23</lastmod>
   </url>
   <url>
