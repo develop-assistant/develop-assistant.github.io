@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://idea360.cn/2021/08/15/java-parser-docs/</loc>
+    
+    <lastmod>2021-08-15</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://idea360.cn/2021/07/29/spring-restdocs/</loc>
     
     <lastmod>2021-08-15</lastmod>
@@ -3127,6 +3134,20 @@
   
   <url>
     <loc>https://idea360.cn/tags/extract-javadoc-comment/</loc>
+    <lastmod>2021-08-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/tags/api/</loc>
+    <lastmod>2021-08-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/tags/javaparser/</loc>
     <lastmod>2021-08-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
