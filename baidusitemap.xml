@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://idea360.cn/2021/08/22/RequestBodyAdvice/</loc>
-    <lastmod>2021-08-22</lastmod>
+    <loc>https://idea360.cn/2021/08/20/spring-boot-mockmvc/</loc>
+    <lastmod>2021-08-24</lastmod>
   </url>
   <url>
-    <loc>https://idea360.cn/2021/08/20/spring-boot-mockmvc/</loc>
-    <lastmod>2021-08-20</lastmod>
+    <loc>https://idea360.cn/2021/08/22/RequestBodyAdvice/</loc>
+    <lastmod>2021-08-22</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2021/08/15/java-parser-docs/</loc>
