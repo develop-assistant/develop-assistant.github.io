@@ -21,16 +21,16 @@
   <script data-ad-client="ca-pub-6442249173079218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   
   
-  <title>spring-cloud-gateway灰度发布 | 当我遇上你</title>
+  <title>spring-cloud-gateway基于spring-cloud-starter-loadbalancer的灰度发布 | 当我遇上你</title>
   <meta name="description" content="前言 之前写过 spring-cloud-gateway系列文章, 今天再来补充一篇关于灰度发布的。传送门:  spring-cloud-gateway简介 spring-cloud-gateway过滤器实践 spring-cloud-gateway静态路由 spring-cloud-gateway动态路由 spring-cloud-gateway限流 spring-cloud-gateway降">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring-cloud-gateway灰度发布">
+<meta property="og:title" content="spring-cloud-gateway基于spring-cloud-starter-loadbalancer的灰度发布">
 <meta property="og:url" content="https://idea360.cn/2021/07/10/spring-cloud-gateway-gray/index.html">
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="前言 之前写过 spring-cloud-gateway系列文章, 今天再来补充一篇关于灰度发布的。传送门:  spring-cloud-gateway简介 spring-cloud-gateway过滤器实践 spring-cloud-gateway静态路由 spring-cloud-gateway动态路由 spring-cloud-gateway限流 spring-cloud-gateway降">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-10T11:54:42.000Z">
-<meta property="article:modified_time" content="2021-07-17T14:52:39.621Z">
+<meta property="article:modified_time" content="2021-08-28T13:32:18.129Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="spring">
 <meta property="article:tag" content="springboot">
@@ -226,7 +226,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      spring-cloud-gateway灰度发布
+      spring-cloud-gateway基于spring-cloud-starter-loadbalancer的灰度发布
     </h1>
   
 
@@ -262,7 +262,7 @@
 
 	<span class="article-read hidden-xs">
     	<i class="icon icon-eye-fill" aria-hidden="true"></i>
-    	<span id="/2021/07/10/spring-cloud-gateway-gray/" class="leancloud_visitors"  data-flag-title="spring-cloud-gateway灰度发布">
+    	<span id="/2021/07/10/spring-cloud-gateway-gray/" class="leancloud_visitors"  data-flag-title="spring-cloud-gateway基于spring-cloud-starter-loadbalancer的灰度发布">
 			<span class="leancloud-visitors-count">0</span>
 		</span>
     </span>
@@ -290,6 +290,7 @@
 <li>灰度方案</li>
 </ol>
 <p>之前的文章吃了有些没有版本号和文档上传不完整的亏, 导致很多网友咨询的时候我也不记得细节, 这里我们会贴出完整配置及代码。</p>
+<p>此处的灰度方案只是简单的网关灰度演示, 开发中服务间的调用也存在灰度, 后续再分解。</p>
 <h1 id="基础环境搭建"><a class="markdownIt-Anchor" href="#基础环境搭建"></a> 基础环境搭建</h1>
 <p>很久没有搭建 <code>SpringCloud</code> 项目了, 首先搭建一个基础示例, 供代码调试。</p>
 <ol>
@@ -405,7 +406,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://idea360.cn/2021/07/10/spring-cloud-gateway-gray/" title="spring-cloud-gateway灰度发布" target="_blank" rel="external">https://idea360.cn/2021/07/10/spring-cloud-gateway-gray/</a>
+      <a href="https://idea360.cn/2021/07/10/spring-cloud-gateway-gray/" title="spring-cloud-gateway基于spring-cloud-starter-loadbalancer的灰度发布" target="_blank" rel="external">https://idea360.cn/2021/07/10/spring-cloud-gateway-gray/</a>
     </li>
     
     <li class="post-copyright-license">
