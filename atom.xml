@@ -6,7 +6,7 @@
   <link href="https://idea360.cn/atom.xml" rel="self"/>
   
   <link href="https://idea360.cn/"/>
-  <updated>2021-09-06T14:31:14.256Z</updated>
+  <updated>2021-09-06T14:52:09.461Z</updated>
   <id>https://idea360.cn/</id>
   
   <author>
@@ -21,19 +21,18 @@
     <link href="https://idea360.cn/2021/09/06/idea-plugin/"/>
     <id>https://idea360.cn/2021/09/06/idea-plugin/</id>
     <published>2021-09-06T13:53:56.000Z</published>
-    <updated>2021-09-06T14:31:14.256Z</updated>
+    <updated>2021-09-06T14:52:09.461Z</updated>
     
-    <content type="html"><![CDATA[<ul><li>Alibaba Java Coding Guidelines</li><li>SonarLint</li><li>Codota</li><li>Convert YAML and Properties File</li><li>Maven Helper</li><li>MybatisX</li><li>SequenceDiagram</li><li>javaDoc</li><li>VisualVM</li><li>spring-javaformat-maven-plugin</li><li>Key promoter X</li><li>Git Commit Template</li><li>IdeaVim</li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="插件"><a class="markdownIt-Anchor" href="#插件"></a> 插件</h1><ul><li>Alibaba Java Coding Guidelines</li><li>SonarLint</li><li>Codota</li><li>Convert YAML and Properties File</li><li>Maven Helper</li><li>MybatisX</li><li>SequenceDiagram</li><li>javaDoc</li><li>VisualVM</li><li>spring-javaformat-maven-plugin</li><li>Key promoter X</li><li>Git Commit Template</li><li>IdeaVim</li></ul><h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1><ul><li><a href="https://www.jetbrains.com/zh-cn/idea/whatsnew/?_gl=1">https://www.jetbrains.com/zh-cn/idea/whatsnew/?_gl=1</a><em>1e1xznr</em>_ga<em>NjgwODI2NDQ3LjE2MzA5MzYwMTI.</em>_ga_0WQ2ZF5VGT*MTYzMDkzNjk4OC4xLjEuMTYzMDkzOTM1Mi4w&amp;_ga=2.240295427.1219945209.1630936012-680826447.1630936012</li></ul>]]></content>
     
     
       
       
-    <summary type="html">&lt;ul&gt;
+    <summary type="html">&lt;h1 id=&quot;插件&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#插件&quot;&gt;&lt;/a&gt; 插件&lt;/h1&gt;
+&lt;ul&gt;
 &lt;li&gt;Alibaba Java Coding Guidelines&lt;/li&gt;
 &lt;li&gt;SonarLint&lt;/li&gt;
-&lt;li&gt;Codota&lt;/li&gt;
-&lt;li&gt;Convert YAML and Properties File&lt;/li&gt;
-&lt;li&gt;Maven Helper&lt;/</summary>
+&lt;li&gt;Codota&lt;</summary>
       
     
     
