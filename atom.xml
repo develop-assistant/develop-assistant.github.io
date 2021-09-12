@@ -152,13 +152,13 @@
     
     <category term="nacos" scheme="https://idea360.cn/tags/nacos/"/>
     
-    <category term="springcloud" scheme="https://idea360.cn/tags/springcloud/"/>
+    <category term="ribbon" scheme="https://idea360.cn/tags/ribbon/"/>
     
     <category term="灰度" scheme="https://idea360.cn/tags/%E7%81%B0%E5%BA%A6/"/>
     
-    <category term="ribbon" scheme="https://idea360.cn/tags/ribbon/"/>
-    
     <category term="gray" scheme="https://idea360.cn/tags/gray/"/>
+    
+    <category term="springcloud" scheme="https://idea360.cn/tags/springcloud/"/>
     
   </entry>
   
