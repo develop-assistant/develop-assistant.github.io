@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2021/09/06/idea-plugin/</loc>
+    <lastmod>2021-09-13</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2020/03/08/spring-source-code-import/</loc>
     <lastmod>2021-09-12</lastmod>
   </url>
@@ -19,10 +23,6 @@
   <url>
     <loc>https://idea360.cn/2021/09/05/spring-HandlerInterceptor/</loc>
     <lastmod>2021-09-07</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2021/09/06/idea-plugin/</loc>
-    <lastmod>2021-09-06</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2021/08/28/spring-cloud-service-gray/</loc>
