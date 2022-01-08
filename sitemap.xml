@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://idea360.cn/2022/01/08/spring-jackson/</loc>
+    <loc>https://idea360.cn/2020/09/20/java-api-scene/</loc>
     
     <lastmod>2022-01-08</lastmod>
     
@@ -1081,13 +1081,6 @@
   
   <url>
     <loc>https://idea360.cn/2020/09/01/java-hashmap-custom/</loc>
-    
-    <lastmod>2021-02-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://idea360.cn/2020/09/20/java-api-scene/</loc>
     
     <lastmod>2021-02-23</lastmod>
     
@@ -3330,13 +3323,6 @@
   
   <url>
     <loc>https://idea360.cn/tags/im/</loc>
-    <lastmod>2022-01-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://idea360.cn/tags/jackson/</loc>
     <lastmod>2022-01-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
