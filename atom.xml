@@ -6,7 +6,7 @@
   <link href="https://idea360.cn/atom.xml" rel="self"/>
   
   <link href="https://idea360.cn/"/>
-  <updated>2021-12-18T10:48:43.090Z</updated>
+  <updated>2022-01-08T10:07:09.903Z</updated>
   <id>https://idea360.cn/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring-jackson序列化基础知识</title>
+    <link href="https://idea360.cn/2022/01/08/spring-jackson/"/>
+    <id>https://idea360.cn/2022/01/08/spring-jackson/</id>
+    <published>2022-01-08T09:44:33.000Z</published>
+    <updated>2022-01-08T10:07:09.903Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1><p>本问为基础笔记, 好心头不如烂笔头</p><h1 id="案例"><a class="markdownIt-Anchor" href="#案例"></a> 案例</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demoboot.jackson;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.annotation.JsonAlias;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.annotation.JsonFormat;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.annotation.JsonProperty;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.format.annotation.DateTimeFormat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.time.LocalDateTime;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> cuishiying</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021-01-22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Json反序列化: 将Json Data转化为Java Object</span></span><br><span class="line"><span class="comment">     * Json的序列化: 将Java Object转化为JSON Data</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 将java中[name]字段序列化为json中的[NAME]字段.</span></span><br><span class="line"><span class="comment">     * 注意: 反序列化时也必须用[NAME]字段, 否则会报: UnrecognizedPropertyException: Unrecognized field &quot;name&quot;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@JsonProperty(&quot;NAME&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将json中的age_alias字段反序列化为java的[age]字段</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@JsonAlias(&quot;age_alias&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@DateTimeFormat</span> 是将String转换成Date，一般前台给后台传值时用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@JsonFormat</span>(pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;, timezone = &quot;GMT+8&quot;)  将Date转换成String, 一般后台传值给前台时</span></span><br><span class="line"><span class="comment">     * 东八区（UTC/GMT+08:00）比世界协调时间（UTC）/格林尼治时间（GMT）快8小时</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@DateTimeFormat(pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;)</span></span><br><span class="line">    <span class="meta">@JsonFormat(pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;, timezone = &quot;GMT+8&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> LocalDateTime date;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 18:06:17.194 [main] INFO com.example.demoboot.jackson.User - 序列化: &#123;&quot;age&quot;:17,&quot;date&quot;:&quot;2022-01-08 18:06:16&quot;,&quot;NAME&quot;:&quot;当我遇上你&quot;&#125;</span></span><br><span class="line"><span class="comment">     * 18:06:17.226 [main] INFO com.example.demoboot.jackson.User - 反序列化: User(name=当我遇上你, age=17, date=2022-01-08T18:01:38)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setName(<span class="string">&quot;当我遇上你&quot;</span>);</span><br><span class="line">        user.setAge(<span class="number">17</span>);</span><br><span class="line">        user.setDate(LocalDateTime.now());</span><br><span class="line"></span><br><span class="line">        ObjectMapper objectMapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        objectMapper.registerModule(<span class="keyword">new</span> JavaTimeModule());</span><br><span class="line">        String json = objectMapper.writeValueAsString(user);</span><br><span class="line">        log.info(<span class="string">&quot;序列化: &#123;&#125;&quot;</span>, json);</span><br><span class="line"></span><br><span class="line">        String json1 = <span class="string">&quot;&#123;\&quot;age_alias\&quot;:17,\&quot;date\&quot;:\&quot;2022-01-08 18:01:38\&quot;,\&quot;NAME\&quot;:\&quot;当我遇上你\&quot;&#125;&quot;</span>;</span><br><span class="line">        User user1 = objectMapper.readValue(json1, User.class);</span><br><span class="line">        log.info(<span class="string">&quot;反序列化: &#123;&#125;&quot;</span>, user1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="最后"><a class="markdownIt-Anchor" href="#最后"></a> 最后</h1><p>本文到此结束，感谢阅读。如果您觉得不错，请关注公众号【当我遇上你】，您的支持是我写作的最大动力。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#前言&quot;&gt;&lt;/a&gt; 前言&lt;/h1&gt;
+&lt;p&gt;本问为基础笔记, 好心头不如烂笔头&lt;/p&gt;
+&lt;h1 id=&quot;案例&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#案例</summary>
+      
+    
+    
+    
+    <category term="spring" scheme="https://idea360.cn/categories/spring/"/>
+    
+    
+    <category term="spring" scheme="https://idea360.cn/tags/spring/"/>
+    
+    <category term="序列化" scheme="https://idea360.cn/tags/%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    
+    <category term="jackson" scheme="https://idea360.cn/tags/jackson/"/>
+    
+  </entry>
   
   <entry>
     <title>easy-im</title>
@@ -270,36 +300,6 @@
     <category term="规范" scheme="https://idea360.cn/tags/%E8%A7%84%E8%8C%83/"/>
     
     <category term="sql" scheme="https://idea360.cn/tags/sql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>日志使用规范</title>
-    <link href="https://idea360.cn/2021/08/26/log-standard/"/>
-    <id>https://idea360.cn/2021/08/26/log-standard/</id>
-    <published>2021-08-26T14:20:00.000Z</published>
-    <updated>2021-08-26T14:22:43.290Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="什么时候使用日志"><a class="markdownIt-Anchor" href="#什么时候使用日志"></a> 什么时候使用日志</h1><ul><li><strong>系统初始化</strong>：系统或者服务的启动参数。核心模块或者组件初始化过程中往往依赖一些关键配置，根据参数不同会提供不一样的服务。务必在这里记录 INFO 日志，打印出参数以及启动完成态服务表述。</li><li><strong>编程语言提示异常</strong>：如今各类主流的编程语言都包括异常机制，业务相关的流行框架有完整的异常模块。这类捕获的异常是系统告知开发人员需要加以关注的，是质量非常高的报错。应当适当记录日志，根据实际结合业务的情况使用 WARN 或者 ERROR 级别。</li><li><strong>业务流程预期不符</strong>：除开平台以及编程语言异常之外，项目代码中结果与期望不符时也是日志场景之一，简单来说所有流程分支都可以加入考虑。取决于开发人员判断能否容忍情形发生。常见的合适场景包括外部参数不正确，数据处理问题导致返回码不在合理范围内等等。</li><li><strong>系统核心角色，组件关键动作</strong>：系统中核心角色触发的业务动作是需要多加关注的，是衡量系统正常运行的重要指标，建议记录 INFO 级别日志，比如电商系统用户从登录到下单的整个流程；微服务各服务节点交互；核心数据表增删改；核心组件运行等等，如果日志频度高或者打印量特别大，可以提炼关键点 INFO 记录，其余酌情考虑 DEBUG 级别。</li><li><strong>第三方服务远程调用</strong>：微服务架构体系中有一个重要的点就是第三方永远不可信，对于第三方服务远程调用建议打印请求和响应的参数，方便在和各个终端定位问题，不会因为第三方服务日志的缺失变得手足无措。</li></ul><h1 id="最后"><a class="markdownIt-Anchor" href="#最后"></a> 最后</h1><p>本文到此结束，感谢阅读。如果您觉得不错，请关注公众号【当我遇上你】，您的支持是我写作的最大动力。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;什么时候使用日志&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#什么时候使用日志&quot;&gt;&lt;/a&gt; 什么时候使用日志&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;系统初始化&lt;/strong&gt;：系统或者服务的启动参数。核心模块或者组件初始化过程</summary>
-      
-    
-    
-    
-    <category term="java" scheme="https://idea360.cn/categories/java/"/>
-    
-    
-    <category term="规范" scheme="https://idea360.cn/tags/%E8%A7%84%E8%8C%83/"/>
-    
-    <category term="log" scheme="https://idea360.cn/tags/log/"/>
-    
-    <category term="日志" scheme="https://idea360.cn/tags/%E6%97%A5%E5%BF%97/"/>
     
   </entry>
   
