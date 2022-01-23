@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2022/01/23/springboot-ConfigurationProperties/</loc>
+    <lastmod>2022-01-23</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2021/07/10/spring-cloud-gateway-gray/</loc>
+    <lastmod>2022-01-23</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2020/09/20/java-api-scene/</loc>
     <lastmod>2022-01-08</lastmod>
   </url>
@@ -19,10 +27,6 @@
   <url>
     <loc>https://idea360.cn/2021/11/28/rpc-simple/</loc>
     <lastmod>2021-11-28</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2021/07/10/spring-cloud-gateway-gray/</loc>
-    <lastmod>2021-11-27</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2021/08/28/spring-cloud-service-gray/</loc>
