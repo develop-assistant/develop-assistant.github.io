@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  <meta name="google-site-verification" content="zo0LqAAU1ik3Yk5Gdqg2DpsQI1Xlhh7jC07I0IGeyVc" />
+  <meta name="baidu-site-verification" content="6LE45O63Sc" />
+  <!-- 谷歌广告-->
+  <!--<script data-ad-client="ca-pub-6442249173079218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+  
+  
+  <title>物联网-物解析 | 当我遇上你</title><meta name="robots" content="noindex">
+  <meta name="description" content="基础编解码 首先, 大多数的 device 上报的数据是通过 2.4G 或者 网关 上报, 报文经过压缩, 数据比较小。需要根据协议进行报文解析。如 Lora 设备中一些报文是先通过 Base64 处理的。 我们的解析包借助了工具, 完整pom依赖 1234567891011121314151617181920212223242526272829303132&lt;dependencies&amp;gt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="物联网-物解析">
+<meta property="og:url" content="https://idea360.cn/2022/03/17/iot-java-js-parse/index.html">
+<meta property="og:site_name" content="当我遇上你">
+<meta property="og:description" content="基础编解码 首先, 大多数的 device 上报的数据是通过 2.4G 或者 网关 上报, 报文经过压缩, 数据比较小。需要根据协议进行报文解析。如 Lora 设备中一些报文是先通过 Base64 处理的。 我们的解析包借助了工具, 完整pom依赖 1234567891011121314151617181920212223242526272829303132&lt;dependencies&amp;gt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/iot-ali.png">
+<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/iot-ali-parse.png">
+<meta property="article:published_time" content="2022-03-17T14:58:13.000Z">
+<meta property="article:modified_time" content="2022-03-17T16:14:46.483Z">
+<meta property="article:author" content="当我遇上你">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="js">
+<meta property="article:tag" content="物联网">
+<meta property="article:tag" content="物解析">
+<meta property="article:tag" content="iot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/iot-ali.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://idea360.cn/2022/03/17/iot-java-js-parse/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-white" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/qidian360" target="_blank">
+          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/qidian360" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%BC%96%E8%A7%A3%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text"> 基础编解码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#java%E6%89%A7%E8%A1%8Cjs%E8%84%9A%E6%9C%AC"><span class="toc-number">2.</span> <span class="toc-text"> Java执行js脚本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91%E7%89%A9%E8%81%94%E7%BD%91%E5%B9%B3%E5%8F%B0%E8%A7%A3%E6%9E%90%E8%AF%A6%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text"> 阿里云物联网平台解析详解</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-iot-java-js-parse" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      物联网-物解析
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2022/03/17/iot-java-js-parse/" class="article-date">
+	  <time datetime="2022-03-17T14:58:13.000Z" itemprop="datePublished">2022-03-17</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/java/" rel="tag">java</a>, <a class="article-tag-link-link" href="/tags/js/" rel="tag">js</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2022/03/17/iot-java-js-parse/" class="leancloud_visitors"  data-flag-title="物联网-物解析">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/03/17/iot-java-js-parse/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="基础编解码"><a class="markdownIt-Anchor" href="#基础编解码"></a> 基础编解码</h1>
+<p>首先, 大多数的 <code>device</code> 上报的数据是通过 <code>2.4G</code> 或者 <code>网关</code> 上报, 报文经过压缩, 数据比较小。需要根据协议进行报文解析。如 <code>Lora</code> 设备中一些报文是先通过 <code>Base64</code> 处理的。</p>
+<p>我们的解析包借助了工具, 完整pom依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-lang3<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.12.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-codec<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-codec<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.15<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-io<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.11.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>java base64</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.idcmind.antsjavajs.parse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Base64;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * https://www.baeldung.com/java-base64-encode-and-decode</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> cuishiying</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021-01-22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaBase64Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * encodedString: dGVzdCBpbnB1dA==</span></span><br><span class="line"><span class="comment">     * decodedString: test input</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">codec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String originalInput = <span class="string">&quot;test input&quot;</span>;</span><br><span class="line">        String encodedString = Base64.getEncoder().encodeToString(originalInput.getBytes());</span><br><span class="line">        System.out.println(<span class="string">&quot;encodedString: &quot;</span> + encodedString);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">byte</span>[] decodedBytes = Base64.getDecoder().decode(encodedString);</span><br><span class="line">        String decodedString = <span class="keyword">new</span> String(decodedBytes);</span><br><span class="line">        System.out.println(<span class="string">&quot;decodedString: &quot;</span> + decodedString);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><strong>commons-codec</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.idcmind.antsjavajs.parse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Base64;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> cuishiying</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021-01-22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonCodecBase64Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * encodedString: dGVzdCBpbnB1dA==</span></span><br><span class="line"><span class="comment">     * decodedString: test input</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">codec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String originalInput = <span class="string">&quot;test input&quot;</span>;</span><br><span class="line">        Base64 base64 = <span class="keyword">new</span> Base64();</span><br><span class="line">        String encodedString = <span class="keyword">new</span> String(base64.encode(originalInput.getBytes()));</span><br><span class="line">        System.out.println(<span class="string">&quot;encodedString: &quot;</span> + encodedString);</span><br><span class="line"></span><br><span class="line">        String decodedString = <span class="keyword">new</span> String(base64.decode(encodedString.getBytes()));</span><br><span class="line">        System.out.println(<span class="string">&quot;decodedString: &quot;</span> + decodedString);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * encodedString: dGVzdCBpbnB1dA==</span></span><br><span class="line"><span class="comment">     * decodedString: test input</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">staticCodec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String originalInput = <span class="string">&quot;test input&quot;</span>;</span><br><span class="line">        String encodedString = <span class="keyword">new</span> String(Base64.encodeBase64(originalInput.getBytes()));</span><br><span class="line">        System.out.println(<span class="string">&quot;encodedString: &quot;</span> + encodedString);</span><br><span class="line"></span><br><span class="line">        String decodedString = <span class="keyword">new</span> String(Base64.decodeBase64(encodedString.getBytes()));</span><br><span class="line">        System.out.println(<span class="string">&quot;decodedString: &quot;</span> + decodedString);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><strong>真实的Lora数据</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.idcmind.antsjavajs.parse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.DecoderException;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Hex;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Base64;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DecodeTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * decode=[B@3a17b2e3</span></span><br><span class="line"><span class="comment">     * hex=0000000000000064002E</span></span><br><span class="line"><span class="comment">     * bytes=[B@55f4887d</span></span><br><span class="line"><span class="comment">     * byte[]=true</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">encodeAndDecode</span><span class="params">()</span> <span class="keyword">throws</span> DecoderException </span>&#123;</span><br><span class="line">        <span class="comment">// 真实的Lora上报原始数据</span></span><br><span class="line">        String base64 = <span class="string">&quot;AAAAAAAAAGQALg==&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// base64转字节数组</span></span><br><span class="line">        <span class="keyword">byte</span>[] decode = Base64.getDecoder().decode(base64);</span><br><span class="line">        System.out.println(<span class="string">&quot;decode=&quot;</span> + decode);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 字节数组转16进制字符串</span></span><br><span class="line">        String hex = Hex.encodeHexString(decode);</span><br><span class="line">        System.out.println(<span class="string">&quot;hex=&quot;</span> + hex.toUpperCase());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 16进制字符串转字节数组</span></span><br><span class="line">        <span class="keyword">byte</span>[] bytes = Hex.decodeHex(hex);</span><br><span class="line">        System.out.println(<span class="string">&quot;bytes=&quot;</span> + bytes);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">boolean</span> equals = Arrays.equals(decode, bytes);</span><br><span class="line">        System.out.println(<span class="string">&quot;byte[]=&quot;</span> + equals);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="java执行js脚本"><a class="markdownIt-Anchor" href="#java执行js脚本"></a> Java执行js脚本</h1>
+<ol>
+<li>java执行js脚本</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.idcmind.antsjavajs.parse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.core.JsonProcessingException;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.script.Invocable;</span><br><span class="line"><span class="keyword">import</span> javax.script.ScriptEngine;</span><br><span class="line"><span class="keyword">import</span> javax.script.ScriptEngineManager;</span><br><span class="line"><span class="keyword">import</span> javax.script.ScriptException;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.FileReader;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParseJs</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 调用js序列化后的string</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> rule js解析规则(字符串)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> data mqtt上行数据(字节数组)</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> objectToJson 解析后的json字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">parseJsFile</span><span class="params">(String rule, <span class="keyword">byte</span>[] data)</span> <span class="keyword">throws</span> ScriptException, NoSuchMethodException, JsonProcessingException </span>&#123;</span><br><span class="line">        ScriptEngineManager mgr = <span class="keyword">new</span> ScriptEngineManager();</span><br><span class="line">        ScriptEngine engine = mgr.getEngineByName(<span class="string">&quot;javascript&quot;</span>);</span><br><span class="line">        engine.eval(rule);</span><br><span class="line">        String objectToJson = StringUtils.EMPTY;</span><br><span class="line">        <span class="keyword">if</span> (engine <span class="keyword">instanceof</span> Invocable) &#123;</span><br><span class="line">            Invocable invoke = (Invocable) engine;</span><br><span class="line">            Object res = invoke.invokeFunction(<span class="string">&quot;rawDataToProtocol&quot;</span>, data);</span><br><span class="line">            ObjectMapper oMapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">            <span class="comment">// 将Java对象序列化为Json字符串</span></span><br><span class="line">            objectToJson = oMapper.writeValueAsString(res);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> objectToJson;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 直接调用本地js</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jsPath js脚本完整路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> data   待处理字节数组</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 解析后的json字符串</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">parseJsFileLocal</span><span class="params">(String jsPath, <span class="keyword">byte</span>[] data)</span> <span class="keyword">throws</span> ScriptException, NoSuchMethodException, JsonProcessingException, FileNotFoundException </span>&#123;</span><br><span class="line">        ScriptEngineManager mgr = <span class="keyword">new</span> ScriptEngineManager();</span><br><span class="line">        ScriptEngine engine = mgr.getEngineByName(<span class="string">&quot;javascript&quot;</span>);</span><br><span class="line">        engine.eval(<span class="keyword">new</span> FileReader(jsPath));</span><br><span class="line">        String objectToJson = StringUtils.EMPTY;</span><br><span class="line">        <span class="keyword">if</span> (engine <span class="keyword">instanceof</span> Invocable) &#123;</span><br><span class="line">            Invocable invoke = (Invocable) engine;</span><br><span class="line">            Object res = invoke.invokeFunction(<span class="string">&quot;rawDataToProtocol&quot;</span>, data);</span><br><span class="line">            ObjectMapper oMapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">            <span class="comment">// 将Java对象序列化为Json字符串</span></span><br><span class="line">            objectToJson = oMapper.writeValueAsString(res);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> objectToJson;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>js脚本</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> COMMAND_REPORT = <span class="number">0x00</span>; <span class="comment">//属性上报</span></span><br><span class="line"><span class="keyword">var</span> COMMAND_SET = <span class="number">0x01</span>; <span class="comment">//属性设置</span></span><br><span class="line"><span class="keyword">var</span> COMMAND_REPORT_REPLY = <span class="number">0x02</span>; <span class="comment">//上报数据返回结果</span></span><br><span class="line"><span class="keyword">var</span> COMMAND_SET_REPLY = <span class="number">0x03</span>; <span class="comment">//属性设置设备返回结果</span></span><br><span class="line"><span class="keyword">var</span> COMMAD_UNKOWN = <span class="number">0xff</span>;    <span class="comment">//未知的命令</span></span><br><span class="line"><span class="keyword">var</span> ALINK_PROP_REPORT_METHOD = <span class="string">&#x27;thing.event.property.post&#x27;</span>; <span class="comment">//标准ALink JSON格式topic， 设备上传属性数据到云端</span></span><br><span class="line"><span class="keyword">var</span> ALINK_PROP_SET_METHOD = <span class="string">&#x27;thing.service.property.set&#x27;</span>; <span class="comment">//标准ALink JSON格式topic， 云端下发属性控制指令到设备端</span></span><br><span class="line"><span class="keyword">var</span> ALINK_PROP_SET_REPLY_METHOD = <span class="string">&#x27;thing.service.property.set&#x27;</span>; <span class="comment">//标准ALink JSON格式topic, 设备上报属性设置的结果到云端</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 将设备的自定义格式数据转换为Alink协议的数据， 设备上报数据到物联网平台时调用</span></span><br><span class="line"><span class="comment"> * 入参：rawData byte[]数组   不能为空</span></span><br><span class="line"><span class="comment"> * 出参：jsonObj 对象         不能为空</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 示例数据</span></span><br><span class="line"><span class="comment"> * 设备上报数据</span></span><br><span class="line"><span class="comment"> * 原始数据 -&gt;  base64: AAAAAAAAAGQALg==</span></span><br><span class="line"><span class="comment"> * 加密方式 -&gt;  PLAINCODE 0  明码16进制;  BASE64  1  base64</span></span><br><span class="line"><span class="comment"> * 传入参数 -&gt; 0000000000000064002e   10字节(0-2温度; 2-3湿度; 3-5pm25; 5-7甲醛; 7-8电量; 8-10计数)</span></span><br><span class="line"><span class="comment"> * 输出结果 -&gt; &#123;&quot;method&quot;:&quot;thing.event.property.post&quot;,&quot;id&quot;:&quot;1&quot;,&quot;params&quot;:&#123;&quot;temperature&quot;:0,&quot;humidity&quot;:0,&quot;pm25&quot;:0, &quot;formaldehyde&quot;:0,&quot;battery&quot;:100,&quot;count&quot;:46&#125;,&quot;version&quot;:&quot;1.0&quot;&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rawDataToProtocol</span>(<span class="params">bytes</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> uint8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(bytes.length);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; bytes.length; i++) &#123;</span><br><span class="line">        uint8Array[i] = bytes[i] &amp; <span class="number">0xff</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> dataView = <span class="keyword">new</span> <span class="built_in">DataView</span>(uint8Array.buffer, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">var</span> jsonMap = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"></span><br><span class="line">    jsonMap[<span class="string">&#x27;method&#x27;</span>] = ALINK_PROP_REPORT_METHOD; <span class="comment">//ALink JSON格式 - 属性上报topic</span></span><br><span class="line">    jsonMap[<span class="string">&#x27;version&#x27;</span>] = <span class="string">&#x27;1.0&#x27;</span>; <span class="comment">//ALink JSON格式 - 协议版本号固定字段</span></span><br><span class="line">    jsonMap[<span class="string">&#x27;decode&#x27;</span>] = <span class="number">1</span>;  <span class="comment">//数据加密方式</span></span><br><span class="line">    <span class="keyword">var</span> params = &#123;&#125;;</span><br><span class="line">    params.temperature = dataView.getInt16(<span class="number">0</span>);</span><br><span class="line">    params.humidity = dataView.getInt8(<span class="number">2</span>);</span><br><span class="line">    params.pm25 = dataView.getInt16(<span class="number">3</span>);</span><br><span class="line">    params.formaldehyde = dataView.getInt16(<span class="number">5</span>);</span><br><span class="line">    params.battery = dataView.getInt8(<span class="number">7</span>);</span><br><span class="line">    params.count = dataView.getInt16(<span class="number">8</span>);</span><br><span class="line">    jsonMap[<span class="string">&#x27;params&#x27;</span>] = params; <span class="comment">//ALink JSON格式 - params标准字段</span></span><br><span class="line">    <span class="keyword">return</span> jsonMap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  将Alink协议的数据转换为设备能识别的格式数据， 物联网平台给设备下发数据时调用</span></span><br><span class="line"><span class="comment"> *  入参：jsonObj 对象       不能为空</span></span><br><span class="line"><span class="comment"> *  出参：rawData byte[]数组 不能为空</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">protocolToRawData</span>(<span class="params">json</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> method = json[<span class="string">&#x27;method&#x27;</span>];</span><br><span class="line">    <span class="keyword">var</span> id = json[<span class="string">&#x27;id&#x27;</span>];</span><br><span class="line">    <span class="keyword">var</span> version = json[<span class="string">&#x27;version&#x27;</span>];</span><br><span class="line">    <span class="keyword">var</span> payloadArray = [];</span><br><span class="line">    <span class="keyword">if</span> (method == ALINK_PROP_SET_METHOD) <span class="comment">// 属性设置</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> params = json[<span class="string">&#x27;params&#x27;</span>];</span><br><span class="line">        <span class="keyword">var</span> prop_float = params[<span class="string">&#x27;prop_float&#x27;</span>];</span><br><span class="line">        <span class="keyword">var</span> prop_int16 = params[<span class="string">&#x27;prop_int16&#x27;</span>];</span><br><span class="line">        <span class="keyword">var</span> prop_bool = params[<span class="string">&#x27;prop_bool&#x27;</span>];</span><br><span class="line">        <span class="comment">//按照自定义协议格式拼接 rawData</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_uint8(COMMAND_SET)); <span class="comment">// command字段</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_int32(<span class="built_in">parseInt</span>(id))); <span class="comment">// ALink JSON格式 &#x27;id&#x27;</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_int16(prop_int16)); <span class="comment">// 属性&#x27;prop_int16&#x27;的值</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_uint8(prop_bool)); <span class="comment">// 属性&#x27;prop_bool&#x27;的值</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_float32(prop_float)); <span class="comment">// 属性&#x27;prop_float&#x27;的值</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method == ALINK_PROP_REPORT_METHOD) &#123; <span class="comment">//设备上报数据返回结果</span></span><br><span class="line">        <span class="keyword">var</span> code = json[<span class="string">&#x27;code&#x27;</span>];</span><br><span class="line">        payloadArray = payloadArray.concat(buffer_uint8(COMMAND_REPORT_REPLY)); <span class="comment">//command字段</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_int32(<span class="built_in">parseInt</span>(id))); <span class="comment">// ALink JSON格式 &#x27;id&#x27;</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_uint8(code));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//未知命令，对于有些命令不做处理</span></span><br><span class="line">        <span class="keyword">var</span> code = json[<span class="string">&#x27;code&#x27;</span>];</span><br><span class="line">        payloadArray = payloadArray.concat(buffer_uint8(COMMAD_UNKOWN)); <span class="comment">//command字段</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_int32(<span class="built_in">parseInt</span>(id))); <span class="comment">// ALink JSON格式 &#x27;id&#x27;</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_uint8(code));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> payloadArray;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//以下是部分辅助函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buffer_uint8</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> uint8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">var</span> dv = <span class="keyword">new</span> <span class="built_in">DataView</span>(uint8Array.buffer, <span class="number">0</span>);</span><br><span class="line">    dv.setUint8(<span class="number">0</span>, value);</span><br><span class="line">    <span class="keyword">return</span> [].slice.call(uint8Array);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buffer_int16</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> uint8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">var</span> dv = <span class="keyword">new</span> <span class="built_in">DataView</span>(uint8Array.buffer, <span class="number">0</span>);</span><br><span class="line">    dv.setInt16(<span class="number">0</span>, value);</span><br><span class="line">    <span class="keyword">return</span> [].slice.call(uint8Array);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buffer_int32</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> uint8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(<span class="number">4</span>);</span><br><span class="line">    <span class="keyword">var</span> dv = <span class="keyword">new</span> <span class="built_in">DataView</span>(uint8Array.buffer, <span class="number">0</span>);</span><br><span class="line">    dv.setInt32(<span class="number">0</span>, value);</span><br><span class="line">    <span class="keyword">return</span> [].slice.call(uint8Array);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buffer_float32</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> uint8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(<span class="number">4</span>);</span><br><span class="line">    <span class="keyword">var</span> dv = <span class="keyword">new</span> <span class="built_in">DataView</span>(uint8Array.buffer, <span class="number">0</span>);</span><br><span class="line">    dv.setFloat32(<span class="number">0</span>, value);</span><br><span class="line">    <span class="keyword">return</span> [].slice.call(uint8Array);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>项目结构</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">➜  ants-java-js git:(master) ✗ tree     </span><br><span class="line">.</span><br><span class="line">├── pom.xml</span><br><span class="line">└── src</span><br><span class="line">    ├── main</span><br><span class="line">    │   ├── java</span><br><span class="line">    │   │   └── com</span><br><span class="line">    │   │       └── idcmind</span><br><span class="line">    │   │           └── antsjavajs</span><br><span class="line">    │   │               ├── AntsJavaJsApplication.java</span><br><span class="line">    │   │               └── parse</span><br><span class="line">    │   │                   └── ParseJs.java</span><br><span class="line">    │   └── resources</span><br><span class="line">    │       ├── application.properties</span><br><span class="line">    │       └── js</span><br><span class="line">    │           └── rule.js</span><br><span class="line">    └── test</span><br><span class="line">        └── java</span><br><span class="line">            └── com</span><br><span class="line">                └── idcmind</span><br><span class="line">                    └── antsjavajs</span><br><span class="line">                        ├── AntsJavaJsApplicationTests.java</span><br><span class="line">                        └── parse</span><br><span class="line">                            ├── CommonCodecBase64Test.java</span><br><span class="line">                            ├── DecodeTest.java</span><br><span class="line">                            ├── JavaBase64Test.java</span><br><span class="line">                            └── ParseJsTest.java</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>单元测试</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.idcmind.antsjavajs.parse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Hex;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.io.IOUtils;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.context.SpringBootTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ParseJsTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ParseJs parseJs;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * projectPath=/Users/cuishiying/work/examples/ants-learning/ants-java-js</span></span><br><span class="line"><span class="comment">     * result=&#123;&quot;method&quot;:&quot;thing.event.property.post&quot;,&quot;version&quot;:&quot;1.0&quot;,&quot;decode&quot;:1,&quot;params&quot;:&#123;&quot;temperature&quot;:0,&quot;humidity&quot;:0,&quot;pm25&quot;:0,&quot;formaldehyde&quot;:0,&quot;battery&quot;:100,&quot;count&quot;:46&#125;&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">parseJsFile</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String base64 = <span class="string">&quot;0000000000000064002E&quot;</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 获取项目路径</span></span><br><span class="line">            String projectPath = System.getProperty(<span class="string">&quot;user.dir&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;projectPath=&quot;</span> + projectPath);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 获取资源文件</span></span><br><span class="line">            InputStream inputStream = ParseJsTest.class.getClassLoader().getResourceAsStream(<span class="string">&quot;js/rule.js&quot;</span>);</span><br><span class="line">            <span class="keyword">assert</span> inputStream != <span class="keyword">null</span>;</span><br><span class="line">            String jsStr = IOUtils.toString(inputStream, StandardCharsets.UTF_8);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 测试</span></span><br><span class="line">            <span class="keyword">byte</span>[] bytes = Hex.decodeHex(base64.trim());</span><br><span class="line">            String result = parseJs.parseJsFile(jsStr, bytes);</span><br><span class="line">            System.out.println(<span class="string">&quot;result=&quot;</span> + result);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="阿里云物联网平台解析详解"><a class="markdownIt-Anchor" href="#阿里云物联网平台解析详解"></a> 阿里云物联网平台解析详解</h1>
+<p>在 <code>阿里云</code> 物联网平台有提供的 <code>js</code> <a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/147612.htm?spm=a2c4g.11186623.0.0.f1d173adS7pxH3#concept-2371163">脚本示例</a>. 我们可以在平台上创建 <a target="_blank" rel="noopener" href="https://iot.console.aliyun.com/lk/summary/new">产品</a> 进行测试. 如下图所示:</p>
+<p><img src="https://gitee.com/idea360/oss/raw/master/images/iot-ali.png" alt="" /></p>
+<p><img src="https://gitee.com/idea360/oss/raw/master/images/iot-ali-parse.png" alt="" /></p>
+<p>输入官方提供的16进制字符串 <code>0x000000000100320100000000</code>, 结果输出:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;method&quot;</span>: <span class="string">&quot;thing.event.property.post&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;1&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;params&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;prop_float&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;prop_int16&quot;</span>: <span class="number">50</span>,</span><br><span class="line">    <span class="attr">&quot;prop_bool&quot;</span>: <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;1.0&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>官方js直接在 <code>浏览器</code> 或者 <code>Node</code> 环境下执行结果和文档并不一致。原因在于我们的入参是字符串 <code>0x000000000100320100000000</code> 而不是字节数组。</li>
+</ol>
+<p>官方原始js如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> COMMAND_REPORT = <span class="number">0x00</span>; <span class="comment">//属性上报。</span></span><br><span class="line"><span class="keyword">var</span> COMMAND_SET = <span class="number">0x01</span>; <span class="comment">//属性设置。</span></span><br><span class="line"><span class="keyword">var</span> COMMAND_REPORT_REPLY = <span class="number">0x02</span>; <span class="comment">//上报数据返回结果。</span></span><br><span class="line"><span class="keyword">var</span> COMMAND_SET_REPLY = <span class="number">0x03</span>; <span class="comment">//属性设置设备返回结果。</span></span><br><span class="line"><span class="keyword">var</span> COMMAD_UNKOWN = <span class="number">0xff</span>;    <span class="comment">//未知的命令。</span></span><br><span class="line"><span class="keyword">var</span> ALINK_PROP_REPORT_METHOD = <span class="string">&#x27;thing.event.property.post&#x27;</span>; <span class="comment">//物联网平台Topic，设备上传属性数据到云端。</span></span><br><span class="line"><span class="keyword">var</span> ALINK_PROP_SET_METHOD = <span class="string">&#x27;thing.service.property.set&#x27;</span>; <span class="comment">//物联网平台Topic，云端下发属性控制指令到设备端。</span></span><br><span class="line"><span class="keyword">var</span> ALINK_PROP_SET_REPLY_METHOD = <span class="string">&#x27;thing.service.property.set&#x27;</span>; <span class="comment">//物联网平台Topic，设备上报属性设置的结果到云端。</span></span><br><span class="line"><span class="keyword">var</span> SELF_DEFINE_TOPIC_UPDATE_FLAG = <span class="string">&#x27;/user/update&#x27;</span>  <span class="comment">//自定义Topic：/user/update。</span></span><br><span class="line"><span class="keyword">var</span> SELF_DEFINE_TOPIC_ERROR_FLAG = <span class="string">&#x27;/user/update/error&#x27;</span> <span class="comment">//自定义Topic：/user/update/error。</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">示例数据：</span></span><br><span class="line"><span class="comment">设备上报属性数据：</span></span><br><span class="line"><span class="comment">传入参数：</span></span><br><span class="line"><span class="comment">    0x000000000100320100000000</span></span><br><span class="line"><span class="comment">输出结果：</span></span><br><span class="line"><span class="comment">    &#123;&quot;method&quot;:&quot;thing.event.property.post&quot;,&quot;id&quot;:&quot;1&quot;,&quot;params&quot;:&#123;&quot;prop_float&quot;:0,&quot;prop_int16&quot;:50,&quot;prop_bool&quot;:1&#125;,&quot;version&quot;:&quot;1.0&quot;&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">属性设置的返回结果：</span></span><br><span class="line"><span class="comment">传入参数：</span></span><br><span class="line"><span class="comment">    0x0300223344c8</span></span><br><span class="line"><span class="comment">输出结果：</span></span><br><span class="line"><span class="comment">    &#123;&quot;code&quot;:&quot;200&quot;,&quot;data&quot;:&#123;&#125;,&quot;id&quot;:&quot;2241348&quot;,&quot;version&quot;:&quot;1.0&quot;&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rawDataToProtocol</span>(<span class="params">bytes</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> uint8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(bytes.length);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; bytes.length; i++) &#123;</span><br><span class="line">        uint8Array[i] = bytes[i] &amp; <span class="number">0xff</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> dataView = <span class="keyword">new</span> <span class="built_in">DataView</span>(uint8Array.buffer, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">var</span> jsonMap = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">    <span class="keyword">var</span> fHead = uint8Array[<span class="number">0</span>]; <span class="comment">// command</span></span><br><span class="line">    <span class="keyword">if</span> (fHead == COMMAND_REPORT) &#123;</span><br><span class="line">        jsonMap[<span class="string">&#x27;method&#x27;</span>] = ALINK_PROP_REPORT_METHOD; <span class="comment">//ALink JSON格式，属性上报topic。</span></span><br><span class="line">        jsonMap[<span class="string">&#x27;version&#x27;</span>] = <span class="string">&#x27;1.0&#x27;</span>; <span class="comment">//ALink JSON格式，协议版本号固定字段。</span></span><br><span class="line">        jsonMap[<span class="string">&#x27;id&#x27;</span>] = <span class="string">&#x27;&#x27;</span> + dataView.getInt32(<span class="number">1</span>); <span class="comment">//ALink JSON格式，标示该次请求id值。</span></span><br><span class="line">        <span class="keyword">var</span> params = &#123;&#125;;</span><br><span class="line">        params[<span class="string">&#x27;prop_int16&#x27;</span>] = dataView.getInt16(<span class="number">5</span>); <span class="comment">//对应产品属性中prop_int16。</span></span><br><span class="line">        params[<span class="string">&#x27;prop_bool&#x27;</span>] = uint8Array[<span class="number">7</span>]; <span class="comment">//对应产品属性中prop_bool。</span></span><br><span class="line">        params[<span class="string">&#x27;prop_float&#x27;</span>] = dataView.getFloat32(<span class="number">8</span>); <span class="comment">//对应产品属性中prop_float。</span></span><br><span class="line">        jsonMap[<span class="string">&#x27;params&#x27;</span>] = params; <span class="comment">//ALink JSON格式，params标准字段。</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(fHead == COMMAND_SET_REPLY) &#123;</span><br><span class="line">        jsonMap[<span class="string">&#x27;version&#x27;</span>] = <span class="string">&#x27;1.0&#x27;</span>; <span class="comment">//ALink JSON格式，协议版本号固定字段。</span></span><br><span class="line">        jsonMap[<span class="string">&#x27;id&#x27;</span>] = <span class="string">&#x27;&#x27;</span> + dataView.getInt32(<span class="number">1</span>); <span class="comment">//ALink JSON格式，标示该次请求id值。</span></span><br><span class="line">        jsonMap[<span class="string">&#x27;code&#x27;</span>] = <span class="string">&#x27;&#x27;</span>+ dataView.getUint8(<span class="number">5</span>);</span><br><span class="line">        jsonMap[<span class="string">&#x27;data&#x27;</span>] = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> jsonMap;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">示例数据：</span></span><br><span class="line"><span class="comment">云端下发属性设置指令：</span></span><br><span class="line"><span class="comment">传入参数：</span></span><br><span class="line"><span class="comment">    &#123;&quot;method&quot;:&quot;thing.service.property.set&quot;,&quot;id&quot;:&quot;12345&quot;,&quot;version&quot;:&quot;1.0&quot;,&quot;params&quot;:&#123;&quot;prop_float&quot;:123.452, &quot;prop_int16&quot;:333, &quot;prop_bool&quot;:1&#125;&#125;</span></span><br><span class="line"><span class="comment">输出结果：</span></span><br><span class="line"><span class="comment">    0x0100003039014d0142f6e76d</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">设备上报的返回结果：</span></span><br><span class="line"><span class="comment">传入数据：</span></span><br><span class="line"><span class="comment">    &#123;&quot;method&quot;:&quot;thing.event.property.post&quot;,&quot;id&quot;:&quot;12345&quot;,&quot;version&quot;:&quot;1.0&quot;,&quot;code&quot;:200,&quot;data&quot;:&#123;&#125;&#125;</span></span><br><span class="line"><span class="comment">输出结果：</span></span><br><span class="line"><span class="comment">    0x0200003039c8</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">protocolToRawData</span>(<span class="params">json</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> method = json[<span class="string">&#x27;method&#x27;</span>];</span><br><span class="line">    <span class="keyword">var</span> id = json[<span class="string">&#x27;id&#x27;</span>];</span><br><span class="line">    <span class="keyword">var</span> version = json[<span class="string">&#x27;version&#x27;</span>];</span><br><span class="line">    <span class="keyword">var</span> payloadArray = [];</span><br><span class="line">    <span class="keyword">if</span> (method == ALINK_PROP_SET_METHOD) <span class="comment">//属性设置。</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> params = json[<span class="string">&#x27;params&#x27;</span>];</span><br><span class="line">        <span class="keyword">var</span> prop_float = params[<span class="string">&#x27;prop_float&#x27;</span>];</span><br><span class="line">        <span class="keyword">var</span> prop_int16 = params[<span class="string">&#x27;prop_int16&#x27;</span>];</span><br><span class="line">        <span class="keyword">var</span> prop_bool = params[<span class="string">&#x27;prop_bool&#x27;</span>];</span><br><span class="line">        <span class="comment">//按照自定义协议格式拼接 rawData。</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_uint8(COMMAND_SET)); <span class="comment">//command字段。</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_int32(<span class="built_in">parseInt</span>(id))); <span class="comment">//ALink JSON格式 &#x27;id&#x27;。</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_int16(prop_int16)); <span class="comment">//属性&#x27;prop_int16&#x27;的值。</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_uint8(prop_bool)); <span class="comment">//属性&#x27;prop_bool&#x27;的值。</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_float32(prop_float)); <span class="comment">//属性&#x27;prop_float&#x27;的值。</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method ==  ALINK_PROP_REPORT_METHOD) &#123; <span class="comment">//设备上报数据返回结果。</span></span><br><span class="line">        <span class="keyword">var</span> code = json[<span class="string">&#x27;code&#x27;</span>];</span><br><span class="line">        payloadArray = payloadArray.concat(buffer_uint8(COMMAND_REPORT_REPLY)); <span class="comment">//command字段。</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_int32(<span class="built_in">parseInt</span>(id))); <span class="comment">//ALink JSON格式&#x27;id&#x27;。</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_uint8(code));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//未知命令，对于这些命令不做处理。</span></span><br><span class="line">        <span class="keyword">var</span> code = json[<span class="string">&#x27;code&#x27;</span>];</span><br><span class="line">        payloadArray = payloadArray.concat(buffer_uint8(COMMAD_UNKOWN)); <span class="comment">//command字段。</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_int32(<span class="built_in">parseInt</span>(id))); <span class="comment">//ALink JSON格式&#x27;id&#x27;。</span></span><br><span class="line">        payloadArray = payloadArray.concat(buffer_uint8(code));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> payloadArray;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  示例数据</span></span><br><span class="line"><span class="comment">  自定义Topic：</span></span><br><span class="line"><span class="comment">     /user/update，上报数据。</span></span><br><span class="line"><span class="comment">  输入参数：</span></span><br><span class="line"><span class="comment">     topic:/&#123;productKey&#125;/&#123;deviceName&#125;/user/update</span></span><br><span class="line"><span class="comment">     bytes: 0x000000000100320100000000</span></span><br><span class="line"><span class="comment">  输出参数：</span></span><br><span class="line"><span class="comment">  &#123;</span></span><br><span class="line"><span class="comment">     &quot;prop_float&quot;: 0,</span></span><br><span class="line"><span class="comment">     &quot;prop_int16&quot;: 50,</span></span><br><span class="line"><span class="comment">     &quot;prop_bool&quot;: 1,</span></span><br><span class="line"><span class="comment">     &quot;topic&quot;: &quot;/&#123;productKey&#125;/&#123;deviceName&#125;/user/update&quot;</span></span><br><span class="line"><span class="comment">   &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">transformPayload</span>(<span class="params">topic, bytes</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> uint8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(bytes.length);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; bytes.length; i++) &#123;</span><br><span class="line">        uint8Array[i] = bytes[i] &amp; <span class="number">0xff</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> dataView = <span class="keyword">new</span> <span class="built_in">DataView</span>(uint8Array.buffer, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">var</span> jsonMap = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(topic.includes(SELF_DEFINE_TOPIC_ERROR_FLAG)) &#123;</span><br><span class="line">        jsonMap[<span class="string">&#x27;topic&#x27;</span>] = topic;</span><br><span class="line">        jsonMap[<span class="string">&#x27;errorCode&#x27;</span>] = dataView.getInt8(<span class="number">0</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (topic.includes(SELF_DEFINE_TOPIC_UPDATE_FLAG)) &#123;</span><br><span class="line">        jsonMap[<span class="string">&#x27;topic&#x27;</span>] = topic;</span><br><span class="line">        jsonMap[<span class="string">&#x27;prop_int16&#x27;</span>] = dataView.getInt16(<span class="number">5</span>);</span><br><span class="line">        jsonMap[<span class="string">&#x27;prop_bool&#x27;</span>] = uint8Array[<span class="number">7</span>];</span><br><span class="line">        jsonMap[<span class="string">&#x27;prop_float&#x27;</span>] = dataView.getFloat32(<span class="number">8</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> jsonMap;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//以下是部分辅助函数。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buffer_uint8</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> uint8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">var</span> dv = <span class="keyword">new</span> <span class="built_in">DataView</span>(uint8Array.buffer, <span class="number">0</span>);</span><br><span class="line">    dv.setUint8(<span class="number">0</span>, value);</span><br><span class="line">    <span class="keyword">return</span> [].slice.call(uint8Array);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buffer_int16</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> uint8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">var</span> dv = <span class="keyword">new</span> <span class="built_in">DataView</span>(uint8Array.buffer, <span class="number">0</span>);</span><br><span class="line">    dv.setInt16(<span class="number">0</span>, value);</span><br><span class="line">    <span class="keyword">return</span> [].slice.call(uint8Array);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buffer_int32</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> uint8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(<span class="number">4</span>);</span><br><span class="line">    <span class="keyword">var</span> dv = <span class="keyword">new</span> <span class="built_in">DataView</span>(uint8Array.buffer, <span class="number">0</span>);</span><br><span class="line">    dv.setInt32(<span class="number">0</span>, value);</span><br><span class="line">    <span class="keyword">return</span> [].slice.call(uint8Array);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buffer_float32</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> uint8Array = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(<span class="number">4</span>);</span><br><span class="line">    <span class="keyword">var</span> dv = <span class="keyword">new</span> <span class="built_in">DataView</span>(uint8Array.buffer, <span class="number">0</span>);</span><br><span class="line">    dv.setFloat32(<span class="number">0</span>, value);</span><br><span class="line">    <span class="keyword">return</span> [].slice.call(uint8Array);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>补充2个js方法, 分别处理  <code>16进制字符串</code> 和 <code>字节数组</code> 的互转</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Convert a hex string to a byte array</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hexToBytes</span>(<span class="params">hex</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> bytes = [], c = <span class="number">0</span>; c &lt; hex.length; c += <span class="number">2</span>)</span><br><span class="line">    bytes.push(<span class="built_in">parseInt</span>(hex.substr(c, <span class="number">2</span>), <span class="number">16</span>));</span><br><span class="line">    <span class="keyword">return</span> bytes;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Convert a byte array to a hex string</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bytesToHex</span>(<span class="params">bytes</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> hex = [], i = <span class="number">0</span>; i &lt; bytes.length; i++) &#123;</span><br><span class="line">        hex.push((bytes[i] &gt;&gt;&gt; <span class="number">4</span>).toString(<span class="number">16</span>));</span><br><span class="line">        hex.push((bytes[i] &amp; <span class="number">0xF</span>).toString(<span class="number">16</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> hex.join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>执行js解析</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(rawDataToProtocol(hexToBytes(<span class="string">&#x27;000000000100320100000000&#x27;</span>)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node iot.js</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>结果输出</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  method: &#39;thing.event.property.post&#39;,</span><br><span class="line">  version: &#39;1.0&#39;,</span><br><span class="line">  id: &#39;1&#39;,</span><br><span class="line">  params: &#123; prop_int16: 50, prop_bool: 1, prop_float: 0 &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<!-- flag of hidden posts -->
+      
+    </div>
+    <div class="article-footer">
+      <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-6442249173079218"
+     data-ad-slot="9150075714"></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://idea360.cn/2022/03/17/iot-java-js-parse/" title="物联网-物解析" target="_blank" rel="external">https://idea360.cn/2022/03/17/iot-java-js-parse/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/qidian360" target="_blank"><span class="text-dark">当我遇上你</span><small class="ml-1x"></small></a></h3>
+        <div>勿在浮沙筑高楼</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="wechat" data-mobile-sites="wechat"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/qidian360" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2022 当我遇上你
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'nPtA4r7LjqdHMXOW4Gs9yQz0-gzGzoHsz',
+    appKey: 'UUYHyTz9su4cY3J1XDKWlxIH',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
