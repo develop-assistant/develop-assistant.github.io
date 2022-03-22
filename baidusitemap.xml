@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2020/11/06/docker-kafka-standalone/</loc>
+    <lastmod>2022-03-22</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2022/01/23/springboot-ConfigurationProperties/</loc>
     <lastmod>2022-01-23</lastmod>
   </url>
@@ -690,10 +694,6 @@
   </url>
   <url>
     <loc>https://idea360.cn/2020/04/06/docker-oracle-intro/</loc>
-    <lastmod>2021-02-23</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2020/11/06/docker-kafka-standalone/</loc>
     <lastmod>2021-02-23</lastmod>
   </url>
   <url>
