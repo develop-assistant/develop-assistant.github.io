@@ -30,7 +30,7 @@
 <meta property="og:description" content="Maven 1sudo yum install maven  JDK 安装jdk11 1sudo yum install java-11-openjdk-devel 查看jdk版本 1java -version 多个jdk版本选择 1sudo alternatives --config java 查看当前环境变量 1echo $JAVA_HOME 配置环境变量 1vim ~&#x2F;.bashrc 在末">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-25T14:05:11.000Z">
-<meta property="article:modified_time" content="2022-03-26T04:58:39.701Z">
+<meta property="article:modified_time" content="2022-03-26T05:06:14.015Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="iot">
 <meta property="article:tag" content="centos">
@@ -384,7 +384,13 @@
 <p>查看docker日志</p>
 <figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs mqtt-kafka-bridge</span><br></pre></td></tr></table></figure>
 <p>进入docker容器</p>
-<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mqtt-kafka-bridge /bin/sh</span><br></pre></td></tr></table></figure><!-- flag of hidden posts -->
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mqtt-kafka-bridge /bin/sh</span><br></pre></td></tr></table></figure>
+<p>docker为镜像打标签</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag mqtt-kafka-bridge:v1 <span class="number">10.10</span>.<span class="number">10.108</span>:<span class="number">80</span>/testgroup/mqtt-kafka-bridge:latest</span><br></pre></td></tr></table></figure>
+<p>推送docker仓库</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push <span class="number">10.10</span>.<span class="number">10.108</span>:<span class="number">80</span>/testgroup/mqtt-kafka-bridge:latest</span><br></pre></td></tr></table></figure>
+<p>docker私服及源配置</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;registry-mirrors&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;https://registry.docker-cn.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://riukukc9.mirror.aliyuncs.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;http://hub-mirror.c.163.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://docker.mirrors.ustc.edu.cn&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;debug&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">&quot;experimental&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">&quot;builder&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;gc&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;defaultKeepStorage&quot;</span>: <span class="string">&quot;20GB&quot;</span>,</span><br><span class="line">      <span class="attr">&quot;enabled&quot;</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;insecure-registries&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;http://10.10.10.108:80&quot;</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><!-- flag of hidden posts -->
       
     </div>
     <div class="article-footer">
