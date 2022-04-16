@@ -29,27 +29,27 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="摘要 从索引角度谈MySQL优化。   InnoDB  索引的本质 MySQL官方对索引的定义为：索引（Index）是帮助MySQL高效获取数据的数据结构。提取句子主干，就可以得到索引的本质：索引是数据结构。 我们知道，数据库查询是数据库的最主要功能之一。我们都希望查询数据的速度能尽可能的快，因此数据库系统的设计者会从查询算法的角度进行优化。 最基本的查询算法当然是顺序查找（linear sea">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/index-Sketch.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/binary-tree.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/binary-tree-unbalance.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/B-Tree.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/B+Tree.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/MyISAM%E7%B4%A2%E5%BC%95.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/mysql%E5%9B%9E%E8%A1%A8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/index-Sketch.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/binary-tree.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/binary-tree-unbalance.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/B-Tree.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/B+Tree.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/MyISAM%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/mysql%E5%9B%9E%E8%A1%A8.png">
 <meta property="article:published_time" content="2021-08-05T15:35:13.000Z">
-<meta property="article:modified_time" content="2021-08-05T16:31:08.976Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:23.671Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="MySQL">
 <meta property="article:tag" content="索引">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/index-Sketch.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/index-Sketch.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2021/08/05/mysql-index/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -69,7 +69,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -185,7 +185,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -274,7 +274,7 @@
 但是数据本身的组织结构不可能完全满足各种数据结构（例如，理论上不可能同时将两列都按顺序进行组织），<br />
 所以，在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用（指向）数据，这样就可以在这些数据结构上实现高级查找算法。这种数据结构，就是索引。</p>
 <p>看一个例子：</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/index-Sketch.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/index-Sketch.png" alt="" /></p>
 <center>图一</center>
 图1展示了一种可能的索引方式。左边是数据表，一共有两列七条记录，最左边的是数据记录的物理地址（注意逻辑上相邻的记录在磁盘上也并不是一定物理相邻的）。
 为了加快Col2的查找，可以维护一个右边所示的二叉查找树，每个节点分别包含索引键值和一个指向对应数据记录物理地址的指针，这样就可以运用二叉查找在O(log2n)的复杂度内获取到相应数据。
@@ -289,9 +289,9 @@
 <h2 id="二叉查找树"><a class="markdownIt-Anchor" href="#二叉查找树"></a> 二叉查找树</h2>
 <p>二叉树具有以下性质：左子树的键值小于根的键值，右子树的键值大于根的键值。<br />
 如下图所示就是一棵二叉查找树:</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/binary-tree.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/binary-tree.png" alt="" /></p>
 <p>但是我们想一个问题，假设我们数据的插入顺序是由小到大呢，那么数据就会都在我们的右子树，数据结构转为单链表查询，插入、删除的效率将会严重地降低，时间复杂度变为O(n)</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/binary-tree-unbalance.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/binary-tree-unbalance.png" alt="" /></p>
 <p>因此若想二叉树的查询效率尽可能高，需要这棵二叉树是平衡的，从而引出新的定义——平衡二叉树</p>
 <h2 id="红黑树"><a class="markdownIt-Anchor" href="#红黑树"></a> 红黑树</h2>
 <p>红黑树就是一种二叉平衡树。这里我们插一点磁盘的知识帮助理解:</p>
@@ -307,7 +307,7 @@
 另外，由于插入删除新的数据记录会破坏B-Tree的性质，因此在插入删除时，需要对树进行一个分裂、合并、转移等操作以保持B-Tree性质,这里我们暂时不做讨论。</p>
 <p>B-Tree结构的数据可以让系统高效的找到数据所在的磁盘块。为了描述B-Tree，首先定义一条记录为一个二元组[key, data] ，key为记录的键值，对应表中的主键值，data为一行记录中除主键外的数据。对于不同的记录，key值互不相同。</p>
 <p>B-Tree中的每个节点根据实际情况可以包含大量的关键字信息和分支，如下图所示为一个3阶的B-Tree：</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/B-Tree.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/B-Tree.png" alt="" /></p>
 <p>每个节点占用一个盘块的磁盘空间，一个节点上有两个升序排序的关键字和三个指向子树根节点的指针，指针存储的是子节点所在磁盘块的地址。两个关键词划分成的三个范围域对应三个指针指向的子树的数据的范围域。以根节点为例，关键字为17和35，P1指针指向的子树的数据范围为小于17，P2指针指向的子树的数据范围为17~35，P3指针指向的子树的数据范围为大于35。</p>
 <p>模拟查找关键字29的过程：</p>
 <ol>
@@ -329,7 +329,7 @@
 <li>数据记录都存放在叶子节点中。</li>
 </ol>
 <p>将上一节中的B-Tree优化，由于B+Tree的非叶子节点只存储键值信息，假设每个磁盘块能存储4个键值及指针信息，则变成B+Tree后其结构如下图所示：</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/B+Tree.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/B+Tree.png" alt="" /></p>
 <p>通常在B+Tree上有两个头指针，一个指向根节点，另一个指向关键字最小的叶子节点，而且所有叶子节点（即数据节点）之间是一种链式环结构。因此可以对B+Tree进行两种查找运算：一种是对于主键的范围查找和分页查找，另一种是从根节点开始，进行随机查找。</p>
 <p>可能上面例子中只有22条数据记录，看不出B+Tree的优点，下面做一个推算：</p>
 <p><strong>InnoDB</strong>存储引擎中页的大小为16KB，一般表的主键类型为INT（占用4个字节）或BIGINT（占用8个字节），指针类型也一般为4或8个字节，也就是说一个页（B+Tree中的一个节点）中大概存储16KB/(8B+8B)=1K个键值（因为是估值，为方便计算，这里的K取值为〖10〗<sup>3）。也就是说一个深度为3的B+Tree索引可以维护10</sup>3 * 10^3 * 10^3 = 10亿 条记录。</p>
@@ -341,7 +341,7 @@
 所以这里也反映了主键不能太长的原因，同时应该尽量选取自增字段符合B+Tree的数据结构(数据存放在叶子节点)</p>
 <h1 id="myisam"><a class="markdownIt-Anchor" href="#myisam"></a> MyISAM</h1>
 <p>MyISAM引擎也使用B+树作为索引结果，不同的是叶节点的data域存放的是数据记录的地址，如图所示：<br />
-<img src="https://gitee.com/idea360/oss/raw/master/images/MyISAM%E7%B4%A2%E5%BC%95.png" alt="" /></p>
+<img src="https://raw.githubusercontent.com/qidian360/oss/master/images/MyISAM%E7%B4%A2%E5%BC%95.png" alt="" /></p>
 <p>MyISAM的索引与行记录是分开存储的，叫做<strong>非聚集索引</strong>。</p>
 <p>其主键索引与普通索引没有本质差异：</p>
 <ul>
@@ -430,7 +430,7 @@
 <p>第一遍先通过普通索引定位到主键值id=5，</p>
 <p>第二遍再通过聚集索引定位到具体行记录。</p>
 <p>这就是所谓的回表查询，即先定位主键值，再根据主键值定位行记录，性能相对于只扫描一遍聚集索引树的性能要低一些。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/mysql%E5%9B%9E%E8%A1%A8.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/mysql%E5%9B%9E%E8%A1%A8.png" alt="" /></p>
 <h3 id="联合索引"><a class="markdownIt-Anchor" href="#联合索引"></a> 联合索引</h3>
 <p>联合索引需要最左匹配。详见<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI4Njc5NjM1NQ==&amp;mid=2247490706&amp;idx=1&amp;sn=d98cd10845923c2bf5d933a8fd963cb5&amp;chksm=ebd623bedca1aaa87256f9729192d024897ba70bc38a0abc314cd59b1a1349c52ec33f1074a1&amp;scene=21#wechat_redirect">联合索引</a></p>
 <h1 id="最后"><a class="markdownIt-Anchor" href="#最后"></a> 最后</h1>
@@ -480,7 +480,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -561,14 +561,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

@@ -29,25 +29,25 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="前言 最近参加了几场Java面试，发现大多数的微服务实践还是Eureka偏多，鉴于笔者的单位选型Consul，这里对Consul做简单总结。 该篇是Docker实战系列的第三篇。传送门:  Docker实战之MySQL主从复制 Docker实战之Redis-Cluster集群   为什么选Consul？ 首先Consul有以下几个关键特性:  服务发现：支持服务发现。你可以通过 DNS 或 HT">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/service-discovery-vs.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/consensus-algorithm%20.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/gossip.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/consul-architecture.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/docker-consul-cluster-start.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/service-discovery-vs.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/consensus-algorithm%20.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/gossip.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/consul-architecture.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/docker-consul-cluster-start.png">
 <meta property="article:published_time" content="2020-03-06T17:39:59.000Z">
-<meta property="article:modified_time" content="2021-02-23T14:16:45.769Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:19.376Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="docker">
 <meta property="article:tag" content="consul">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/service-discovery-vs.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/service-discovery-vs.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/07/docker-consul-cluster/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -67,7 +67,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -183,7 +183,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -277,14 +277,14 @@
 <li>WEB-UI：支持WEB-UI。点点点，你就能够了解你的服务现在的运行情况，一目了然，对开发运维是非常友好的。</li>
 </ul>
 <p>作为高频的提问方式，面试官永远从十万个为什么开始。但是最为程序员，还是需要<code>知其然，知其所以然</code>。以下是几个常用的服务发现组件的对比。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/service-discovery-vs.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/service-discovery-vs.png" alt="" /></p>
 <p>服务发现组件的选型主要从以下几个方面进行。CAP理论、一致性算法、多数据中心、健康检查、是否支持k8s等。</p>
 <p><strong>1. CAP</strong></p>
 <p>一致性的强制数据统一要求，必然会导致在更新数据时部分节点处于被锁定状态，此时不可对外提供服务，影响了服务的可用性。</p>
 <p><strong>2. 一致性算法</strong></p>
 <p><code>Raft</code>算法将Server分为三种类型：Leader、Follower和Candidate。Leader处理所有的查询和事务，并向Follower同步事务。Follower会将所有的RPC查询和事务转发给Leader处理，它仅从Leader接受事务的同步。数据的一致性以Leader中的数据为准实现。</p>
 <p>以下是几种常见的一致性算法</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/consensus-algorithm%20.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/consensus-algorithm%20.png" alt="" /></p>
 <p><strong>3. 多数据中心</strong></p>
 <p>Consul 通过 WAN 的Gossip协议，完成跨数据中心的同步；而其他的产品则需要额外的开发工作来实现；</p>
 <blockquote>
@@ -292,10 +292,10 @@
 </blockquote>
 <p>Gossip协议是P2P网络中比较成熟的协议。Gossip协议的最大的好处是，即使集群节点的数量增加，每个节点的负载也不会增加很多，几乎是恒定的。这就允许Consul管理的集群规模能横向扩展到数千个节点。</p>
 <p>Consul的每个Agent会利用Gossip协议互相检查在线状态，本质上是节点之间互Ping，分担了服务器节点的心跳压力。如果有节点掉线，不用服务器节点检查，其他普通节点会发现，然后用Gossip广播给整个集群。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/gossip.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/gossip.png" alt="" /></p>
 <h1 id="consul架构"><a class="markdownIt-Anchor" href="#consul架构"></a> Consul架构</h1>
 <p>consul 的架构是什么，官方给出了一个很直观的图片</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/consul-architecture.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/consul-architecture.png" alt="" /></p>
 <p>单独看数据中心1，可以看出consul的集群是由N个SERVER，加上M个CLIENT组成的。而不管是SERVER还是CLIENT，都是consul的一个节点，所有的服务都可以注册到这些节点上，正是通过这些节点实现服务注册信息的共享。除了这两个，还有一些小细节，一一简单介绍。</p>
 <p><strong>CLIENT</strong></p>
 <p>CLIENT表示consul的client模式，就是客户端模式。是consul节点的一种模式，这种模式下，所有注册到当前节点的服务会被转发到SERVER，本身是不持久化这些信息。</p>
@@ -309,7 +309,7 @@
 <p>执行 <code>docker-compose -f docker-compose-consul-cluster.yml up -d</code> 启动，然后访问<br />
 <a target="_blank" rel="noopener" href="http://localhost:8500">http://localhost:8500</a></p>
 <p>看到下图即启动成功</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/docker-consul-cluster-start.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/docker-consul-cluster-start.png" alt="" /></p>
 <h1 id="最后"><a class="markdownIt-Anchor" href="#最后"></a> 最后</h1>
 <p>Docker实战系列皆以快速搭建学习环境为主，Consul的特性学习及生产环境配置还任重道远。阅读过程中如有疑问或错误，还望多多指正。</p>
 
@@ -347,7 +347,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -428,14 +428,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

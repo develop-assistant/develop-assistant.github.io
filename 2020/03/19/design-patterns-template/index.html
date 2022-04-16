@@ -29,22 +29,22 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="概述 模板方法模式(TemplateMethod Pattern)，父类中定义处理流程的框架，在子类中实现具体处理。模块方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。  模式结构   抽象类: 负责给出一个算法的轮廓和骨架。它由一个模板方法和若干个基本方法构成。这些方法的定义如下。  模板方法：定义了算法的骨架，按某种顺序调用其包含的基本方法。 基本方法：是整个算法中的一个">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/pay-process.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/pay-process.png">
 <meta property="article:published_time" content="2020-03-19T10:32:21.000Z">
-<meta property="article:modified_time" content="2021-02-23T14:15:43.039Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:25.422Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="模板方法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/pay-process.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/pay-process.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/19/design-patterns-template/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -64,7 +64,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -180,7 +180,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -299,7 +299,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * verify email data</span></span><br><span class="line"><span class="comment"> * all do some thing</span></span><br><span class="line"><span class="comment"> * all return login data</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        EmailLoginService loginService = <span class="keyword">new</span> EmailLoginService();</span><br><span class="line">        loginService.login(<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="应用支付"><a class="markdownIt-Anchor" href="#应用支付"></a> 应用支付</h2>
 <p>对接过第三方支付的小伙伴都知道，在接入第三方支付时，一般支付结果都会通过异步回调的形式，通知商户服务器。而我们得到这些数据时一般都是同一流程的处理方式：验签 — 更新订单状态 — 给第三方支付服务器响应。 下面以支付宝和微信为例：支付宝和微信的验签方式和响应结果方式都是不一样的， 而更新订单状态都是商户这边处理所以业务逻辑是一样的。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/pay-process.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/pay-process.png" alt="" /></p>
 <p>抽象模板类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractPayNotifyTemplate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 支付异步回调处理</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> params 回调参数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNotify</span><span class="params">(Map&lt;String, String&gt; params)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//验证签名</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">boolean</span> sign = verifySign(params);</span><br><span class="line">        <span class="keyword">if</span> (sign) &#123;</span><br><span class="line">            <span class="comment">// 给第三方支付服务器回复支付失败状态</span></span><br><span class="line">            setResponse(PayStatus.ERROR);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//从参数获取订单编号并更新订单支付状态，为支付成功</span></span><br><span class="line">        <span class="keyword">final</span> String orderSn = params.get(<span class="string">&quot;out_trade_no&quot;</span>);</span><br><span class="line">        updateOrderPayStatusSuccess(orderSn);</span><br><span class="line">        <span class="comment">// 给第三方支付服务器回复支付成功状态</span></span><br><span class="line">        setResponse(PayStatus.SUCCESS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 验签</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> params 回调参数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 验签结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">verifySign</span><span class="params">(Map&lt;String, String&gt; params)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新订单支付状态为支付成功</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> orderSn 订单编号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">updateOrderPayStatusSuccess</span><span class="params">(String orderSn)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 根据订单编号更新订单支付状态为支付成功</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 给第三方支付返回</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> status 支付状态</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">setResponse</span><span class="params">(PayStatus status)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>具体模板类</p>
@@ -343,7 +343,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -424,14 +424,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

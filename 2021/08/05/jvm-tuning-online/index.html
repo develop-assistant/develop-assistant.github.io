@@ -29,27 +29,27 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="JVM线上调优  1. 调优原则  必须有监控； 调优目标:  最短停顿时间?   CMS  最大吞吐量(吞吐量 &#x3D; 运行用户代码时间 &#x2F;（运行用户代码时间 + 垃圾收集时间))？ Parallel Scavenge     调优手段   官方推荐调优流程   1.2. Hotspot虚拟机优化大纲     2. 线上问题  内存泄露； 某个进程突然 CPU 飙升； 线程死锁； 响应变慢(长时间">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/%E5%AE%98%E6%96%B9%E6%8E%A8%E8%8D%90jvm%E8%B0%83%E4%BC%98%E6%B5%81%E7%A8%8B.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/Hotspot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96%E8%A1%A8.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/arthas%E6%8C%87%E4%BB%A4%E8%A1%A8.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/arthas-dashboard.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/arthas-thread.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/arthas-jvm-1227024.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/arthas-trace.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/%E5%AE%98%E6%96%B9%E6%8E%A8%E8%8D%90jvm%E8%B0%83%E4%BC%98%E6%B5%81%E7%A8%8B.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/Hotspot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96%E8%A1%A8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/arthas%E6%8C%87%E4%BB%A4%E8%A1%A8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/arthas-dashboard.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/arthas-thread.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/arthas-jvm-1227024.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/arthas-trace.png">
 <meta property="article:published_time" content="2021-08-05T15:52:30.000Z">
-<meta property="article:modified_time" content="2021-08-05T16:26:46.667Z">
+<meta property="article:modified_time" content="2022-04-16T07:43:59.160Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="调优">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/%E5%AE%98%E6%96%B9%E6%8E%A8%E8%8D%90jvm%E8%B0%83%E4%BC%98%E6%B5%81%E7%A8%8B.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/%E5%AE%98%E6%96%B9%E6%8E%A8%E8%8D%90jvm%E8%B0%83%E4%BC%98%E6%B5%81%E7%A8%8B.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2021/08/05/jvm-tuning-online/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -69,7 +69,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -185,7 +185,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -278,9 +278,9 @@
 <li>调优手段</li>
 </ol>
 <h3 id="官方推荐调优流程"><a class="markdownIt-Anchor" href="#官方推荐调优流程"></a> 官方推荐调优流程</h3>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/%E5%AE%98%E6%96%B9%E6%8E%A8%E8%8D%90jvm%E8%B0%83%E4%BC%98%E6%B5%81%E7%A8%8B.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/%E5%AE%98%E6%96%B9%E6%8E%A8%E8%8D%90jvm%E8%B0%83%E4%BC%98%E6%B5%81%E7%A8%8B.png" alt="" /></p>
 <h3 id="12-hotspot虚拟机优化大纲"><a class="markdownIt-Anchor" href="#12-hotspot虚拟机优化大纲"></a> 1.2. Hotspot虚拟机优化大纲</h3>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/Hotspot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96%E8%A1%A8.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/Hotspot%E9%85%8D%E7%BD%AE%E4%BC%98%E5%8C%96%E8%A1%A8.png" alt="" /></p>
 <h2 id=""><a class="markdownIt-Anchor" href="#"></a> </h2>
 <h2 id="2-线上问题"><a class="markdownIt-Anchor" href="#2-线上问题"></a> 2. 线上问题</h2>
 <ul>
@@ -301,19 +301,19 @@
 <li>帮助文档</li>
 </ol>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">[arthas@1701]$</span><span class="bash"> <span class="built_in">help</span></span></span><br><span class="line"> NAME         DESCRIPTION</span><br><span class="line"> help         Display Arthas Help</span><br><span class="line"> keymap       Display all the available keymap for the specified connection.</span><br><span class="line"> sc           Search all the classes loaded by JVM</span><br><span class="line"> sm           Search the method of classes loaded by JVM</span><br><span class="line"> classloader  Show classloader info</span><br><span class="line"> jad          Decompile class</span><br><span class="line"> getstatic    Show the static field of a class</span><br><span class="line"> monitor      Monitor method execution statistics, e.g. total/success/failure count, average rt, fail rate, etc.</span><br><span class="line"> stack        Display the stack trace for the specified class and method</span><br><span class="line"> thread       Display thread info, thread stack</span><br><span class="line"> trace        Trace the execution time of specified method invocation.</span><br><span class="line"> watch        Display the input/output parameter, return object, and thrown exception of specified method invocation</span><br><span class="line"> tt           Time Tunnel</span><br><span class="line"> jvm          Display the target JVM information</span><br><span class="line"> ognl         Execute ognl expression.</span><br><span class="line"> mc           Memory compiler, compiles java files into bytecode and class files in memory.</span><br><span class="line"> redefine     Redefine classes. @see Instrumentation#redefineClasses(ClassDefinition...)</span><br><span class="line"> dashboard    Overview of target jvm&#x27;s thread, memory, gc, vm, tomcat info.</span><br><span class="line"> dump         Dump class byte array from JVM</span><br><span class="line"> heapdump     Heap dump</span><br><span class="line"> options      View and change various Arthas options</span><br><span class="line"> cls          Clear the screen</span><br><span class="line"> reset        Reset all the enhanced classes</span><br><span class="line"> version      Display Arthas version</span><br><span class="line"> shutdown     Shutdown Arthas server and exit the console</span><br><span class="line"> stop         Stop/Shutdown Arthas server and exit the console. Alias for shutdown.</span><br><span class="line"> session      Display current session information</span><br><span class="line"> sysprop      Display, and change the system properties.</span><br><span class="line"> sysenv       Display the system env.</span><br><span class="line"> vmoption     Display, and update the vm diagnostic options.</span><br><span class="line"> logger       Print logger info, and update the logger level</span><br><span class="line"> history      Display command history</span><br><span class="line"> cat          Concatenate and print files</span><br><span class="line"> pwd          Return working directory name</span><br><span class="line"> mbean        Display the mbean information</span><br><span class="line"> grep         grep command for pipes.</span><br><span class="line"> profiler     Async Profiler. https://github.com/jvm-profiling-tools/async-profiler</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/arthas%E6%8C%87%E4%BB%A4%E8%A1%A8.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/arthas%E6%8C%87%E4%BB%A4%E8%A1%A8.png" alt="" /></p>
 <h3 id="1-dashboard"><a class="markdownIt-Anchor" href="#1-dashboard"></a> 1、dashboard</h3>
 <p>在arthas的命令行界面，输入dashboard，会实时展示当前tomcat的多线程状态、Jvm各区域、GC情况等信息</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/arthas-dashboard.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/arthas-dashboard.png" alt="" /></p>
 <h3 id="2-查看线程监控"><a class="markdownIt-Anchor" href="#2-查看线程监控"></a> 2、查看线程监控</h3>
 <p>常用参数</p>
 <p>输入thread会显示所有线程的状态信息</p>
 <p>输入thread -n 3会显示当前最忙的3个线程，可以用来排查线程CPU消耗</p>
 <p>输入thread -b 会显示当前处于BLOCKED状态的线程，可以排查线程锁的问题</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/arthas-thread.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/arthas-thread.png" alt="" /></p>
 <h3 id="3-jvm监控"><a class="markdownIt-Anchor" href="#3-jvm监控"></a> 3、jvm监控</h3>
 <p>输入jvm，查看jvm详细的性能数据</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/arthas-jvm-1227024.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/arthas-jvm-1227024.png" alt="" /></p>
 <h3 id="4-函数耗时监控"><a class="markdownIt-Anchor" href="#4-函数耗时监控"></a> 4、函数耗时监控</h3>
 <p>通常说一个接口性能不好，其实就是接口响应时间比较长造成的，具体代码中哪个函数耗时比较长呢？可以使用trace功能来监控一下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trace com.idc.order.modules.sys.controller.AccountController login</span><br></pre></td></tr></table></figure>
@@ -321,7 +321,7 @@
 <p>-j参数可以过滤掉jdk自身的函数</p>
 <p>om.idc.order.modules.sys.controller.AccountController是接口所在的类</p>
 <p>Login是接口的入口函数</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/arthas-trace.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/arthas-trace.png" alt="" /></p>
 <p>通过圈起来的部分可以看到，接口的入口函数login总耗时268ms</p>
 <p>其中verify函数耗时85ms</p>
 <p>很明显，最慢的函数已经找到了，接下里就要去对代码进行进一步分析，然后再进行优化</p>
@@ -421,7 +421,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -502,14 +502,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

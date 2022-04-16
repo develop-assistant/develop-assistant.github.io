@@ -29,9 +29,9 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="前言 之前有好几篇文章讲了 灰度, 网关, 负载均衡 等, 本篇从源码角度分析几种负载均衡组件的实现。  基于ribbon和静态ip实现负载均衡 由于之前讲过很多次基于 nacos 的服务发现, 这里的案例直接用基于 静态ip 的实例来演示。  搭建 provider 服务 provider 服务是普通的web项目。首先提供对外暴露的接口 1234567891011121314151617181">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway%E8%B0%83%E7%94%A8%E6%A0%88.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway%E8%B0%83%E7%94%A8%E6%A0%88.png">
 <meta property="article:published_time" content="2022-03-27T03:57:09.000Z">
-<meta property="article:modified_time" content="2022-03-27T14:25:04.708Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:30.047Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="spring">
 <meta property="article:tag" content="gateway">
@@ -39,14 +39,14 @@
 <meta property="article:tag" content="lb">
 <meta property="article:tag" content="负载均衡">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway%E8%B0%83%E7%94%A8%E6%A0%88.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway%E8%B0%83%E7%94%A8%E6%A0%88.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2022/03/27/spring-cloud-gateway-lb/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -66,7 +66,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -182,7 +182,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -307,7 +307,7 @@
 </li>
 </ol>
 <p>完整的调用链如下(<a target="_blank" rel="noopener" href="https://juejin.cn/post/6882614799256485901">参考</a>):</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway%E8%B0%83%E7%94%A8%E6%A0%88.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway%E8%B0%83%E7%94%A8%E6%A0%88.png" alt="" /></p>
 <ol start="3">
 <li>以上的断点分析没有 <code>spring-cloud-commons</code> 包的 <code>org.springframework.cloud.client.loadbalancer.LoadBalancerClient#execute</code> 啥事儿了。其实该方法和 <code>@LoadBalanced</code> 密切相关, 而该注解只和 <code>RestTemplate</code> 相关。更多应用于服务间调用。</li>
 </ol>
@@ -420,7 +420,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -501,14 +501,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

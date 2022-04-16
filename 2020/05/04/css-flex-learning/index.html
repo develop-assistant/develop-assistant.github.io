@@ -29,27 +29,27 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="前言 本篇为学习笔记。内容来自网络。 布局的传统解决方案，基于盒状模型，依赖 display 属性 + position属性 + float属性。它对于那些特殊布局非常不方便，比如，垂直居中就不容易实现。 flexbox 是一种一维的布局，是因为一个 flexbox 一次只能处理一个维度上的元素布局，一行或者一列。作为对比的是另外一个二维布局 CSS Grid Layout，可以同时处理行和列上">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/css-flex-axis.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/css-flex-default.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/css-flex-row-center.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/css-flex-row-center.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/css-flex-column-center.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/css-flex-column-center.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/css-flex-center.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-axis.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-default.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-row-center.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-row-center.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-column-center.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-column-center.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-center.png">
 <meta property="article:published_time" content="2020-05-04T11:56:17.000Z">
-<meta property="article:modified_time" content="2021-02-23T14:13:03.432Z">
+<meta property="article:modified_time" content="2022-04-16T07:42:50.047Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="css">
 <meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/css-flex-axis.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-axis.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/05/04/css-flex-learning/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -69,7 +69,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -185,7 +185,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -268,7 +268,7 @@
 <p>flexbox 是一种一维的布局，是因为一个 flexbox 一次只能处理一个维度上的元素布局，一行或者一列。作为对比的是另外一个二维布局 CSS Grid Layout，可以同时处理行和列上的布局。</p>
 <h1 id="基本概念"><a class="markdownIt-Anchor" href="#基本概念"></a> 基本概念</h1>
 <p>采用 Flex 布局的元素，称为 Flex 容器（flex container），简称&quot;容器&quot;。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称&quot;项目&quot;。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/css-flex-axis.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-axis.png" alt="" /></p>
 <p>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。</p>
 <h1 id="容器属性"><a class="markdownIt-Anchor" href="#容器属性"></a> 容器属性</h1>
 <h2 id="flex-direction"><a class="markdownIt-Anchor" href="#flex-direction"></a> flex-direction</h2>
@@ -350,22 +350,22 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/1999/html&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;content box&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>css</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.content</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">210px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">210px</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">60px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">60px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: blue;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-direction</span>: row;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/css-flex-default.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-default.png" alt="" /></p>
 <h2 id="主轴row水平居中"><a class="markdownIt-Anchor" href="#主轴row水平居中"></a> 主轴row水平居中</h2>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-direction</span>: row;</span><br><span class="line">    <span class="attribute">justify-content</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/css-flex-row-center.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-row-center.png" alt="" /></p>
 <h2 id="主轴column水平居中"><a class="markdownIt-Anchor" href="#主轴column水平居中"></a> 主轴column水平居中</h2>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-direction</span>: column;</span><br><span class="line">    <span class="attribute">align-items</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/css-flex-row-center.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-row-center.png" alt="" /></p>
 <h2 id="主轴row垂直居中"><a class="markdownIt-Anchor" href="#主轴row垂直居中"></a> 主轴row垂直居中</h2>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-direction</span>: row;</span><br><span class="line">    <span class="attribute">align-items</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/css-flex-column-center.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-column-center.png" alt="" /></p>
 <h2 id="主轴column垂直居中"><a class="markdownIt-Anchor" href="#主轴column垂直居中"></a> 主轴column垂直居中</h2>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-direction</span>: column;</span><br><span class="line">    <span class="attribute">justify-content</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/css-flex-column-center.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-column-center.png" alt="" /></p>
 <h2 id="水平垂直居中"><a class="markdownIt-Anchor" href="#水平垂直居中"></a> 水平垂直居中</h2>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">justify-content</span>: center;</span><br><span class="line">    <span class="attribute">align-items</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/css-flex-center.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/css-flex-center.png" alt="" /></p>
 <h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2015/07/flex-examples.html">https://www.ruanyifeng.com/blog/2015/07/flex-examples.html</a></li>
@@ -406,7 +406,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -487,14 +487,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

@@ -29,22 +29,22 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="概述  二叉堆本质上是完全二叉树，分最大堆和最小堆。 最大堆的任何一个父节点的值，都大于或等于它左右孩子节点的值。 最小堆的任何一个父节点的值，都小于或等于它左右孩子节点的值。 二叉堆的根节点叫做堆顶。   构建二叉堆  堆的插入操作是单一节点的上浮。 堆的删除操作是单一节点的下沉。 二叉堆的物理存储方式基于数组。    二叉堆代码实现 12345678910111213141516171819">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/heap-array.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/heap-array.png">
 <meta property="article:published_time" content="2020-03-25T11:52:20.000Z">
-<meta property="article:modified_time" content="2021-02-23T14:18:19.575Z">
+<meta property="article:modified_time" content="2022-04-16T07:43:54.388Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="二叉堆">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/heap-array.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/heap-array.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/25/heap-introduce/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -64,7 +64,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -180,7 +180,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -270,7 +270,7 @@
 <li>堆的删除操作是单一节点的下沉。</li>
 <li>二叉堆的物理存储方式基于数组。</li>
 </ul>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/heap-array.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/heap-array.png" alt="" /></p>
 <h1 id="二叉堆代码实现"><a class="markdownIt-Anchor" href="#二叉堆代码实现"></a> 二叉堆代码实现</h1>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Heap</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 上浮调整</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">upAdjust</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> childIndex = array.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> parentIndex = (childIndex-<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> temp = array[childIndex];</span><br><span class="line">        <span class="keyword">while</span> (childIndex&gt;<span class="number">0</span> &amp;&amp; temp&lt;array[parentIndex]) &#123;</span><br><span class="line">            array[childIndex] = array[parentIndex];</span><br><span class="line">            childIndex = parentIndex;</span><br><span class="line">            parentIndex = (parentIndex-<span class="number">1</span>)/<span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        array[childIndex] = temp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下沉调整</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">downAdjust</span><span class="params">(<span class="keyword">int</span>[] array, <span class="keyword">int</span> parentIndex, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> temp = array[parentIndex];</span><br><span class="line">        <span class="keyword">int</span> childIndex = <span class="number">2</span>*parentIndex+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (childIndex&lt;length) &#123;</span><br><span class="line">            <span class="keyword">if</span> (childIndex+<span class="number">1</span>&lt;length&amp;&amp;array[childIndex+<span class="number">1</span>]&lt;array[childIndex]) &#123;</span><br><span class="line">                childIndex++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (temp&lt;array[childIndex]) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            array[parentIndex] = array[childIndex];</span><br><span class="line">            parentIndex = childIndex;</span><br><span class="line">            childIndex=<span class="number">2</span>*childIndex+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        array[parentIndex]=temp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">buildHeap</span><span class="params">(<span class="keyword">int</span>[] array)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 从最后一个非叶子节点开始，依次做下沉操作</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=(array.length-<span class="number">2</span>)/<span class="number">2</span>; i&gt;=<span class="number">0</span>; i--) &#123;</span><br><span class="line">            downAdjust(array, i, array.length);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">0</span>&#125;;</span><br><span class="line">        upAdjust(array);</span><br><span class="line">        System.out.printf(Arrays.toString(array)); <span class="comment">// 输出: [0, 1, 2, 6, 3, 7, 8, 9, 10, 5]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        array = new int[]&#123;7,1,3,10,5,2,8,9,6&#125;;</span></span><br><span class="line">        array = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">0</span>&#125;;</span><br><span class="line">        buildHeap(array);</span><br><span class="line">        System.out.printf(Arrays.toString(array)); <span class="comment">// 输出: [0, 1, 2, 6, 3, 7, 8, 9, 10, 5]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="堆排序"><a class="markdownIt-Anchor" href="#堆排序"></a> 堆排序</h1>
@@ -326,7 +326,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -407,14 +407,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

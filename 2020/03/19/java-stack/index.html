@@ -29,21 +29,21 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="概述 栈(stack)是常用的 线性数据结构，它属于逻辑结构，物理实现既可以用 数组，也可以用 链表来完成。栈中的元素只能先进后出(First In Last Out, 简称FILO)，最早进入的元素存放的位置叫做 栈底， 最后进入的元素存放的位置叫做 栈顶。  Java栈 Java中栈继承自Vector，是线程安全的，底层基于数组实现。  Stack类 12345678910111213141">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/java-stack-uml.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/java-stack-uml.png">
 <meta property="article:published_time" content="2020-03-19T13:24:25.000Z">
-<meta property="article:modified_time" content="2021-02-23T14:28:14.683Z">
+<meta property="article:modified_time" content="2022-04-16T07:43:50.997Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="栈">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/java-stack-uml.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/java-stack-uml.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/19/java-stack/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -63,7 +63,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -179,7 +179,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -260,7 +260,7 @@
 <p>栈(stack)是常用的 <code>线性数据结构</code>，它属于逻辑结构，物理实现既可以用 <code>数组</code>，也可以用 <code>链表</code>来完成。栈中的元素只能先进后出(First In Last Out, 简称FILO)，最早进入的元素存放的位置叫做 <code>栈底</code>， 最后进入的元素存放的位置叫做 <code>栈顶</code>。</p>
 <h1 id="java栈"><a class="markdownIt-Anchor" href="#java栈"></a> Java栈</h1>
 <p>Java中栈继承自Vector，是线程安全的，底层基于数组实现。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/java-stack-uml.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/java-stack-uml.png" alt="" /></p>
 <p>Stack类</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Stack</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Vector</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// 入栈</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> E <span class="title">push</span><span class="params">(E item)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 在Vector中实现</span></span><br><span class="line">        addElement(item);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> item;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 出栈(返回栈顶元素，并删除栈顶值)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> E <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        E       obj;</span><br><span class="line">        <span class="keyword">int</span>     len = size();</span><br><span class="line"></span><br><span class="line">        obj = peek();</span><br><span class="line">        removeElementAt(len - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回栈顶元素，不删除栈顶值</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> E <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>     len = size();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> EmptyStackException();</span><br><span class="line">        <span class="keyword">return</span> elementAt(len - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Vector类</p>
@@ -307,7 +307,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -388,14 +388,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

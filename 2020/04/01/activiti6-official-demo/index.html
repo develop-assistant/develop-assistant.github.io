@@ -29,45 +29,45 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="概述 要想学习 activiti工作流, 入门便是学习官方的示例。下边我将基于官方的demo做一遍流程，考虑自己的业务该如何基于 activiti 设计逻辑。 工作流要素:  流程 表单 用户  有了以上3大要素，流程便可以流转。   表单绑定在流程节点上，用来输入当前流程信息 用户绑定在流程节点上，用来处理当前流程任务    下载安装 首先到 官方 下载activiti6.0.0。 对 act">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti6-download.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-identity-management.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-create-user.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-create-user-lisi.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-create-process1.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-process-create-form.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-process-create-2.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-bind-user1.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-create-newform.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-form-edit-field.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-save-form.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-create-app.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-app-bind-process.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-app-process-bind-result.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-app-publish.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-publish-home.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-publish-home.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-create-task1.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-create-task2.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-create-task3.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-handle-task1.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-handle-task2.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-handle-task3.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-admin-manage.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti-admin-history.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti6-download.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-identity-management.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-user.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-user-lisi.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-process1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-process-create-form.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-process-create-2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-bind-user1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-newform.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-form-edit-field.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-save-form.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-app.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-app-bind-process.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-app-process-bind-result.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-app-publish.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-publish-home.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-publish-home.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-task1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-task2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-task3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-handle-task1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-handle-task2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-handle-task3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-admin-manage.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-admin-history.png">
 <meta property="article:published_time" content="2020-04-01T15:35:10.000Z">
-<meta property="article:modified_time" content="2021-02-23T14:50:19.699Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:07.135Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="activiti">
 <meta property="article:tag" content="工作流">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/activiti6-download.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti6-download.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/04/01/activiti6-official-demo/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -87,7 +87,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -203,7 +203,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -298,7 +298,7 @@
 <h1 id="下载安装"><a class="markdownIt-Anchor" href="#下载安装"></a> 下载安装</h1>
 <p>首先到 <a target="_blank" rel="noopener" href="https://www.activiti.org/get-started">官方</a> 下载activiti6.0.0。</p>
 <p>对 <code>activiti7</code> 感兴趣的可以看 <a target="_blank" rel="noopener" href="https://activiti.gitbook.io/activiti-7-developers-guide/getting-started/getting-started-activiti-core">这里</a></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti6-download.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti6-download.png" alt="" /></p>
 <p>然后将war包置于 <code>tomcat/webapps</code> 目录下，启动tomcat即可。</p>
 <table>
 <thead>
@@ -332,74 +332,74 @@
 </table>
 <h1 id="用户管理"><a class="markdownIt-Anchor" href="#用户管理"></a> 用户管理</h1>
 <p>登录 <a target="_blank" rel="noopener" href="http://localhost:8080/activiti-app/#/">http://localhost:8080/activiti-app/#/</a></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-identity-management.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-identity-management.png" alt="" /></p>
 <ul>
 <li>Kickstart App：主要用于流程模型管理、表单管理及应用（App）管理，一个应用可以包含多个流程模型，应用可发布给其他用户使用。</li>
 <li>Task App：用于管理整个activiti-app的任务，在该功能里面也可以启动流程</li>
 <li>Idenity management：身份信息管理，可以管理用户、用户组等数据</li>
 </ul>
 <p>创建用户</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-create-user.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-user.png" alt="" /></p>
 <p>创建过程如下，注意id即是登录帐号。依次分别创建3个帐号用户审批流程。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-create-user-lisi.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-user-lisi.png" alt="" /></p>
 <h1 id="流程定义"><a class="markdownIt-Anchor" href="#流程定义"></a> 流程定义</h1>
 <p>在主界面点击 <code>Kickstart App</code> 进入流程定义页面。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-create-process1.png" alt="" /></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-process-create-form.png" alt="" /></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-process-create-2.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-process1.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-process-create-form.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-process-create-2.png" alt="" /></p>
 <p>上图中模拟了一个请假流程，但是流程的执行需要人来参与，所以下边我们进行流程和帐号绑定。<br />
 选定流程节点后点击 <code>Assignment</code> 属性，会有弹窗进行绑定。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-bind-user1.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-bind-user1.png" alt="" /></p>
 <p>同理，将其他节点进行绑定。然后保存关闭即可，可以看到一个流程已创建完毕。</p>
 <h1 id="动态表单"><a class="markdownIt-Anchor" href="#动态表单"></a> 动态表单</h1>
 <p>之前的都是基本演示，假设我们需要复杂的表单，那么可以在流程节点上绑定表单即可，这里做下动态表单的基本演示。</p>
 <ol>
 <li>选中流程节点，编辑 <code>Referenced form</code>, 动态创建节点关联表单。</li>
 </ol>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-create-newform.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-newform.png" alt="" /></p>
 <ol start="2">
 <li>编辑表单字段</li>
 </ol>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-form-edit-field.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-form-edit-field.png" alt="" /></p>
 <ol start="3">
 <li>保存表单</li>
 </ol>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-save-form.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-save-form.png" alt="" /></p>
 <p>这样在流程中我们就可以通过表单流转复杂的信息了，大家可以实践下，下边的流程就不演示了。</p>
 <h1 id="流程发布"><a class="markdownIt-Anchor" href="#流程发布"></a> 流程发布</h1>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-create-app.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-app.png" alt="" /></p>
 <p>将应用和我们之前创建的流程绑定。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-app-bind-process.png" alt="" /></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-app-process-bind-result.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-app-bind-process.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-app-process-bind-result.png" alt="" /></p>
 <p>然后点击发布流程</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-app-publish.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-app-publish.png" alt="" /></p>
 <p>发布完成后回到首页可以看到发布结果</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-publish-home.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-publish-home.png" alt="" /></p>
 <h1 id="流程测试"><a class="markdownIt-Anchor" href="#流程测试"></a> 流程测试</h1>
 <ol>
 <li>登录 <code>zhangsan</code> 帐号创建请假任务</li>
 </ol>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-publish-home.png" alt="" /></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-create-task1.png" alt="" /></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-create-task2.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-publish-home.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-task1.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-task2.png" alt="" /></p>
 <p>查看流程当前流转状态。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-create-task3.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-create-task3.png" alt="" /></p>
 <p>点击 <code>complete</code>, 任务流转到下一个流程节点。</p>
 <ol start="2">
 <li>登录 <code>lisi</code> 审批</li>
 </ol>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-handle-task1.png" alt="" /></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-handle-task2.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-handle-task1.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-handle-task2.png" alt="" /></p>
 <ol start="3">
 <li>同理，登录 <code>wangwu</code> 审批，流程结束。</li>
 </ol>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-handle-task3.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-handle-task3.png" alt="" /></p>
 <h1 id="流程管理"><a class="markdownIt-Anchor" href="#流程管理"></a> 流程管理</h1>
 <p>登录 <a target="_blank" rel="noopener" href="http://localhost:8080/activiti-admin/#/login">http://localhost:8080/activiti-admin/#/login</a></p>
 <p>配置应用服务节点</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-admin-manage.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-admin-manage.png" alt="" /></p>
 <p>配置后即可查看历史流程记录</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/activiti-admin-history.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/activiti-admin-history.png" alt="" /></p>
 <h1 id="持久化"><a class="markdownIt-Anchor" href="#持久化"></a> 持久化</h1>
 <p><code>tomcat</code> 重启后，<code>activiti</code> 相关的数据会重置，如果想持久化，可以把数据持久化到 <code>MySQL</code>。</p>
 <p><strong>首先删除3个war包，避免重启覆盖我们修改的配置</strong></p>
@@ -453,7 +453,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -534,14 +534,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

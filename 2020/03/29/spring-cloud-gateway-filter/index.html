@@ -29,9 +29,9 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="概述 这里是 SpringCloud Gateway 实践的第一篇，主要讲过滤器的相关实现。Spring-Cloud-Gateway是以 WebFlux 为基础的响应式架构设计, 是异步非阻塞式的，它能够充分利用多核 CPU 的硬件资源去处理大量的并发请求。 本篇将基于 spring-cloud-gateway简介 基础环境进行改造。  工作原理 Spring-Cloud-Gateway基于过滤">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-fliter-order.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-fliter-order.png">
 <meta property="article:published_time" content="2020-03-29T07:17:16.000Z">
-<meta property="article:modified_time" content="2021-07-10T12:04:13.254Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:11.250Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="spring">
 <meta property="article:tag" content="过滤器">
@@ -39,14 +39,14 @@
 <meta property="article:tag" content="gateway">
 <meta property="article:tag" content="网关">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-fliter-order.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-fliter-order.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/29/spring-cloud-gateway-filter/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -66,7 +66,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -182,7 +182,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -265,7 +265,7 @@
 <h1 id="工作原理"><a class="markdownIt-Anchor" href="#工作原理"></a> 工作原理</h1>
 <p>Spring-Cloud-Gateway基于过滤器实现，同zuul类似，有<strong>pre</strong>和<strong>post</strong>两种方式的filter,分别处理<strong>前置逻辑</strong>和<strong>后置逻辑</strong>。客户端的请求先经过<strong>pre</strong>类型的filter，然后将请求转发到具体的业务服务，收到业务服务的响应之后，再经过<strong>post</strong>类型的filter处理，最后返回响应到客户端。</p>
 <p>过滤器执行流程如下，<strong>order越大，优先级越低</strong></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-fliter-order.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-fliter-order.png" alt="" /></p>
 <p>接下来我们来验证下 <code>filter</code> 执行顺序。</p>
 <p>这里创建3个过滤器，分别配置不同的优先级</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AFilter</span> <span class="keyword">implements</span> <span class="title">GlobalFilter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Mono&lt;Void&gt; <span class="title">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;AFilter前置逻辑&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange).then(Mono.fromRunnable(() -&gt; &#123;</span><br><span class="line">            log.info(<span class="string">&quot;AFilter后置逻辑&quot;</span>);</span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BFilter</span> <span class="keyword">implements</span> <span class="title">GlobalFilter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Mono&lt;Void&gt; <span class="title">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;BFilter前置逻辑&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange).then(Mono.fromRunnable(() -&gt; &#123;</span><br><span class="line">            log.info(<span class="string">&quot;BFilter后置逻辑&quot;</span>);</span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CFilter</span> <span class="keyword">implements</span> <span class="title">GlobalFilter</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Mono&lt;Void&gt; <span class="title">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;CFilter前置逻辑&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> chain.filter(exchange).then(Mono.fromRunnable(() -&gt; &#123;</span><br><span class="line">            log.info(<span class="string">&quot;CFilter后置逻辑&quot;</span>);</span><br><span class="line">        &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FilterConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Order(-1)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> GlobalFilter <span class="title">a</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AFilter();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Order(0)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> GlobalFilter <span class="title">b</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BFilter();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Order(1)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> GlobalFilter <span class="title">c</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CFilter();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -350,7 +350,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -431,14 +431,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

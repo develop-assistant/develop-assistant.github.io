@@ -29,23 +29,23 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="概述 API网关出现的原因是微服务架构的出现，不同的微服务一般会有不同的网络地址，而外部客户端可能需要调用多个服务的接口才能完成一个业务需求。如果让客户端直接与各个微服务通信，会有以下的问题：  客户端会多次请求不同的微服务，增加了客户端的复杂性。 存在跨域请求，在一定场景下处理相对复杂。 认证复杂，每个服务都需要独立认证。 难以重构，随着项目的迭代，可能需要重新划分微服务。例如，可能将多个服务">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-function.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-function.png">
 <meta property="article:published_time" content="2020-03-29T06:47:53.000Z">
-<meta property="article:modified_time" content="2021-07-10T12:05:14.200Z">
+<meta property="article:modified_time" content="2022-04-16T07:42:39.935Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="spring">
 <meta property="article:tag" content="gateway">
 <meta property="article:tag" content="网关">
 <meta property="article:tag" content="Spring-Cloud">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-function.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-function.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/29/spring-cloud-gateway-introduce/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -65,7 +65,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -181,7 +181,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -268,7 +268,7 @@
 <li>某些微服务可能使用了防火墙 / 浏览器不友好的协议，直接访问会有一定的困难。</li>
 </ol>
 <p>以上这些问题可以借助API网关解决。API网关是介于客户端和服务器端之间的中间层，所有的外部请求都会先经过 API 网关这一层。也就是说，API 的实现方面更多的考虑业务逻辑，而安全、性能、监控可以交由API网关来做，这样既提高业务灵活性又不缺安全性。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-function.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-function.png" alt="" /></p>
 <p>由于篇幅比较长, 决定分几篇来介绍相关知识:</p>
 <ol>
 <li>spring-cloud-gateway简介+基本环境搭建</li>
@@ -350,7 +350,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -431,14 +431,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

@@ -29,22 +29,22 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="1. 概述 Hashset实现set接口，底层基于Hashmap实现, 但与Hashmap不同的实Hashmap存储键值对，Hashset仅存储对象。 HashSet使用成员对象来计算hashcode值。  2. 原理 在《Head fist java》一书中有描述: 当你把对象加入HashSet时，HashSet会先计算对象的hashcode值来判断对象加入的位置，同时也会与其他加入的对象的h">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/hashset-method-all.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/hashset-method-all.png">
 <meta property="article:published_time" content="2020-03-12T08:13:54.000Z">
-<meta property="article:modified_time" content="2021-02-23T14:40:50.898Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:05.634Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="源码">
 <meta property="article:tag" content="集合">
 <meta property="article:tag" content="hashset">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/hashset-method-all.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/hashset-method-all.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/12/source-code-hashset/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -64,7 +64,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -180,7 +180,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -280,7 +280,7 @@
 </ul>
 <h1 id="3-源码分析"><a class="markdownIt-Anchor" href="#3-源码分析"></a> 3. 源码分析</h1>
 <p>首先查看下源码结构，发现该类源码相对比较简单</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/hashset-method-all.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/hashset-method-all.png" alt="" /></p>
 <h2 id="31-构造方法"><a class="markdownIt-Anchor" href="#31-构造方法"></a> 3.1 构造方法</h2>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Constructs a new, empty set; the backing &lt;tt&gt;HashMap&lt;/tt&gt; instance has</span></span><br><span class="line"><span class="comment"> * default initial capacity (16) and load factor (0.75).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// 内部存储在hashmap中</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashSet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="32-添加元素add"><a class="markdownIt-Anchor" href="#32-添加元素add"></a> 3.2 添加元素add()</h2>
@@ -350,7 +350,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -431,14 +431,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

@@ -29,9 +29,9 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="基于spring cloud gateway的简易认证授权  用户的访问基本上都是需要携带 JWT Token 的，gateway-service 在接收到请求之后，会向鉴权服务发送鉴权请求，获得授权之后可以得到当前访问的用户详细信息；如果检测到请求未经授权，那么 gateway-service 直接会返回未授权错误，保护内部服务访问安全。 理论上鉴权也可以通过自定义 gateway filte">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-auth.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-auth.png">
 <meta property="article:published_time" content="2020-09-01T15:26:05.000Z">
-<meta property="article:modified_time" content="2021-07-10T12:04:02.205Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:12.863Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="spring">
 <meta property="article:tag" content="SpringCloud">
@@ -40,14 +40,14 @@
 <meta property="article:tag" content="授权">
 <meta property="article:tag" content="网关">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-auth.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-auth.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/09/01/spring-cloud-gateway-auth/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -67,7 +67,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -183,7 +183,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -261,7 +261,7 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <h1 id="基于spring-cloud-gateway的简易认证授权"><a class="markdownIt-Anchor" href="#基于spring-cloud-gateway的简易认证授权"></a> 基于spring cloud gateway的简易认证授权</h1>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-auth.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-auth.png" alt="" /></p>
 <p>用户的访问基本上都是需要携带 JWT Token 的，gateway-service 在接收到请求之后，会向鉴权服务发送鉴权请求，获得授权之后可以得到当前访问的用户详细信息；如果检测到请求未经授权，那么 gateway-service 直接会返回未授权错误，保护内部服务访问安全。</p>
 <p>理论上鉴权也可以通过自定义 gateway filter 来实现，不过我们希望可以尽可能多使用 <code>spring-security</code> 提供的能力，毕竟自己封装需要实现的东西还是有点多的。</p>
 <p>Spring Cloud Gateway 只支持搭配 webflux 使用，所以我们后续使用了 <code>@EnableWebFluxSecurity</code> 注解。</p>
@@ -339,7 +339,7 @@ Hello World.</p>
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -420,14 +420,14 @@ Hello World.</p>
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

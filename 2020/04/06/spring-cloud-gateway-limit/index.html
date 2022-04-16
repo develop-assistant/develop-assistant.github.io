@@ -29,13 +29,13 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="概述 限流：网关上有大量请求，对指定服务进行限流，可以很大程度上提高服务的可用性与稳定性，限流的目的是通过对并发访问&#x2F;请求进行限速，或对一个时间窗口内的请求进行限速来保护系统。一旦达到限制速率则可以拒绝服务、排队或等待、降级。 在Spring Cloud Gateway中，有 Filter过滤器，因此可以在 pre 类型的Filter中自行实现上述三种过滤器。但是限流作为网关最基本的功能，Spr">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-core-limit-lua.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-limit-postman1.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-limit-postman2.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-limit-postman3.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-limit-postman4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-core-limit-lua.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-limit-postman1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-limit-postman2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-limit-postman3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-limit-postman4.png">
 <meta property="article:published_time" content="2020-04-06T11:13:28.000Z">
-<meta property="article:modified_time" content="2021-07-10T12:05:19.754Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:04.829Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="spring">
 <meta property="article:tag" content="限流">
@@ -44,14 +44,14 @@
 <meta property="article:tag" content="压测">
 <meta property="article:tag" content="postman">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-core-limit-lua.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-core-limit-lua.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/04/06/spring-cloud-gateway-limit/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -71,7 +71,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -187,7 +187,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -267,7 +267,7 @@
         <h1 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h1>
 <p><strong>限流</strong>：网关上有大量请求，对指定服务进行限流，可以很大程度上提高服务的可用性与稳定性，限流的目的是通过对并发访问/请求进行限速，或对一个时间窗口内的请求进行限速来保护系统。一旦达到限制速率则可以拒绝服务、排队或等待、降级。</p>
 <p>在Spring Cloud Gateway中，有 <code>Filter过滤器</code>，因此可以在 <code>pre</code> 类型的Filter中自行实现上述三种过滤器。但是限流作为网关最基本的功能，Spring Cloud Gateway官方就提供了 <code>RequestRateLimiterGatewayFilterFactory</code> 这个类，适用在Redis内的通过执行Lua脚本实现了令牌桶的方式。具体实现逻辑在 <code>RequestRateLimiterGatewayFilterFactory</code> 类中，lua脚本在如下图所示的文件夹中：</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-core-limit-lua.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-core-limit-lua.png" alt="" /></p>
 <h1 id="限流配置"><a class="markdownIt-Anchor" href="#限流配置"></a> 限流配置</h1>
 <p>应一小伙伴要求, 将demo升级到了最新版本</p>
 <ul>
@@ -302,10 +302,10 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RateLimitConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">KeyResolver <span class="title">userKeyResolver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> exchange -&gt; Mono.just(exchange.getRequest().getQueryParams().getFirst(<span class="string">&quot;user&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Primary</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">KeyResolver <span class="title">ipKeyResolver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> exchange -&gt; Mono.just(exchange.getRequest().getRemoteAddress().getHostName());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">KeyResolver <span class="title">apiKeyResolver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> exchange -&gt; Mono.just(exchange.getRequest().getPath().value());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="限流演练"><a class="markdownIt-Anchor" href="#限流演练"></a> 限流演练</h1>
 <p>这里我们用 <code>postman</code> 进行测试</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-limit-postman1.png" alt="" /></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-limit-postman2.png" alt="" /></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-limit-postman3.png" alt="" /></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/spring-cloud-gateway-limit-postman4.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-limit-postman1.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-limit-postman2.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-limit-postman3.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/spring-cloud-gateway-limit-postman4.png" alt="" /></p>
 <h1 id="基于系统负载的动态限流"><a class="markdownIt-Anchor" href="#基于系统负载的动态限流"></a> 基于系统负载的动态限流</h1>
 <p>在实际工作中，我们可能还需要根据网络连接数、网络流量、CPU 或内存负载等来进行动态限流。在这里我们以 CPU 为栗子。</p>
 <p>我们需要借助 Spring Boot Actuator 提供的 Metrics 能力进行实现基于 CPU 的限流 —— 当 CPU 使用率高于某个阈值就开启限流，否则不开启限流。</p>
@@ -349,7 +349,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -430,14 +430,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

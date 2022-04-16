@@ -29,21 +29,21 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="一、前言 MySQL分页查询作为Java面试的一道高频面试题，这里有必要实践一下，毕竟实践出真知。 很多同学在做测试时苦于没有海量数据，官方其实是有一套测试库的。  二、模拟数据 这里模拟数据分2种情况导入，如果只是需要数据测试下，那么推荐官方数据。如果官方数据满足不了需求的话，那么我们自己模拟数据。  1. 导入官方测试库 下载 官方数据库文件 或者在 github 上下载。 该测试库含有6个">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/employees.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/employees.png">
 <meta property="article:published_time" content="2020-03-09T06:37:24.000Z">
-<meta property="article:modified_time" content="2020-03-15T03:53:40.375Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:27.878Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="mysql">
 <meta property="article:tag" content="调优">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/employees.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/employees.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/09/how-to-optimization-mysql-page/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -63,7 +63,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -179,7 +179,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -264,7 +264,7 @@
 <h2 id="1-导入官方测试库"><a class="markdownIt-Anchor" href="#1-导入官方测试库"></a> 1. 导入官方测试库</h2>
 <p>下载 <a target="_blank" rel="noopener" href="https://launchpad.net/test-db">官方数据库文件</a> 或者在 <a target="_blank" rel="noopener" href="https://github.com/datacharmer/test_db">github</a> 上下载。</p>
 <p>该测试库含有6个表。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/employees.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/employees.png" alt="" /></p>
 <p>首先进入 <code>employees_db</code>, 执行导入数据指令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -proot -t &lt; employees.sql</span><br></pre></td></tr></table></figure>
 <p>有些环境可能会报错</p>
@@ -360,7 +360,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -441,14 +441,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

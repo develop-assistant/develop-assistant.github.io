@@ -29,22 +29,22 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="前言 TCP的三次握手和四次挥手常作为面试题考察程序员对于TCP握手协议的理解。该篇文章写于2018年, 此处为博客迁移，无内容增删。  TCP三次握手  假设 A 为客户端，B 为服务器端。  首先 B 处于 LISTEN（监听）状态，等待客户的连接请求。 A 向 B 发送连接请求报文段，SYN&#x3D;1，ACK&#x3D;0，选择一个初始的序号 x。 B 收到连接请求报文段，如果同意建立连接，则向 A 发送">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/tcp3.jpg">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/tcp4.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/tcp3.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/tcp4.jpg">
 <meta property="article:published_time" content="2020-03-08T21:42:12.000Z">
-<meta property="article:modified_time" content="2020-03-15T03:54:46.487Z">
+<meta property="article:modified_time" content="2022-04-16T07:43:58.223Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="面试">
 <meta property="article:tag" content="TCP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/tcp3.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/tcp3.jpg">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/09/tcp-protocol-intro/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -64,7 +64,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -180,7 +180,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -260,7 +260,7 @@
         <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
 <p>TCP的三次握手和四次挥手常作为面试题考察程序员对于TCP握手协议的理解。该篇文章写于2018年, 此处为博客迁移，无内容增删。</p>
 <h1 id="tcp三次握手"><a class="markdownIt-Anchor" href="#tcp三次握手"></a> TCP三次握手</h1>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/tcp3.jpg" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/tcp3.jpg" alt="" /></p>
 <p>假设 A 为客户端，B 为服务器端。</p>
 <ol>
 <li>首先 B 处于 LISTEN（监听）状态，等待客户的连接请求。</li>
@@ -284,7 +284,7 @@
 </ul>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">seq是序列号，这是为了连接以后传送数据用的，ack是对收到的数据包的确认，值是等待接收的数据包的序列号。</span><br><span class="line"></span><br><span class="line">在第一次消息发送中，A随机选取一个序列号作为自己的初始序号发送给B；第二次消息B使用ack对A的数据包进行确认，因为已经收到了序列号为x的数据包，准备接收序列号为x+1的包，所以ack=x+1，同时B告诉A自己的初始序列号，就是seq=y；第三条消息A告诉B收到了B的确认消息并准备建立连接，A自己此条消息的序列号是x+1，所以seq=x+1，而ack=y+1是表示A正准备接收B序列号为y+1的数据包。</span><br><span class="line"></span><br><span class="line">seq是数据包本身的序列号；ack是期望对方继续发送的那个数据包的序列号。</span><br></pre></td></tr></table></figure>
 <h1 id="tcp四次挥手"><a class="markdownIt-Anchor" href="#tcp四次挥手"></a> TCP四次挥手</h1>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/tcp4.jpg" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/tcp4.jpg" alt="" /></p>
 <p>以下描述不讨论序号和确认号，因为序号和确认号的规则比较简单。并且不讨论 ACK，因为 ACK 在连接建立之后都为 1。</p>
 <ol>
 <li>A 发送连接释放报文段，FIN=1；</li>
@@ -327,7 +327,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -408,14 +408,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

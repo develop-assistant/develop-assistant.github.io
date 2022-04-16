@@ -29,23 +29,23 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="前言 在通过多线程来解决高并发的问题上，线程安全往往是最先需要考虑的问题，其次才是性能。库存超卖问题是有很多种技术解决方案的，比如悲观锁，分布式锁，乐观锁，队列串行化，Redis原子操作等。本篇通过MySQL乐观锁来演示基本实现。  开发前准备  1. 环境参数  开发工具：IDEA 基础工具：Maven+JDK8 所用技术：SpringBoot+Mybatis 数据库：MySQL5.7 Spr">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/stock-decreate-cas-mysql.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/stock-decreate-cas-mysql.png">
 <meta property="article:published_time" content="2020-03-06T17:41:28.000Z">
-<meta property="article:modified_time" content="2021-02-23T14:48:48.573Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:03.986Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="多线程">
 <meta property="article:tag" content="实战">
 <meta property="article:tag" content="乐观锁">
 <meta property="article:tag" content="超卖">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/stock-decreate-cas-mysql.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/stock-decreate-cas-mysql.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/07/stock-unsafe-optimistic-lock/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -65,7 +65,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -181,7 +181,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -296,7 +296,7 @@
 <p>这里我们写个单元测试进行并发测试。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GoodsServiceTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    GoodsService goodsService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">seckill</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 库存初始化为10，这里通过CountDownLatch和线程池模拟100个并发</span></span><br><span class="line">        <span class="keyword">int</span> threadTotal = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">        ExecutorService executorService = Executors.newCachedThreadPool();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> CountDownLatch countDownLatch = <span class="keyword">new</span> CountDownLatch(threadTotal);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; threadTotal ; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> uid = i;</span><br><span class="line">            executorService.execute(() -&gt; &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    goodsService.sellGoods(<span class="number">1</span>, uid);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                countDownLatch.countDown();</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        countDownLatch.await();</span><br><span class="line">        executorService.shutdown();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>查看数据库验证是否超卖</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/stock-decreate-cas-mysql.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/stock-decreate-cas-mysql.png" alt="" /></p>
 <p>上图的结果与我们的预期一致。此外还可以通过Postman或者Jmeter进行并发测试。由于不是此处的重点，不再做演示，感兴趣的小伙伴可以留言，我会整理下相关的教程。</p>
 <h1 id="后续"><a class="markdownIt-Anchor" href="#后续"></a> 后续</h1>
 <p>这篇文章通过数据库乐观锁已经解决了库存超卖的问题，不过效率上并不是最优方案，后续会完善其他方案的演示。文中如有错漏之处，还望大家不吝赐教。</p>
@@ -335,7 +335,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -416,14 +416,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

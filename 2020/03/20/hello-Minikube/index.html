@@ -29,26 +29,26 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="概述 基础环境mac。在mac下的docker中是自带k8s的，但是由于网络原因，安装特别慢，本文介绍社区中另一版本Minikube的安装, 仅做笔记用。 Minikube是由Kubernetes社区维护的单机版的Kubernetes集群，支持macOS, Linux, and Windows等多种操作系统平台。  安装  安装kubectl 1brew install kubectl 测试安装">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/rancher-import-minikube-1.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/rancher-minikube-cluster.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/rancher-namespace-default.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/rancher-deploy-hello-node-1.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/rancher-deploy-hello-node-2.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/rancher-deploy-hello-node-3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-import-minikube-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-minikube-cluster.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-namespace-default.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-deploy-hello-node-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-deploy-hello-node-2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-deploy-hello-node-3.png">
 <meta property="article:published_time" content="2020-03-20T14:00:29.000Z">
-<meta property="article:modified_time" content="2021-12-04T14:46:01.651Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:11.965Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="k8s">
 <meta property="article:tag" content="Minikube">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/rancher-import-minikube-1.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-import-minikube-1.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/20/hello-Minikube/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -68,7 +68,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -184,7 +184,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -395,26 +395,26 @@
 <ol start="2">
 <li>rancher导入minikube</li>
 </ol>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/rancher-import-minikube-1.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-import-minikube-1.png" alt="" /></p>
 <p>导入后的样子是这样的，导入过程比较慢，会显示一直处于 <code>pending</code> 状态， 切莫着急。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/rancher-minikube-cluster.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-minikube-cluster.png" alt="" /></p>
 <ol start="3">
 <li>用户空间</li>
 </ol>
 <p>我们关心的是用户空间，因为我们部署的应用默认在这里</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/rancher-namespace-default.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-namespace-default.png" alt="" /></p>
 <ol start="4">
 <li>rancher部署应用</li>
 </ol>
 <p>之前我们通过k8s部署的 <code>hello-node</code> 先卸载了，重新通过 <code>rancher</code> 部署下应用。 点击右上角 <code>部署服务</code>。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/rancher-deploy-hello-node-1.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-deploy-hello-node-1.png" alt="" /></p>
 <p>部署完成后如图。访问 <a target="_blank" rel="noopener" href="http://192.168.64.2:30001/">http://192.168.64.2:30001/</a> 返回 <code>Hello World!</code></p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/rancher-deploy-hello-node-2.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-deploy-hello-node-2.png" alt="" /></p>
 <ol start="5">
 <li>升级应用版本</li>
 </ol>
 <p>在刚才的页面点击右边隐藏按钮 <code>升级</code>，进入升级配置页面。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/rancher-deploy-hello-node-3.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/rancher-deploy-hello-node-3.png" alt="" /></p>
 <p>升级后测试ok。</p>
 
       
@@ -451,7 +451,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -532,14 +532,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

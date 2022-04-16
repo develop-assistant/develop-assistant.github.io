@@ -29,23 +29,23 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="1. 概述 策略模式(Strategy Pattern)是比较典型的对象行为型模式，它是将对处理对象的一系列不同算法都单独抽离出来，单独封装成一个个类。策略的出现，主要是为了解决不同算法替换时的逻辑判断，将逻辑判断移到Client中去(即由客户端自己决定在什么情况下使用什么具体策略)。  2. 模式结构 策略模式包含如下角色：  Context: 环境类，也叫做上下文角色，起承上启下封装作用;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/Strategy-Pattern.jpg">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/Strategy-Pattern.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png">
 <meta property="article:published_time" content="2020-03-18T03:29:01.000Z">
-<meta property="article:modified_time" content="2021-02-23T14:15:34.999Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:33.980Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="策略模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/Strategy-Pattern.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/Strategy-Pattern.jpg">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/18/design-patterns-strategy/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -65,7 +65,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -181,7 +181,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -267,7 +267,7 @@
 <li>Strategy: 抽象策略类，策略、算法家族的抽象，通常为接口，定义每个策略或算法必须具有的方法和属性</li>
 <li>ConcreteStrategy: 具体策略类，实现抽象策略中的操作，含有具体的算法</li>
 </ul>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/Strategy-Pattern.jpg" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/Strategy-Pattern.jpg" alt="" /></p>
 <h1 id="3-适用环境"><a class="markdownIt-Anchor" href="#3-适用环境"></a> 3. 适用环境</h1>
 <p>在以下情况下可以使用策略模式：</p>
 <ul>
@@ -373,7 +373,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        FileManage fileManage = <span class="keyword">new</span> FileManage();</span><br><span class="line">        fileManage.upload(<span class="keyword">null</span>, <span class="keyword">new</span> FastDFSUpload());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="最后"><a class="markdownIt-Anchor" href="#最后"></a> 最后</h1>
 <p>本文到此结束, 感谢您的阅读。如果您觉得有所帮助, 请关注公众号【当我遇上你】, 并分享给身边的小伙伴。您的支持是我持续写作的最大动力。</p>
-<img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px">
+<img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px">
 
       
     </div>
@@ -409,7 +409,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -490,14 +490,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

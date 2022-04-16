@@ -29,24 +29,24 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="1. 概述 Apache Kafka是一个快速、可扩展的、高吞吐、可容错的分布式发布订阅消息系统。其具有高吞吐量、内置分区、支持数据副本和容错的特性，适合在大规模消息处理场景中使用。 笔者之前在物联网公司工作，其中Kafka作为物联网MQ选型的事实标准，这里优先给大家搭建Kafka集群环境。由于Kafka的安装需要依赖Zookeeper，对Zookeeper还不了解的小伙伴可以在 这里 先认识下">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/kafka-manage-config-cluster.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/kafka-cluster-default-topic.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/kafka-cluster-topic-test-partition-show.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/kafka-manage-config-cluster.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/kafka-cluster-default-topic.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/kafka-cluster-topic-test-partition-show.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png">
 <meta property="article:published_time" content="2020-03-06T17:40:30.000Z">
-<meta property="article:modified_time" content="2021-08-11T13:35:11.154Z">
+<meta property="article:modified_time" content="2022-04-16T07:43:55.458Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="docker">
 <meta property="article:tag" content="kafka">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/kafka-manage-config-cluster.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/kafka-manage-config-cluster.png">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/03/07/docker-kafka-cluster/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -66,7 +66,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -182,7 +182,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -283,9 +283,9 @@
 <h2 id="41-可视化管理"><a class="markdownIt-Anchor" href="#41-可视化管理"></a> 4.1 可视化管理</h2>
 <p>细心的小伙伴发现上边的配置除了kafka外还有一个kafka-manager模块。它是kafka的可视化管理模块。因为kafka的元数据、配置信息由Zookeeper管理，这里我们在UI页面做下相关配置。</p>
 <p><em>1.</em> 访问 <a href="http:localhost:9000">http:localhost:9000</a>,按图示添加相关配置</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/kafka-manage-config-cluster.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/kafka-manage-config-cluster.png" alt="" /></p>
 <p><em>2.</em> 配置后我们可以看到默认有一个topic(__consumer_offsets)，3个brokers。该topic分50个partition，用于记录kafka的消费偏移量。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/kafka-cluster-default-topic.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/kafka-cluster-default-topic.png" alt="" /></p>
 <h2 id="42-zookeeper在kafka环境中做了什么"><a class="markdownIt-Anchor" href="#42-zookeeper在kafka环境中做了什么"></a> 4.2 Zookeeper在kafka环境中做了什么</h2>
 <p><em>1.</em> 首先观察下根目录</p>
 <p>kafka基于zookeeper，kafka启动会将元数据保存在zookeeper中。查看zookeeper节点目录，会发现多了很多和kafka相关的目录。结果如下:</p>
@@ -304,7 +304,7 @@ replication&lt;=broker(一定);<br />
 有效消费者数&lt;=partitions分区数(一定);</p>
 </blockquote>
 <p>新建主题后, 再次查看映射目录, 由图可见，partition在3个broker上均匀分布。图示同步副本表示当前和主节点数据保持同步的副本数。kafka服务端可以设置 <code>min.insync.replicas</code> 参数(最小同步副本)。这个值必须大于 1，这个是要求一个 leader 至少感知到有至少一个 follower 还跟自己保持联系，没掉队，这样才能确保 leader 挂了还有一个 follower (一种保证消息可靠不丢失的策略)。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/kafka-cluster-topic-test-partition-show.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/kafka-cluster-topic-test-partition-show.png" alt="" /></p>
 <blockquote>
 <p>ISR是由leader维护，follower从leader同步数据有一些延迟 （包括延迟时间replica.lag.time.max.ms和延迟条数replica.lag.max.messages两个维度, 当前最新的版本0.10.x中只支持replica.lag.time.max.ms这个维度）， 任意一个超过阈值都会把follower剔除出ISR, 存入OSR（Outof-Sync Replicas）列表，新加入的follower也会先存放在OSR中。AR=ISR+OSR。</p>
 </blockquote>
@@ -513,7 +513,7 @@ replication&lt;=broker(一定);<br />
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KafkaProducerController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> KafkaProducerService producerService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/sync&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessageSync</span><span class="params">(<span class="meta">@RequestParam</span> String topic)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException, TimeoutException </span>&#123;</span><br><span class="line">        producerService.sendMessageSync(topic, <span class="keyword">null</span>, <span class="string">&quot;同步发送消息测试&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/async&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessageAsync</span><span class="params">()</span></span>&#123;</span><br><span class="line">        producerService.sendMessageAsync(<span class="string">&quot;test&quot;</span>,<span class="string">&quot;异步发送消息测试&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/test&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="meta">@RequestParam</span> String topic, <span class="meta">@RequestParam(required = false)</span> Integer partition, <span class="meta">@RequestParam(required = false)</span> String key, <span class="meta">@RequestParam</span> String message)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException, TimeoutException </span>&#123;</span><br><span class="line">        producerService.test(topic, partition, key, message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="7-ad"><a class="markdownIt-Anchor" href="#7-ad"></a> 7. AD</h1>
 <p>如果您觉得写的还不错，请关注公众号 【当我遇上你】, 您的支持是我最大的动力。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" alt="" /></p>
 <h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://bgbiao.top/post/kafka%E7%94%9F%E4%BA%A7%E8%A7%84%E5%88%92%E5%92%8C%E8%BF%90%E7%BB%B4/#11-kafka-topicssh">https://bgbiao.top/post/kafka生产规划和运维/#11-kafka-topicssh</a></li>
@@ -554,7 +554,7 @@ replication&lt;=broker(一定);<br />
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -635,14 +635,14 @@ replication&lt;=broker(一定);<br />
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>

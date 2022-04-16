@@ -29,23 +29,23 @@
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="JVM类加载机制  1. 什么是类的加载 类的加载指的是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个 java.lang.Class对象，用来封装类在方法区内的数据结构。类的加载的最终产品是位于堆区中的 Class对象， Class对象封装了类在方法区内的数据结构，并且向Java程序员提供了访问方法区内的数据结构的接口。  类加载器并不需要">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/%E4%BB%80%E4%B9%88%E6%98%AF%E7%B1%BB%E5%8A%A0%E8%BD%BD.jpeg">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/%E7%B1%BB%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-1072665.png">
-<meta property="og:image" content="https://gitee.com/idea360/oss/raw/master/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%A4%BA.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/%E4%BB%80%E4%B9%88%E6%98%AF%E7%B1%BB%E5%8A%A0%E8%BD%BD.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/%E7%B1%BB%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-1072665.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%A4%BA.png">
 <meta property="article:published_time" content="2021-08-05T15:46:32.000Z">
-<meta property="article:modified_time" content="2021-08-05T16:12:02.616Z">
+<meta property="article:modified_time" content="2022-04-16T07:44:21.911Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="jvm">
 <meta property="article:tag" content="类加载机制">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/idea360/oss/raw/master/images/%E4%BB%80%E4%B9%88%E6%98%AF%E7%B1%BB%E5%8A%A0%E8%BD%BD.jpeg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/%E4%BB%80%E4%B9%88%E6%98%AF%E7%B1%BB%E5%8A%A0%E8%BD%BD.jpeg">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2021/08/05/jvm-class-loader/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
   
-    <link rel="icon" href="https://gitee.com/idea360/oss/raw/master/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -65,7 +65,7 @@
       
       <div class="profile-block text-center">
         <a id="avatar" href="https://github.com/qidian360" target="_blank">
-          <img class="img-circle img-rotate" src="https://gitee.com/idea360/oss/raw/master/images/one.png" width="200" height="200">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
         </a>
         <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
         <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
@@ -181,7 +181,7 @@
     <div class="widget-body">
         <div id="board">
             <div class="content">
-                <p>欢迎交流与分享经验!</p><div><img src="https://gitee.com/idea360/oss/raw/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
             </div>
         </div>
     </div>
@@ -261,7 +261,7 @@
         <h1 id="jvm类加载机制"><a class="markdownIt-Anchor" href="#jvm类加载机制"></a> JVM类加载机制</h1>
 <h2 id="1-什么是类的加载"><a class="markdownIt-Anchor" href="#1-什么是类的加载"></a> 1. 什么是类的加载</h2>
 <p>类的加载指的是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个 <code>java.lang.Class</code>对象，用来封装类在方法区内的数据结构。类的加载的最终产品是位于堆区中的 <code>Class</code>对象， <code>Class</code>对象封装了类在方法区内的数据结构，并且向Java程序员提供了访问方法区内的数据结构的接口。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/%E4%BB%80%E4%B9%88%E6%98%AF%E7%B1%BB%E5%8A%A0%E8%BD%BD.jpeg" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/%E4%BB%80%E4%B9%88%E6%98%AF%E7%B1%BB%E5%8A%A0%E8%BD%BD.jpeg" alt="" /></p>
 <p>类加载器并不需要等到某个类被“首次主动使用”时再加载它，JVM规范允许类加载器在预料某个类将要被使用时就预先加载它，如果在预先加载的过程中遇到了.class文件缺失或存在错误，类加载器必须在程序首次主动使用该类时才报告错误（LinkageError错误）如果这个类一直没有被程序主动使用，那么类加载器就不会报告错误。</p>
 <p><strong>加载.class文件的方式</strong></p>
 <ul>
@@ -272,7 +272,7 @@
 <li>将Java源文件动态编译为.class文件</li>
 </ul>
 <h2 id="2-类的生命周期"><a class="markdownIt-Anchor" href="#2-类的生命周期"></a> 2. 类的生命周期</h2>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/%E7%B1%BB%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-1072665.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/%E7%B1%BB%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-1072665.png" alt="" /></p>
 <h3 id="加载"><a class="markdownIt-Anchor" href="#加载"></a> 加载</h3>
 <p>类加载过程的第一步，主要完成下面3件事情：</p>
 <ol>
@@ -358,7 +358,7 @@
 </ul>
 <h2 id="5-双亲委派模型"><a class="markdownIt-Anchor" href="#5-双亲委派模型"></a> 5. 双亲委派模型</h2>
 <p>每一个类都有一个对应它的类加载器。系统中的 ClassLoder 在协同工作的时候会默认使用 <strong>双亲委派模型</strong> 。即在类加载的时候，系统会首先判断当前类是否被加载过。已经被加载的类会直接返回，否则才会尝试加载。加载的时候，首先会把该请求委派该父类加载器的 <code>loadClass()</code> 处理，因此所有的请求最终都应该传送到顶层的启动类加载器 <code>BootstrapClassLoader</code> 中。当父类加载器无法处理时，才由自己来处理。当父类加载器为null时，会使用启动类加载器 <code>BootstrapClassLoader</code> 作为父类加载器。</p>
-<p><img src="https://gitee.com/idea360/oss/raw/master/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%A4%BA.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%A4%BA.png" alt="" /></p>
 <p>每个类加载都有一个父类加载器，我们通过下面的程序来验证。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassLoaderDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;ClassLodarDemo&#x27;s ClassLoader is &quot;</span> + ClassLoaderDemo.class.getClassLoader());</span><br><span class="line">        System.out.println(<span class="string">&quot;The Parent of ClassLodarDemo&#x27;s ClassLoader is &quot;</span> + ClassLoaderDemo.class.getClassLoader().getParent());</span><br><span class="line">        System.out.println(<span class="string">&quot;The GrandParent of ClassLodarDemo&#x27;s ClassLoader is &quot;</span> + ClassLoaderDemo.class.getClassLoader().getParent().getParent());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Output</p>
@@ -417,7 +417,7 @@
     <figure class="media">
       <div class="media-left">
         <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://gitee.com/idea360/oss/raw/master/images/one.png" class="img-rounded w-full" alt="">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -498,14 +498,14 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade active in" id="alipay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="wechatpay">
               <div class="donate-payimg">
-                <img src="https://gitee.com/idea360/oss/raw/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
               </div>
               <p class="text-muted mv">扫码打赏，你说多少就多少</p>
               <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
