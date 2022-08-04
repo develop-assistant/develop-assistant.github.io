@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2021/08/02/spring-mp-pool/</loc>
+    <lastmod>2022-08-04</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2020/04/04/spring-cloud-gateway-route-static/</loc>
+    <lastmod>2022-08-04</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2021/09/19/spring-source-code-learning/</loc>
     <lastmod>2022-07-23</lastmod>
   </url>
@@ -391,10 +399,6 @@
   <url>
     <loc>https://idea360.cn/2021/07/25/java-order/</loc>
     <lastmod>2021-07-25</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2020/04/04/spring-cloud-gateway-route-static/</loc>
-    <lastmod>2021-07-10</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2020/04/04/spring-cloud-gateway-route-dynamic/</loc>
