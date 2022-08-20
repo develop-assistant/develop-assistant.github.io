@@ -21,16 +21,16 @@
   <!--<script data-ad-client="ca-pub-6442249173079218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
   
   
-  <title>线上故障排查 | 当我遇上你</title>
+  <title>JVM线上故障排查 | 当我遇上你</title>
   <meta name="description" content="前言 大部分的开发都没有接触到线上故障排查的经历, 本篇通过对生产事故的复盘做下记录分析。 公司是做IM机器人的。 某次, 售后反馈, 大量客户的机器人出现延迟对话的情况, 此时, 看业务日志发现业务未出现问题, 而数据入口处MQ无日志埋点, 无法判断是哪个环节出现了延迟。  现象  load average偏高 top查看gc进程占用了大量的cpu 内存free空间还比较多 gc日志显示大量的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线上故障排查">
+<meta property="og:title" content="JVM线上故障排查">
 <meta property="og:url" content="https://idea360.cn/2021/08/20/online-fault-analyze/index.html">
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="前言 大部分的开发都没有接触到线上故障排查的经历, 本篇通过对生产事故的复盘做下记录分析。 公司是做IM机器人的。 某次, 售后反馈, 大量客户的机器人出现延迟对话的情况, 此时, 看业务日志发现业务未出现问题, 而数据入口处MQ无日志埋点, 无法判断是哪个环节出现了延迟。  现象  load average偏高 top查看gc进程占用了大量的cpu 内存free空间还比较多 gc日志显示大量的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-20T05:49:59.000Z">
-<meta property="article:modified_time" content="2022-08-20T11:03:37.157Z">
+<meta property="article:modified_time" content="2022-08-20T11:10:54.979Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="故障排查">
@@ -208,7 +208,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      线上故障排查
+      JVM线上故障排查
     </h1>
   
 
@@ -244,7 +244,7 @@
 
 	<span class="article-read hidden-xs">
     	<i class="icon icon-eye-fill" aria-hidden="true"></i>
-    	<span id="/2021/08/20/online-fault-analyze/" class="leancloud_visitors"  data-flag-title="线上故障排查">
+    	<span id="/2021/08/20/online-fault-analyze/" class="leancloud_visitors"  data-flag-title="JVM线上故障排查">
 			<span class="leancloud-visitors-count">0</span>
 		</span>
     </span>
@@ -353,6 +353,7 @@
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.javaedge.concurrency.example.deadLock;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DeadLockDemo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Object resource1 = <span class="keyword">new</span> Object();<span class="comment">//资源 1</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Object resource2 = <span class="keyword">new</span> Object();<span class="comment">//资源 2</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (resource1) &#123;</span><br><span class="line">                System.out.println(Thread.currentThread() + <span class="string">&quot;get resource1&quot;</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread() + <span class="string">&quot;waiting get resource2&quot;</span>);</span><br><span class="line">                <span class="keyword">synchronized</span> (resource2) &#123;</span><br><span class="line">                    System.out.println(Thread.currentThread() + <span class="string">&quot;get resource2&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;线程 1&quot;</span>).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (resource2) &#123;</span><br><span class="line">                System.out.println(Thread.currentThread() + <span class="string">&quot;get resource2&quot;</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread() + <span class="string">&quot;waiting get resource1&quot;</span>);</span><br><span class="line">                <span class="keyword">synchronized</span> (resource1) &#123;</span><br><span class="line">                    System.out.println(Thread.currentThread() + <span class="string">&quot;get resource1&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&quot;线程 2&quot;</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="最后"><a class="markdownIt-Anchor" href="#最后"></a> 最后</h1>
+<p>简单总结下: CPU看线程, 内存看GC</p>
 <p>本文到此结束，感谢阅读。如果您觉得不错，请关注公众号【当我遇上你】，您的支持是我写作的最大动力。</p>
 
       
@@ -374,7 +375,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://idea360.cn/2021/08/20/online-fault-analyze/" title="线上故障排查" target="_blank" rel="external">https://idea360.cn/2021/08/20/online-fault-analyze/</a>
+      <a href="https://idea360.cn/2021/08/20/online-fault-analyze/" title="JVM线上故障排查" target="_blank" rel="external">https://idea360.cn/2021/08/20/online-fault-analyze/</a>
     </li>
     
     <li class="post-copyright-license">
