@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://idea360.cn/2021/10/16/junit-apache-httpclient/</loc>
+    
+    <lastmod>2022-10-16</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://idea360.cn/2021/10/16/junit5-logger/</loc>
     
     <lastmod>2022-10-16</lastmod>
@@ -3540,6 +3547,13 @@
   
   <url>
     <loc>https://idea360.cn/tags/slf4j/</loc>
+    <lastmod>2022-10-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/tags/httpcliennt/</loc>
     <lastmod>2022-10-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
