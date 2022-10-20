@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://idea360.cn/2022/10/20/springboot-es/</loc>
+    
+    <lastmod>2022-10-20</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://idea360.cn/2021/01/18/springboot-prometheus/</loc>
     
     <lastmod>2022-10-20</lastmod>
