@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://idea360.cn/2021/10/16/junit-apache-httpclient/</loc>
+    <loc>https://idea360.cn/2021/10/16/junit5-logger/</loc>
     
     <lastmod>2022-10-22</lastmod>
     
@@ -26,13 +26,6 @@
     <loc>https://idea360.cn/2021/01/18/springboot-prometheus/</loc>
     
     <lastmod>2022-10-20</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://idea360.cn/2021/10/16/junit5-logger/</loc>
-    
-    <lastmod>2022-10-19</lastmod>
     
   </url>
   
@@ -3589,13 +3582,6 @@
   
   <url>
     <loc>https://idea360.cn/tags/ElasticsearchRestTemplate/</loc>
-    <lastmod>2022-10-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://idea360.cn/tags/httpclient/</loc>
     <lastmod>2022-10-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
