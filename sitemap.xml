@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://idea360.cn/2021/10/16/junit-apache-httpclient/</loc>
+    
+    <lastmod>2022-10-22</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://idea360.cn/2020/03/07/docker-compose-elasticsearch-standalone/</loc>
     
     <lastmod>2022-10-22</lastmod>
@@ -33,13 +40,6 @@
     <loc>https://idea360.cn/2020/03/24/shell/</loc>
     
     <lastmod>2022-10-18</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://idea360.cn/2021/10/16/junit-apache-httpclient/</loc>
-    
-    <lastmod>2022-10-16</lastmod>
     
   </url>
   
@@ -3567,13 +3567,6 @@
   </url>
   
   <url>
-    <loc>https://idea360.cn/tags/httpcliennt/</loc>
-    <lastmod>2022-10-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://idea360.cn/tags/docker-compose/</loc>
     <lastmod>2022-10-22</lastmod>
     <changefreq>daily</changefreq>
@@ -3596,6 +3589,13 @@
   
   <url>
     <loc>https://idea360.cn/tags/ElasticsearchRestTemplate/</loc>
+    <lastmod>2022-10-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/tags/httpclient/</loc>
     <lastmod>2022-10-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

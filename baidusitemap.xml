@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2021/10/16/junit-apache-httpclient/</loc>
+    <lastmod>2022-10-22</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2020/03/07/docker-compose-elasticsearch-standalone/</loc>
     <lastmod>2022-10-22</lastmod>
   </url>
@@ -19,10 +23,6 @@
   <url>
     <loc>https://idea360.cn/2020/03/24/shell/</loc>
     <lastmod>2022-10-18</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2021/10/16/junit-apache-httpclient/</loc>
-    <lastmod>2022-10-16</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2021/09/18/hash-sample/</loc>
