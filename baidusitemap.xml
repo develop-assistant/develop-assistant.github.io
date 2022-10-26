@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2021/02/08/hello-spi/</loc>
+    <lastmod>2022-10-26</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2021/10/16/junit5-logger/</loc>
     <lastmod>2022-10-22</lastmod>
   </url>
@@ -802,10 +806,6 @@
   </url>
   <url>
     <loc>https://idea360.cn/2021/01/03/how-to-create-java-sdk/</loc>
-    <lastmod>2021-02-23</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2021/02/08/hello-spi/</loc>
     <lastmod>2021-02-23</lastmod>
   </url>
   <url>

@@ -30,7 +30,7 @@
 <meta property="og:description" content="前言 先不深究机制及原理，仅是认识SPI是如何生效的。  定义1个接口  123456&#x2F;** * @author cuishiying * @date 2021-01-22 *&#x2F;public interface IAlgorithm &amp;#123;&amp;#125;  实现类  123456&#x2F;** * @author cuishiying * @date 2021-01-22 *&#x2F;public clas">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-08T07:11:11.000Z">
-<meta property="article:modified_time" content="2021-02-23T14:18:49.049Z">
+<meta property="article:modified_time" content="2022-10-26T06:52:03.350Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="spi">
@@ -277,6 +277,11 @@
 <li>测试</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 15:17:12.924 [main] INFO com.example.clz.Main - 接口实现类: com.example.clz.LoopAlgorithm</span></span><br><span class="line"><span class="comment">     * 15:17:12.931 [main] INFO com.example.clz.Main - 接口实现类: com.example.clz.RandomAlgorithm</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ServiceLoader&lt;IAlgorithm&gt; serviceLoader = ServiceLoader.load(IAlgorithm.class);</span><br><span class="line">        <span class="keyword">for</span> (IAlgorithm algorithm : serviceLoader)&#123;</span><br><span class="line">            log.info(<span class="string">&quot;接口实现类: &#123;&#125;&quot;</span>, algorithm.getClass().getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>应用场景</li>
+</ol>
+<p>知道什么场景适合使用xx技术, 学习的技术才有意义。比如我们想做个平台，扩展功能通过插件提供， 那么SPI就可以应用，平台定义接口。插件jar中引用接口jar并做具体实现，然后插件通过SPI配置即可在平台主程序中得到执行。</p>
+<p>eg: 公司自定义框架中, 配置文件的读取通过ServiceLoader.load加载, 我们可以实现基于zk、nacos等多种实现, 按需依赖即可</p>
 
       
     </div>
