@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2021/10/20/springboot-es/</loc>
+    <lastmod>2022-11-03</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2022/11/03/java-maven/</loc>
+    <lastmod>2022-11-03</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2021/10/28/apache-http-client-test/</loc>
     <lastmod>2022-10-31</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2021/10/16/junit5-logger/</loc>
     <lastmod>2022-10-27</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2021/10/20/springboot-es/</loc>
-    <lastmod>2022-10-26</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2021/02/08/hello-spi/</loc>
