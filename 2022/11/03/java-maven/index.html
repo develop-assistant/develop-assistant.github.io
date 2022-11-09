@@ -21,19 +21,21 @@
   <!--<script data-ad-client="ca-pub-6442249173079218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
   
   
-  <title>Java操作maven | 当我遇上你</title>
+  <title>Java构建基础知识 | 当我遇上你</title>
   <meta name="description" content="Java修改dependencies pom.xml 12345&lt;dependency&gt;  &lt;groupId&gt;org.apache.maven&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;maven-model&lt;&#x2F;artifactId&gt;  &lt;version&gt;3.8.6&lt;&#x2F;version&gt;&lt;&#x2F;depende">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java操作maven">
+<meta property="og:title" content="Java构建基础知识">
 <meta property="og:url" content="https://idea360.cn/2022/11/03/java-maven/index.html">
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="Java修改dependencies pom.xml 12345&lt;dependency&gt;  &lt;groupId&gt;org.apache.maven&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;maven-model&lt;&#x2F;artifactId&gt;  &lt;version&gt;3.8.6&lt;&#x2F;version&gt;&lt;&#x2F;depende">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-03T12:58:12.000Z">
-<meta property="article:modified_time" content="2022-11-03T13:32:17.992Z">
+<meta property="article:modified_time" content="2022-11-09T08:21:41.999Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="maven">
+<meta property="article:tag" content="build">
+<meta property="article:tag" content="ota">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2022/11/03/java-maven/index.html">
@@ -193,7 +195,7 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E4%BF%AE%E6%94%B9dependencies"><span class="toc-number">1.</span> <span class="toc-text"> Java修改dependencies</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E6%89%A7%E8%A1%8Cmaven%E6%8C%87%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text"> Java执行maven指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E6%8B%89%E5%8F%96%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="toc-number">3.</span> <span class="toc-text"> 将远程仓库拉取到本地仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86jar%E5%8C%85%E4%B8%8B%E8%BD%BD%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95"><span class="toc-number">4.</span> <span class="toc-text"> 将jar包下载到指定目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">5.</span> <span class="toc-text"> 参考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E4%BF%AE%E6%94%B9dependencies"><span class="toc-number">1.</span> <span class="toc-text"> Java修改dependencies</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E6%89%A7%E8%A1%8Cmaven%E6%8C%87%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text"> Java执行maven指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E6%8B%89%E5%8F%96%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="toc-number">3.</span> <span class="toc-text"> 将远程仓库拉取到本地仓库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86jar%E5%8C%85%E4%B8%8B%E8%BD%BD%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95"><span class="toc-number">4.</span> <span class="toc-text"> 将jar包下载到指定目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89meta-infmanifestmf"><span class="toc-number">5.</span> <span class="toc-text"> 自定义META-INF&#x2F;MANIFEST.MF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#manifests%E8%AF%BB%E5%8F%96%E4%BF%AE%E6%94%B9"><span class="toc-number">6.</span> <span class="toc-text"> manifests读取修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jar%E5%8C%85%E5%9F%BA%E7%A1%80%E4%BF%A1%E6%81%AF"><span class="toc-number">7.</span> <span class="toc-text"> jar包基础信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">8.</span> <span class="toc-text"> 参考</span></a></li></ol>
     </nav>
   </div>
 </aside>
@@ -207,7 +209,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Java操作maven
+      Java构建基础知识
     </h1>
   
 
@@ -228,7 +230,7 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/java/" rel="tag">java</a>, <a class="article-tag-link-link" href="/tags/maven/" rel="tag">maven</a>
+	<a class="article-tag-link-link" href="/tags/build/" rel="tag">build</a>, <a class="article-tag-link-link" href="/tags/java/" rel="tag">java</a>, <a class="article-tag-link-link" href="/tags/maven/" rel="tag">maven</a>, <a class="article-tag-link-link" href="/tags/ota/" rel="tag">ota</a>
   </span>
 
 
@@ -243,7 +245,7 @@
 
 	<span class="article-read hidden-xs">
     	<i class="icon icon-eye-fill" aria-hidden="true"></i>
-    	<span id="/2022/11/03/java-maven/" class="leancloud_visitors"  data-flag-title="Java操作maven">
+    	<span id="/2022/11/03/java-maven/" class="leancloud_visitors"  data-flag-title="Java构建基础知识">
 			<span class="leancloud-visitors-count">0</span>
 		</span>
     </span>
@@ -272,9 +274,17 @@
 <h2 id="将jar包下载到指定目录"><a class="markdownIt-Anchor" href="#将jar包下载到指定目录"></a> 将jar包下载到指定目录</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn dependency:copy-dependencies -DoutputDirectory=./libs</span><br></pre></td></tr></table></figure>
 <p>远程仓库地址即配置在pom.xml中的仓库地址</p>
+<h2 id="自定义meta-infmanifestmf"><a class="markdownIt-Anchor" href="#自定义meta-infmanifestmf"></a> 自定义META-INF/MANIFEST.MF</h2>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-jar-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">manifestEntries</span>&gt;</span>　　　　　</span><br><span class="line">                <span class="tag">&lt;<span class="name">Build-Version</span>&gt;</span>$&#123;maven.build.timestamp&#125;<span class="tag">&lt;/<span class="name">Build-Version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">manifestEntries</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">manifestFile</span>&gt;</span>src/main/resources/META-INF/MANIFEST.MF<span class="tag">&lt;/<span class="name">manifestFile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="manifests读取修改"><a class="markdownIt-Anchor" href="#manifests读取修改"></a> manifests读取修改</h2>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jcabi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jcabi-manifests<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.7.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Manifests.inject(<span class="string">&quot;ota-site&quot;</span>, <span class="string">&quot;idea360.cn&quot;</span>);</span><br><span class="line">log.info(<span class="string">&quot;ota-site: &#123;&#125;&quot;</span>, Manifests.read(<span class="string">&quot;ota-site&quot;</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="jar包基础信息"><a class="markdownIt-Anchor" href="#jar包基础信息"></a> jar包基础信息</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">checkManifest</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    log.info(<span class="string">&quot;项目根路径: &#123;&#125;&quot;</span>, System.getProperty(<span class="string">&quot;user.dir&quot;</span>));</span><br><span class="line"></span><br><span class="line">    String path = ClassUtils.getDefaultClassLoader().getResource(<span class="string">&quot;&quot;</span>).getPath();</span><br><span class="line">    log.info(<span class="string">&quot;classes-path1: &#123;&#125;&quot;</span>, URLDecoder.decode(path, <span class="string">&quot;utf-8&quot;</span>));</span><br><span class="line"></span><br><span class="line">    String path2 = ResourceUtils.getURL(<span class="string">&quot;classpath:&quot;</span>).getPath();</span><br><span class="line">    log.info(<span class="string">&quot;classes-path2: &#123;&#125;&quot;</span>, path2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (path.startsWith(<span class="string">&quot;file&quot;</span>)) &#123;</span><br><span class="line">        path = path.substring(<span class="number">5</span>).replace(<span class="string">&quot;!/BOOT-INF/classes!/&quot;</span>, <span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    JarFile jarFile = <span class="keyword">new</span> JarFile(path);</span><br><span class="line">    Manifest manifest = jarFile.getManifest();</span><br><span class="line">    Attributes mainAttributes = manifest.getMainAttributes();</span><br><span class="line">    mainAttributes.forEach((key, value) -&gt; log.info(<span class="string">&quot;manifest: [&#123;&#125;]&quot;</span>, key + <span class="string">&quot;:&quot;</span> + value));</span><br><span class="line">    mainAttributes.put(<span class="keyword">new</span> Attributes.Name(<span class="string">&quot;author&quot;</span>), <span class="string">&quot;cuishiying&quot;</span>);</span><br><span class="line"></span><br><span class="line">    Manifests.inject(<span class="string">&quot;ota-site&quot;</span>, <span class="string">&quot;idea360.cn&quot;</span>);</span><br><span class="line">    log.info(<span class="string">&quot;ota-site: &#123;&#125;&quot;</span>, Manifests.read(<span class="string">&quot;ota-site&quot;</span>));</span><br><span class="line"></span><br><span class="line">    PathMatchingResourcePatternResolver resolver = <span class="keyword">new</span> PathMatchingResourcePatternResolver();</span><br><span class="line">    Resource[] resources = resolver.getResources(ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + <span class="string">&quot;META-INF/MANIFEST.MF&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> (Resource resource : resources) &#123;</span><br><span class="line">        URL manifestUrl = resource.getURL();</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;jar&quot;</span>.equals(manifestUrl.getProtocol())</span><br><span class="line">                &amp;&amp; manifestUrl.toString().endsWith(<span class="string">&quot;!/META-INF/MANIFEST.MF&quot;</span>)</span><br><span class="line">                &amp;&amp; !manifestUrl.toString().contains(<span class="string">&quot;/BOOT-INF/lib/&quot;</span>)) &#123;</span><br><span class="line">            log.info(<span class="string">&quot;MANIFEST.MF: &#123;&#125;&quot;</span>, manifestUrl);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">    properties.load(ClassUtils.getDefaultClassLoader().getResourceAsStream(<span class="string">&quot;xxx.properties&quot;</span>));</span><br><span class="line">    log.info(<span class="string">&quot;自定义配置文件: &#123;&#125;&quot;</span>, properties);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1753acb06fa9">https://www.jianshu.com/p/1753acb06fa9</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/core-lib/slot-maven-plugin/blob/master/src/main/java/io/slot/BootSlotter.java">https://github.com/core-lib/slot-maven-plugin/blob/master/src/main/java/io/slot/BootSlotter.java</a></li>
 </ul>
 
       
@@ -296,7 +306,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://idea360.cn/2022/11/03/java-maven/" title="Java操作maven" target="_blank" rel="external">https://idea360.cn/2022/11/03/java-maven/</a>
+      <a href="https://idea360.cn/2022/11/03/java-maven/" title="Java构建基础知识" target="_blank" rel="external">https://idea360.cn/2022/11/03/java-maven/</a>
     </li>
     
     <li class="post-copyright-license">
