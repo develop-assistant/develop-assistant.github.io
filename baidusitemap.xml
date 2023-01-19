@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2021/03/27/java-class/</loc>
+    <lastmod>2023-01-19</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2020/04/21/dubbo-demo/</loc>
     <lastmod>2023-01-03</lastmod>
   </url>
@@ -498,10 +502,6 @@
   </url>
   <url>
     <loc>https://idea360.cn/2021/03/09/spring-source-code-lifecycle-PostConstruct-PreDestroy/</loc>
-    <lastmod>2021-03-27</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2021/03/27/java-class/</loc>
     <lastmod>2021-03-27</lastmod>
   </url>
   <url>
