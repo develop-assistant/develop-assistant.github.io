@@ -22,15 +22,15 @@
   
   
   <title>JVM线上故障排查(二) | 当我遇上你</title>
-  <meta name="description" content="现象  监控中tcp服务全部下线, 查询进程存在 主机cpu100%, 内存未溢出   分析  cpu标高, top查看gc进程, 初步确定 Full GC引起 Full GC 说明存在内存溢出问题 分析内存快照, 发现大量的下行消息堆积(81%), 说明下行阻塞, 可能是网络或者工作线程不足 其他服务反馈公网超时, 内网很快, 基本确定是网络原因">
+  <meta name="description" content="现象  监控中tcp服务全部下线, 查询进程存在 主机cpu100%, 内存未溢出   分析  cpu标高, top查看gc进程, 初步确定 Full GC引起 Full GC 说明存在内存溢出问题 分析内存快照, 发现大量的下行消息堆积(81%), 说明下行阻塞, 可能是网络或者工作线程不足 其他服务反馈公网超时, 内网很快, 基本确定是网络原因   cpu飙高线程定位  使用top命令查看系">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM线上故障排查(二)">
 <meta property="og:url" content="https://idea360.cn/2021/08/20/online-fault-analyze2/index.html">
 <meta property="og:site_name" content="当我遇上你">
-<meta property="og:description" content="现象  监控中tcp服务全部下线, 查询进程存在 主机cpu100%, 内存未溢出   分析  cpu标高, top查看gc进程, 初步确定 Full GC引起 Full GC 说明存在内存溢出问题 分析内存快照, 发现大量的下行消息堆积(81%), 说明下行阻塞, 可能是网络或者工作线程不足 其他服务反馈公网超时, 内网很快, 基本确定是网络原因">
+<meta property="og:description" content="现象  监控中tcp服务全部下线, 查询进程存在 主机cpu100%, 内存未溢出   分析  cpu标高, top查看gc进程, 初步确定 Full GC引起 Full GC 说明存在内存溢出问题 分析内存快照, 发现大量的下行消息堆积(81%), 说明下行阻塞, 可能是网络或者工作线程不足 其他服务反馈公网超时, 内网很快, 基本确定是网络原因   cpu飙高线程定位  使用top命令查看系">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-20T05:50:59.000Z">
-<meta property="article:modified_time" content="2023-02-19T09:19:21.909Z">
+<meta property="article:modified_time" content="2023-02-24T07:30:08.835Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="故障排查">
@@ -195,7 +195,7 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E8%B1%A1"><span class="toc-number">1.</span> <span class="toc-text"> 现象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text"> 分析</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%B0%E8%B1%A1"><span class="toc-number">1.</span> <span class="toc-text"> 现象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text"> 分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cpu%E9%A3%99%E9%AB%98%E7%BA%BF%E7%A8%8B%E5%AE%9A%E4%BD%8D"><span class="toc-number">3.</span> <span class="toc-text"> cpu飙高线程定位</span></a></li></ol>
     </nav>
   </div>
 </aside>
@@ -268,6 +268,42 @@
 <li>分析内存快照, 发现大量的下行消息堆积(81%), 说明下行阻塞, 可能是网络或者工作线程不足</li>
 <li>其他服务反馈公网超时, 内网很快, 基本确定是网络原因</li>
 </ol>
+<h1 id="cpu飙高线程定位"><a class="markdownIt-Anchor" href="#cpu飙高线程定位"></a> cpu飙高线程定位</h1>
+<ol>
+<li>使用top命令查看系统CPU的占用情况</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[csy@test-prd18-216 ~]$ top</span><br><span class="line">    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND</span><br><span class="line">1882062 root      20   0 5821124 990.2m  39440 S   3.0   6.3 517:35.57 java</span><br><span class="line">2414864 root      20   0 6705196 928780  43040 S   2.7   5.7  18:31.56 java</span><br><span class="line">2219736 root      20   0 6828528   1.2g  42508 S   2.3   7.7 173:44.09 java</span><br><span class="line">  74679 kibana    20   0 1390224 539292  42592 S   1.7   3.3   1746:25 node</span><br><span class="line">2348141 root      20   0 6782016   1.1g  41196 S   1.7   7.0  58:10.43 java</span><br><span class="line">1954780 root      20   0 6714380 946000  42648 S   1.3   5.8 187:26.73 java</span><br><span class="line"> 286946 root      20   0 6635204 862820  37900 S   0.7   5.3 403:58.62 java</span><br><span class="line">1871394 root      20   0 6706500 926456  35656 S   0.7   5.7 111:34.88 java</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>查看该进程的各个线程运行情况</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[csy@test-prd18-216 ~]$ top -Hp 1882062</span><br><span class="line">top - 15:06:05 up 77 days,  4:47,  1 user,  load average: 0.40, 0.24, 0.18</span><br><span class="line">Threads: 179 total,   0 running, 179 sleeping,   0 stopped,   0 zombie</span><br><span class="line"><span class="meta">%</span><span class="bash">Cpu(s):  1.0 us,  0.4 sy,  0.0 ni, 98.2 id,  0.0 wa,  0.4 hi,  0.0 si,  0.0 st</span></span><br><span class="line">MiB Mem :  15830.8 total,    430.5 free,   8943.2 used,   6457.1 buff/cache</span><br><span class="line">MiB Swap:      0.0 total,      0.0 free,      0.0 used.   6967.2 avail Mem</span><br><span class="line"></span><br><span class="line">    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND</span><br><span class="line">1882103 root      20   0 5821124 990.2m  39440 S   0.3   6.3  45:55.15 Log4j2-TF-1-Asy</span><br><span class="line">1882145 root      20   0 5821124 990.2m  39440 S   0.3   6.3   0:26.77 es-connection-t</span><br><span class="line">1882175 root      20   0 5821124 990.2m  39440 S   0.3   6.3  20:00.96 MOBILE_CHECK_LI</span><br><span class="line">1882193 root      20   0 5821124 990.2m  39440 S   0.3   6.3  18:55.50 VISITOR_FULL_LI</span><br><span class="line">1882194 root      20   0 5821124 990.2m  39440 S   0.3   6.3   9:22.17 kafka-coordinat</span><br><span class="line">1882062 root      20   0 5821124 990.2m  39440 S   0.0   6.3   0:00.00 java</span><br><span class="line">1882063 root      20   0 5821124 990.2m  39440 S   0.0   6.3   0:14.28 java</span><br><span class="line">1882064 root      20   0 5821124 990.2m  39440 S   0.0   6.3   3:01.71 GC Thread#0</span><br><span class="line">1882065 root      20   0 5821124 990.2m  39440 S   0.0   6.3   0:00.00 G1 Main Marker</span><br><span class="line">1882066 root      20   0 5821124 990.2m  39440 S   0.0   6.3   0:00.00 G1 Conc#0</span><br><span class="line">1882067 root      20   0 5821124 990.2m  39440 S   0.0   6.3   0:00.02 G1 Refine#0</span><br><span class="line">1882068 root      20   0 5821124 990.2m  39440 S   0.0   6.3   9:01.27 G1 Young RemSet</span><br><span class="line">1882069 root      20   0 5821124 990.2m  39440 S   0.0   6.3   4:18.25 VM Thread</span><br><span class="line">1882070 root      20   0 5821124 990.2m  39440 S   0.0   6.3   0:00.01 Reference Handl</span><br><span class="line">1882071 root      20   0 5821124 990.2m  39440 S   0.0   6.3   0:00.00 Finalizer</span><br><span class="line">1882072 root      20   0 5821124 990.2m  39440 S   0.0   6.3   0:00.00 Signal Dispatch</span><br><span class="line">1882073 root      20   0 5821124 990.2m  39440 S   0.0   6.3   1:29.21 C2 CompilerThre</span><br><span class="line">1882074 root      20   0 5821124 990.2m  39440 S   0.0   6.3   0:16.32 C1 CompilerThre</span><br></pre></td></tr></table></figure>
+<p>说明:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">us：用户进程空间中未改变过优先级的进程占用CPU百分比</span><br><span class="line">sy：内核空间占用CPU百分比</span><br><span class="line">ni：用户进程空间内改变过优先级的进程占用CPU百分比</span><br><span class="line">id：空闲时间百分比</span><br><span class="line">wa：空闲&amp;等待I/O的时间百分比</span><br><span class="line">hi：硬中断时间百分比</span><br><span class="line">si：软中断时间百分比</span><br><span class="line">st：虚拟化时被其余VM窃取时间百分比</span><br></pre></td></tr></table></figure>
+<p><strong>Load高 &amp; CPU高</strong><br />
+这是我们最常遇到的一类情况，即load上涨是CPU负载上升导致。根据CPU具体资源分配表现，可分为以下几类：</p>
+<p><strong>CPU sys高</strong></p>
+<p>这种情况CPU主要开销在于系统内核，可进一步查看上下文切换情况。</p>
+<p>如果非自愿上下文切换较多，说明CPU抢占较为激烈，大量进程由于时间片已到等原因，被系统强制调度，进而发生的上下文切换。</p>
+<p>如果自愿上下文切换较多，说明可能存在I/O、内存等系统资源瓶颈，大量进程无法获取所需资源，导致的上下文切换。</p>
+<p><strong>CPU si高</strong></p>
+<p>这种情况CPU大量消耗在软中断，可进一步查看软中断类型。一般而言，网络I/O或者线程调度引起软中断最为常见：</p>
+<p>NET_TX &amp; NET_RX。NET_TX是发送网络数据包的软中断，NET_RX是接收网络数据包的软中断，这两种类型的软中断较高时，系统存在网络I/O瓶颈可能性较大。</p>
+<p>SCHED。SCHED为进程调度以及负载均衡引起的中断，这种中断出现较多时，系统存在较多进程切换，一般与非自愿上下文切换高同时出现，可能存在CPU瓶颈。</p>
+<p><strong>CPU us高</strong></p>
+<p>这种情况说明资源主要消耗在应用进程，可能引发的原因有以下几类：</p>
+<p>死循环或代码中存在CPU密集计算。这种情况多核CPU us会同时上涨。</p>
+<p>内存问题，导致大量FULLGC，阻塞线程。这种情况一般只有一核CPU us上涨。<br />
+资源等待造成线程池满，连带引发CPU上涨。这种情况下，线程池满等异常会同时出现。</p>
+<p><strong>Load高 &amp; CPU低</strong></p>
+<p>这种情况出现的根本原因在于不可中断睡眠态(TASK_UNINTERRUPTIBLE)进程数较多，即CPU负载不高，但I/O负载较高。可进一步定位是磁盘I/O还是网络I/O导致。</p>
+<ol start="3">
+<li>线程id都转换成十六进制形式, 即线程快照中的 0x1cb7e3</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[csy@test-prd18-216 ~]$ printf &quot;%x\n&quot; 1882083</span><br><span class="line">1cb7e3</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>根据进程和线程在线程快照查找原因: nid=0x1cb7e3</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstack 1882062 |grep 1cb7e3</span><br></pre></td></tr></table></figure>
 
       
     </div>
