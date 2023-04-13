@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://idea360.cn/2021/04/13/multiple-delay-cache/</loc>
+    
+    <lastmod>2023-04-13</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://idea360.cn/2021/05/26/unified-spring-boot-starter/</loc>
     
     <lastmod>2023-04-13</lastmod>
@@ -3727,6 +3734,27 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://idea360.cn/tags/eureka/</loc>
+    <lastmod>2023-04-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/tags/guava/</loc>
+    <lastmod>2023-04-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/tags/%E8%BD%AE%E5%AD%90/</loc>
+    <lastmod>2023-04-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
@@ -3997,6 +4025,13 @@
   
   <url>
     <loc>https://idea360.cn/categories/log/</loc>
+    <lastmod>2023-04-13</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/categories/cache/</loc>
     <lastmod>2023-04-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
