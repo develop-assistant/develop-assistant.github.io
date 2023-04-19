@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/alibaba-newfixedthreadpool.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/qidian360/oss/master/images/alibaba-newcachedthreadpool.png">
 <meta property="article:published_time" content="2020-03-06T17:41:03.000Z">
-<meta property="article:modified_time" content="2022-04-16T07:42:45.391Z">
+<meta property="article:modified_time" content="2023-04-19T15:45:33.657Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="多线程">
@@ -299,7 +299,7 @@
 <ul>
 <li>AbortPolicy：直接抛出异常</li>
 <li>CallerRunsPolicy：只用调用者所在线程来运行任务。</li>
-<li>DiscardOldestPolicy：丢弃队列里最近的一个任务，并执行当前任务。</li>
+<li>DiscardOldestPolicy：丢弃队列里最旧的一个任务，并执行当前任务。</li>
 <li>DiscardPolicy：不处理，丢弃掉。</li>
 <li>当然也可以根据应用场景需要来实现RejectedExecutionHandler接口自定义策略。如记录日志或持久化不能处理的任务。</li>
 </ul>

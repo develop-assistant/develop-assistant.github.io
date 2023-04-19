@@ -22,15 +22,15 @@
   
   
   <title>JVM线上故障排查(二) | 当我遇上你</title>
-  <meta name="description" content="现象  监控中tcp服务全部下线, 查询进程存在 主机cpu100%, 内存未溢出   分析  cpu标高, top查看gc进程, 初步确定 Full GC引起 Full GC 说明存在内存溢出问题 分析内存快照, 发现大量的下行消息堆积(81%), 说明下行阻塞, 可能是网络或者工作线程不足 其他服务反馈公网超时, 内网很快, 基本确定是网络原因   cpu飙高线程定位  使用top命令查看系">
+  <meta name="description" content="现象  监控中tcp服务全部下线, 查询进程存在 主机cpu100%, 内存未溢出   分析  cpu标高, top查看gc进程, 初步确定 Full GC引起 Full GC 说明存在内存溢出问题 分析内存快照, 发现大量的下行消息堆积(81%), 说明下行阻塞, 可能是网络或者工作线程不足 其他服务反馈公网超时, 内网很快, 基本确定是网络原因   查看prometheus监控, 可以看到线">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM线上故障排查(二)">
 <meta property="og:url" content="https://idea360.cn/2021/08/20/online-fault-analyze2/index.html">
 <meta property="og:site_name" content="当我遇上你">
-<meta property="og:description" content="现象  监控中tcp服务全部下线, 查询进程存在 主机cpu100%, 内存未溢出   分析  cpu标高, top查看gc进程, 初步确定 Full GC引起 Full GC 说明存在内存溢出问题 分析内存快照, 发现大量的下行消息堆积(81%), 说明下行阻塞, 可能是网络或者工作线程不足 其他服务反馈公网超时, 内网很快, 基本确定是网络原因   cpu飙高线程定位  使用top命令查看系">
+<meta property="og:description" content="现象  监控中tcp服务全部下线, 查询进程存在 主机cpu100%, 内存未溢出   分析  cpu标高, top查看gc进程, 初步确定 Full GC引起 Full GC 说明存在内存溢出问题 分析内存快照, 发现大量的下行消息堆积(81%), 说明下行阻塞, 可能是网络或者工作线程不足 其他服务反馈公网超时, 内网很快, 基本确定是网络原因   查看prometheus监控, 可以看到线">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-20T05:50:59.000Z">
-<meta property="article:modified_time" content="2023-02-24T07:32:51.500Z">
+<meta property="article:modified_time" content="2023-04-19T15:43:52.220Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="故障排查">
@@ -268,6 +268,9 @@
 <li>分析内存快照, 发现大量的下行消息堆积(81%), 说明下行阻塞, 可能是网络或者工作线程不足</li>
 <li>其他服务反馈公网超时, 内网很快, 基本确定是网络原因</li>
 </ol>
+<blockquote>
+<p>查看prometheus监控, 可以看到线程大量处于 <code>waiting</code> 状态(阻塞), 线程 <code>waiting</code> 导致下行消息堆积，内存增加(监控可见), 触发频繁 <code>gc</code>(监控可见), 频繁 <code>gc</code> 导致cpu <code>load</code> 及 <code>使用率</code> 升高(监控可见)</p>
+</blockquote>
 <h1 id="cpu飙高线程定位"><a class="markdownIt-Anchor" href="#cpu飙高线程定位"></a> cpu飙高线程定位</h1>
 <ol>
 <li>使用top命令查看系统CPU的占用情况</li>
