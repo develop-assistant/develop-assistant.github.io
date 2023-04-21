@@ -21,23 +21,23 @@
   <!--<script data-ad-client="ca-pub-6442249173079218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
   
   
-  <title>springboot解决跨域 | 当我遇上你</title>
-  <meta name="description" content="本地模拟跨域请求以及结果分析  写一个前端HTML页面放于idea（idea可充当静态web服务器）  123456789101112131415161718192021222324252627&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;    &lt;title&amp;g">
+  <title>Dubbo过滤器 | 当我遇上你</title>
+  <meta name="description" content="pom.xml 12345&lt;dependency&gt;    &lt;groupId&gt;org.apache.dubbo&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;dubbo&lt;&#x2F;artifactId&gt;    &lt;version&gt;2.7.22&lt;&#x2F;version&gt;&lt;&#x2F;dependency&gt;  简单实现 1234">
 <meta property="og:type" content="article">
-<meta property="og:title" content="springboot解决跨域">
-<meta property="og:url" content="https://idea360.cn/2022/04/18/springboot-cors/index.html">
+<meta property="og:title" content="Dubbo过滤器">
+<meta property="og:url" content="https://idea360.cn/2022/04/20/dubbo-filter/index.html">
 <meta property="og:site_name" content="当我遇上你">
-<meta property="og:description" content="本地模拟跨域请求以及结果分析  写一个前端HTML页面放于idea（idea可充当静态web服务器）  123456789101112131415161718192021222324252627&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;    &lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;    &lt;title&amp;g">
+<meta property="og:description" content="pom.xml 12345&lt;dependency&gt;    &lt;groupId&gt;org.apache.dubbo&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;dubbo&lt;&#x2F;artifactId&gt;    &lt;version&gt;2.7.22&lt;&#x2F;version&gt;&lt;&#x2F;dependency&gt;  简单实现 1234">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-18T15:53:09.000Z">
-<meta property="article:modified_time" content="2022-04-18T16:03:03.275Z">
+<meta property="article:published_time" content="2022-04-20T04:31:56.000Z">
+<meta property="article:modified_time" content="2023-04-21T14:34:12.443Z">
 <meta property="article:author" content="当我遇上你">
-<meta property="article:tag" content="springboot">
-<meta property="article:tag" content="跨域">
-<meta property="article:tag" content="cors">
+<meta property="article:tag" content="filter">
+<meta property="article:tag" content="过滤器">
+<meta property="article:tag" content="dubbo">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://idea360.cn/2022/04/18/springboot-cors/index.html">
+  <link rel="canonical" href="https://idea360.cn/2022/04/20/dubbo-filter/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
@@ -194,21 +194,21 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%A8%A1%E6%8B%9F%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82%E4%BB%A5%E5%8F%8A%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text"> 本地模拟跨域请求以及结果分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E"><span class="toc-number"></span> <span class="toc-text"> 最后</span></a>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pomxml"><span class="toc-number">1.</span> <span class="toc-text"> pom.xml</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text"> 简单实现</span></a></li></ol>
     </nav>
   </div>
 </aside>
 
 <main class="main" role="main">
   <div class="content">
-  <article id="post-springboot-cors" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-dubbo-filter" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      springboot解决跨域
+      Dubbo过滤器
     </h1>
   
 
@@ -216,20 +216,20 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2022/04/18/springboot-cors/" class="article-date">
-	  <time datetime="2022-04-18T15:53:09.000Z" itemprop="datePublished">2022-04-18</time>
+	<a href="/2022/04/20/dubbo-filter/" class="article-date">
+	  <time datetime="2022-04-20T04:31:56.000Z" itemprop="datePublished">2022-04-20</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/springboot/">springboot</a>
+    <a class="article-category-link" href="/categories/dubbo/">dubbo</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/cors/" rel="tag">cors</a>, <a class="article-tag-link-link" href="/tags/springboot/" rel="tag">springboot</a>, <a class="article-tag-link-link" href="/tags/%E8%B7%A8%E5%9F%9F/" rel="tag">跨域</a>
+	<a class="article-tag-link-link" href="/tags/dubbo/" rel="tag">dubbo</a>, <a class="article-tag-link-link" href="/tags/filter/" rel="tag">filter</a>, <a class="article-tag-link-link" href="/tags/%E8%BF%87%E6%BB%A4%E5%99%A8/" rel="tag">过滤器</a>
   </span>
 
 
@@ -244,40 +244,21 @@
 
 	<span class="article-read hidden-xs">
     	<i class="icon icon-eye-fill" aria-hidden="true"></i>
-    	<span id="/2022/04/18/springboot-cors/" class="leancloud_visitors"  data-flag-title="springboot解决跨域">
+    	<span id="/2022/04/20/dubbo-filter/" class="leancloud_visitors"  data-flag-title="Dubbo过滤器">
 			<span class="leancloud-visitors-count">0</span>
 		</span>
     </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/04/18/springboot-cors/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2022/04/20/dubbo-filter/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h2 id="本地模拟跨域请求以及结果分析"><a class="markdownIt-Anchor" href="#本地模拟跨域请求以及结果分析"></a> 本地模拟跨域请求以及结果分析</h2>
-<ol>
-<li>写一个前端HTML页面放于idea（idea可充当静态web服务器）</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>CORS跨域<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;http://libs.baidu.com/jquery/2.0.0/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;text-align:center;margin-top: 100px;font-size: 60px;color: brown;cursor: pointer;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">onclick</span>=<span class="string">&quot;sendAjaxReq()&quot;</span>&gt;</span>发送Ajax请求<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">sendAjaxReq</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        $.ajax(&#123;</span></span><br><span class="line"><span class="javascript">            type: <span class="string">&quot;GET&quot;</span>,</span></span><br><span class="line"><span class="javascript">            url: <span class="string">&quot;http://localhost:8080/test/cors&quot;</span>,</span></span><br><span class="line"><span class="javascript">            success: <span class="function"><span class="keyword">function</span> (<span class="params">message</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="string">&quot;成功！&quot;</span> + message);</span></span><br><span class="line">            &#125;,</span><br><span class="line"><span class="javascript">            error: <span class="function"><span class="keyword">function</span> (<span class="params">a, b, c</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(<span class="string">&quot;失败！&quot;</span> + a.statusText);</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>写一个控制器Controller处理页面发送的ajax请求</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> cuishiying</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021-01-22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/test/cors&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">testCors</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hello cors&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>利用idea的web服务器能力运行html页面, 地址为: <a target="_blank" rel="noopener" href="http://localhost:63342/cors-demo/static/index.html">http://localhost:63342/cors-demo/static/index.html</a></li>
-</ol>
-<p>请注意这个页面的访问地址的是 <a target="_blank" rel="noopener" href="http://localhost:63342/cors-demo/static/index.html">http://localhost:63342/cors-demo/static/index.html</a>，而点击这个&quot;发送Ajax请求&quot;按钮要发送的地址是 <a target="_blank" rel="noopener" href="http://localhost:8080/test/cors">http://localhost:8080/test/cors</a>，两者端口号不一样说明是不同的域，因此此ajax请求它必定属于跨域请求（CORS请求）</p>
-<ol start="4">
-<li>点击发送按钮，查看控制台的结果</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Access to XMLHttpRequest at &#39;http:&#x2F;&#x2F;localhost:8080&#x2F;test&#x2F;cors&#39; from origin &#39;http:&#x2F;&#x2F;localhost:63342&#39; has been blocked by CORS policy: No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource.</span><br><span class="line">失败！error</span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>配置跨域, 再次访问 <a target="_blank" rel="noopener" href="http://localhost:63342/cors-demo/static/index.html">http://localhost:63342/cors-demo/static/index.html</a>, 控制台输出 <code>成功！hello cors</code></li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> cuishiying</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021-01-22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CorsConfig</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> CorsConfiguration <span class="title">buildConfig</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        CorsConfiguration corsConfiguration = <span class="keyword">new</span> CorsConfiguration();</span><br><span class="line">        corsConfiguration.addAllowedOrigin(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        corsConfiguration.addAllowedHeader(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        corsConfiguration.addAllowedMethod(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">        corsConfiguration.setAllowCredentials(<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">return</span> corsConfiguration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CorsFilter <span class="title">corsFilter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        UrlBasedCorsConfigurationSource source = <span class="keyword">new</span> UrlBasedCorsConfigurationSource();</span><br><span class="line">        source.registerCorsConfiguration(<span class="string">&quot;/**&quot;</span>, buildConfig());</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> CorsFilter(source);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="最后"><a class="markdownIt-Anchor" href="#最后"></a> 最后</h1>
-<p>本文到此结束，感谢阅读。如果您觉得不错，请关注公众号【当我遇上你】，您的支持是我写作的最大动力。</p>
+        <h2 id="pomxml"><a class="markdownIt-Anchor" href="#pomxml"></a> pom.xml</h2>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.dubbo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.22<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="简单实现"><a class="markdownIt-Anchor" href="#简单实现"></a> 简单实现</h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Activate(</span></span><br><span class="line"><span class="meta">        group = &#123;&quot;provider&quot;&#125;,</span></span><br><span class="line"><span class="meta">        order = 10010</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DubboInvokeProxy</span> <span class="keyword">implements</span> <span class="title">Filter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Instance currentInstance;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">InvokeServiceFilter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ExtensionFactory beanFactory = ExtensionLoader.getExtensionLoader(ExtensionFactory.class).getAdaptiveExtension();</span><br><span class="line">        JedisCluster jedisCluster = beanFactory.getExtension(JedisCluster.class, <span class="string">&quot;jedisCluster&quot;</span>);</span><br><span class="line">        MongoTemplate mongoTemplate = beanFactory.getExtension(MongoTemplate.class, <span class="string">&quot;mongoTemplate&quot;</span>);</span><br><span class="line">        cacheStores.put(Cache.NosqlType.REDIS, <span class="keyword">new</span> RedisCacheStore(jedisCluster));</span><br><span class="line">        cacheStores.put(Cache.NosqlType.MONGODB, <span class="keyword">new</span> MongoCacheStore(mongoTemplate));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SneakyThrows</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Result <span class="title">invoke</span><span class="params">(Invoker&lt;?&gt; invoker, Invocation invocation)</span> <span class="keyword">throws</span> RpcException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!invoker.getInterface().isAssignableFrom(DataService.class)) &#123;</span><br><span class="line">            <span class="keyword">return</span> invoker.invoke(invocation);</span><br><span class="line">        &#125;</span><br><span class="line">        Class&lt;?&gt; cls = invoker.getInterface();</span><br><span class="line">        Method method = invoker.getInterface().getMethod(invocation.getMethodName(),</span><br><span class="line">                invocation.getParameterTypes());</span><br><span class="line">        Class&lt;?&gt;[] parameterTypes = invocation.getParameterTypes();</span><br><span class="line">        Object[] arguments = invocation.getArguments();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (method.isAnnotationPresent(Cacheable.class)) &#123;</span><br><span class="line">            Method cacheMethod = org.springframework.util.ReflectionUtils.findMethod(CacheStore.class, method.getName(), parameterTypes);</span><br><span class="line">            Object value = org.springframework.util.ReflectionUtils.invokeMethod(cacheMethod, cacheStore, arguments);</span><br><span class="line">            <span class="keyword">return</span> AsyncRpcResult.newDefaultAsyncResult(value, invocation);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> invoker.invoke(invocation);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -298,7 +279,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://idea360.cn/2022/04/18/springboot-cors/" title="springboot解决跨域" target="_blank" rel="external">https://idea360.cn/2022/04/18/springboot-cors/</a>
+      <a href="https://idea360.cn/2022/04/20/dubbo-filter/" title="Dubbo过滤器" target="_blank" rel="external">https://idea360.cn/2022/04/20/dubbo-filter/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -345,12 +326,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2022/04/20/dubbo-filter/" title="Dubbo过滤器"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2022/04/25/http-proxy/" title="Http反向代理"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2022/04/01/ffmpeg/" title="FFmpeg视频处理入门教程"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2022/04/18/springboot-cors/" title="springboot解决跨域"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
