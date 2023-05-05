@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://idea360.cn/2021/05/05/sdk-simple-log/</loc>
+    
+    <lastmod>2023-05-05</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://idea360.cn/2023/01/07/springboot-sse/</loc>
     
     <lastmod>2023-05-05</lastmod>
@@ -3848,6 +3855,13 @@
   
   <url>
     <loc>https://idea360.cn/tags/%E5%8D%95%E5%90%91%E6%B5%81/</loc>
+    <lastmod>2023-05-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/tags/jar/</loc>
     <lastmod>2023-05-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
