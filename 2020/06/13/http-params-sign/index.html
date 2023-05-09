@@ -21,19 +21,22 @@
   <!--<script data-ad-client="ca-pub-6442249173079218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
   
   
-  <title>Http参数签名 | 当我遇上你</title>
+  <title>Http参数验签(工具类) | 当我遇上你</title>
   <meta name="description" content="前言 Http接口传输有很多加密方式, 如 AES 对称加密, RSA 非对称加密, 参数验签等, 下文主要简单示例参数如何验签。  原理 将 GET 参数和 appkey 通过如 MD5 之类的算法生成一个唯一不可逆的参数 sign, 参数传递的同时传递签名参数 sign。HTTP接收参数后根据自己持有的 appkey 和 appsecret 再次计算, 比对是否和传递的 sign 相同。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Http参数签名">
+<meta property="og:title" content="Http参数验签(工具类)">
 <meta property="og:url" content="https://idea360.cn/2020/06/13/http-params-sign/index.html">
 <meta property="og:site_name" content="当我遇上你">
 <meta property="og:description" content="前言 Http接口传输有很多加密方式, 如 AES 对称加密, RSA 非对称加密, 参数验签等, 下文主要简单示例参数如何验签。  原理 将 GET 参数和 appkey 通过如 MD5 之类的算法生成一个唯一不可逆的参数 sign, 参数传递的同时传递签名参数 sign。HTTP接收参数后根据自己持有的 appkey 和 appsecret 再次计算, 比对是否和传递的 sign 相同。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-13T11:29:47.000Z">
-<meta property="article:modified_time" content="2021-02-23T14:20:34.406Z">
+<meta property="article:modified_time" content="2023-05-09T11:51:45.948Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="tools">
 <meta property="article:tag" content="验签">
+<meta property="article:tag" content="stream">
+<meta property="article:tag" content="流">
+<meta property="article:tag" content="Wrapper">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
   <link rel="canonical" href="https://idea360.cn/2020/06/13/http-params-sign/index.html">
@@ -207,7 +210,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Http参数签名
+      Http参数验签(工具类)
     </h1>
   
 
@@ -228,7 +231,7 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/tools/" rel="tag">tools</a>, <a class="article-tag-link-link" href="/tags/%E9%AA%8C%E7%AD%BE/" rel="tag">验签</a>
+	<a class="article-tag-link-link" href="/tags/Wrapper/" rel="tag">Wrapper</a>, <a class="article-tag-link-link" href="/tags/stream/" rel="tag">stream</a>, <a class="article-tag-link-link" href="/tags/tools/" rel="tag">tools</a>, <a class="article-tag-link-link" href="/tags/%E6%B5%81/" rel="tag">流</a>, <a class="article-tag-link-link" href="/tags/%E9%AA%8C%E7%AD%BE/" rel="tag">验签</a>
   </span>
 
 
@@ -243,7 +246,7 @@
 
 	<span class="article-read hidden-xs">
     	<i class="icon icon-eye-fill" aria-hidden="true"></i>
-    	<span id="/2020/06/13/http-params-sign/" class="leancloud_visitors"  data-flag-title="Http参数签名">
+    	<span id="/2020/06/13/http-params-sign/" class="leancloud_visitors"  data-flag-title="Http参数验签(工具类)">
 			<span class="leancloud-visitors-count">0</span>
 		</span>
     </span>
@@ -287,7 +290,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://idea360.cn/2020/06/13/http-params-sign/" title="Http参数签名" target="_blank" rel="external">https://idea360.cn/2020/06/13/http-params-sign/</a>
+      <a href="https://idea360.cn/2020/06/13/http-params-sign/" title="Http参数验签(工具类)" target="_blank" rel="external">https://idea360.cn/2020/06/13/http-params-sign/</a>
     </li>
     
     <li class="post-copyright-license">
