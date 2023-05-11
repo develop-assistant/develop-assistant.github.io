@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2021/05/11/spring-test/</loc>
+    <lastmod>2023-05-11</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2021/10/16/junit5-logger/</loc>
+    <lastmod>2023-05-11</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2021/04/13/junit4/</loc>
+    <lastmod>2023-05-11</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2021/03/22/log-filter/</loc>
     <lastmod>2023-05-09</lastmod>
   </url>
@@ -57,10 +69,6 @@
     <lastmod>2023-04-19</lastmod>
   </url>
   <url>
-    <loc>https://idea360.cn/2021/04/13/junit4/</loc>
-    <lastmod>2023-04-13</lastmod>
-  </url>
-  <url>
     <loc>https://idea360.cn/2021/04/13/multiple-delay-cache/</loc>
     <lastmod>2023-04-13</lastmod>
   </url>
@@ -107,10 +115,6 @@
   <url>
     <loc>https://idea360.cn/2021/10/28/apache-http-client-test/</loc>
     <lastmod>2022-10-31</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2021/10/16/junit5-logger/</loc>
-    <lastmod>2022-10-27</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2021/02/08/hello-spi/</loc>
