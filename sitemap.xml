@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://idea360.cn/2021/06/02/spring-bean-regist/</loc>
+    
+    <lastmod>2023-06-02</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://idea360.cn/2022/06/01/regist-bean-of-interface/</loc>
     
     <lastmod>2023-06-02</lastmod>
@@ -3897,6 +3904,13 @@
   
   <url>
     <loc>https://idea360.cn/tags/proxy/</loc>
+    <lastmod>2023-06-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/tags/%E6%B3%A8%E5%86%8C/</loc>
     <lastmod>2023-06-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
