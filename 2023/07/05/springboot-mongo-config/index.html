@@ -21,23 +21,22 @@
   <!--<script data-ad-client="ca-pub-6442249173079218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
   
   
-  <title>GraalVM与Spring Native初体验 | 当我遇上你</title>
-  <meta name="description" content="安装GraalVM 下载地址: https:&#x2F;&#x2F;github.com&#x2F;graalvm&#x2F;graalvm-ce-builds&#x2F;releases&#x2F;tag&#x2F;vm-21.3.0. 根据我的主机环境, 选择 java11 MacOS (amd64) 下载. 解压 1tar -zxf graalvm-ce-java11-darwin-amd64-21.3.0.tar.gz 配置环境变量 1vi ~&#x2F;.bash">
+  <title>SpringBoot Mongo配置 | 当我遇上你</title>
+  <meta name="description" content="MongoClient配置 123456&lt;dependency&gt;  &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;spring-boot-autoconfigure&lt;&#x2F;artifactId&gt;  &lt;version&gt;2.6.13&lt;&#x2F;version&gt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GraalVM与Spring Native初体验">
-<meta property="og:url" content="https://idea360.cn/2023/06/03/spring-native/index.html">
+<meta property="og:title" content="SpringBoot Mongo配置">
+<meta property="og:url" content="https://idea360.cn/2023/07/05/springboot-mongo-config/index.html">
 <meta property="og:site_name" content="当我遇上你">
-<meta property="og:description" content="安装GraalVM 下载地址: https:&#x2F;&#x2F;github.com&#x2F;graalvm&#x2F;graalvm-ce-builds&#x2F;releases&#x2F;tag&#x2F;vm-21.3.0. 根据我的主机环境, 选择 java11 MacOS (amd64) 下载. 解压 1tar -zxf graalvm-ce-java11-darwin-amd64-21.3.0.tar.gz 配置环境变量 1vi ~&#x2F;.bash">
+<meta property="og:description" content="MongoClient配置 123456&lt;dependency&gt;  &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;spring-boot-autoconfigure&lt;&#x2F;artifactId&gt;  &lt;version&gt;2.6.13&lt;&#x2F;version&gt;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-06-03T03:42:09.000Z">
-<meta property="article:modified_time" content="2023-06-03T04:05:54.182Z">
+<meta property="article:published_time" content="2023-07-05T14:35:02.000Z">
+<meta property="article:modified_time" content="2023-07-05T15:14:02.327Z">
 <meta property="article:author" content="当我遇上你">
 <meta property="article:tag" content="spring">
-<meta property="article:tag" content="native">
-<meta property="article:tag" content="GraalVM">
+<meta property="article:tag" content="mongo">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="https://idea360.cn/2023/06/03/spring-native/index.html">
+  <link rel="canonical" href="https://idea360.cn/2023/07/05/springboot-mongo-config/index.html">
   
     <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
   
@@ -194,21 +193,21 @@
   <div class="slimContent">
     <nav id="toc" class="article-toc">
       <h3 class="toc-title">文章目录</h3>
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85graalvm"><span class="toc-number">1.</span> <span class="toc-text"> 安装GraalVM</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#hello-world"><span class="toc-number">2.</span> <span class="toc-text"> Hello World</span></a></li></ol>
+      
     </nav>
   </div>
 </aside>
 
 <main class="main" role="main">
   <div class="content">
-  <article id="post-spring-native" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-springboot-mongo-config" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      GraalVM与Spring Native初体验
+      SpringBoot Mongo配置
     </h1>
   
 
@@ -216,8 +215,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2023/06/03/spring-native/" class="article-date">
-	  <time datetime="2023-06-03T03:42:09.000Z" itemprop="datePublished">2023-06-03</time>
+	<a href="/2023/07/05/springboot-mongo-config/" class="article-date">
+	  <time datetime="2023-07-05T14:35:02.000Z" itemprop="datePublished">2023-07-05</time>
 	</a>
 </span>
         
@@ -229,7 +228,7 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link-link" href="/tags/GraalVM/" rel="tag">GraalVM</a>, <a class="article-tag-link-link" href="/tags/native/" rel="tag">native</a>, <a class="article-tag-link-link" href="/tags/spring/" rel="tag">spring</a>
+	<a class="article-tag-link-link" href="/tags/mongo/" rel="tag">mongo</a>, <a class="article-tag-link-link" href="/tags/spring/" rel="tag">spring</a>
   </span>
 
 
@@ -244,48 +243,32 @@
 
 	<span class="article-read hidden-xs">
     	<i class="icon icon-eye-fill" aria-hidden="true"></i>
-    	<span id="/2023/06/03/spring-native/" class="leancloud_visitors"  data-flag-title="GraalVM与Spring Native初体验">
+    	<span id="/2023/07/05/springboot-mongo-config/" class="leancloud_visitors"  data-flag-title="SpringBoot Mongo配置">
 			<span class="leancloud-visitors-count">0</span>
 		</span>
     </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/06/03/spring-native/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/07/05/springboot-mongo-config/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="安装graalvm"><a class="markdownIt-Anchor" href="#安装graalvm"></a> 安装GraalVM</h1>
-<p>下载地址: <a target="_blank" rel="noopener" href="https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.3.0">https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-21.3.0</a>. 根据我的主机环境, 选择 <code>java11 MacOS (amd64)</code> 下载.</p>
-<p>解压</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxf graalvm-ce-java11-darwin-amd64-21.3.0.tar.gz</span><br></pre></td></tr></table></figure>
-<p>配置环境变量</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bash_profile</span><br></pre></td></tr></table></figure>
-<p>加入(替换原JAVA_HOME配置)</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PATH=/Users/cuishiying/app/graalvm-ce-java11-21.3.0/Contents/Home/bin:$PATH</span><br><span class="line">export JAVA_HOME=/Users/cuishiying/app/graalvm-ce-java11-21.3.0/Contents/Home</span><br></pre></td></tr></table></figure>
-<p>应用并生效</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
-<p>查看是否生效</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  bin echo $JAVA_HOME</span><br><span class="line">/Users/cuishiying/app/graalvm-ce-java11-21.3.0/Contents/Home</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  bin java -version</span><br><span class="line">openjdk version &quot;11.0.13&quot; 2021-10-19</span><br><span class="line">OpenJDK Runtime Environment GraalVM CE 21.3.0 (build 11.0.13+7-jvmci-21.3-b05)</span><br><span class="line">OpenJDK 64-Bit Server VM GraalVM CE 21.3.0 (build 11.0.13+7-jvmci-21.3-b05, mixed mode, sharing)</span><br></pre></td></tr></table></figure>
-<h1 id="hello-world"><a class="markdownIt-Anchor" href="#hello-world"></a> Hello World</h1>
-<p>新建1个java文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch HelloWorld.java</span><br></pre></td></tr></table></figure>
-<p>然后写入</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;Hello, World!&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>JVM版</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  desktop javac HelloWorld.java</span><br><span class="line">➜  desktop time java HelloWorld</span><br><span class="line">Hello, World!</span><br><span class="line">java HelloWorld  0.10s user 0.03s system 129% cpu 0.104 total</span><br></pre></td></tr></table></figure>
-<p><strong>GraalVM版</strong></p>
-<p>先进行安装 native-image</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gu install native-image</span><br></pre></td></tr></table></figure>
-<p>查看已安装</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">➜  desktop gu list</span><br><span class="line">ComponentId              Version             Component name                Stability                     Origin</span><br><span class="line">---------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line">graalvm                  21.3.0              GraalVM Core                  Supported</span><br><span class="line">js                       21.3.0              Graal.js                      Supported</span><br><span class="line">native-image             21.3.0              Native Image                  Early adopter                 github.com</span><br><span class="line"></span><br><span class="line">➜  desktop native-image --version</span><br><span class="line">GraalVM 21.3.0 Java 11 CE (Java Version 11.0.13+7-jvmci-21.3-b05)</span><br></pre></td></tr></table></figure>
-<p>然后在刚刚编译HelloWorld的目录下进行执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">➜  desktop native-image HelloWorld</span><br><span class="line">[helloworld:38788]    classlist:   1,606.07 ms,  0.96 GB</span><br><span class="line">[helloworld:38788]        (cap):   3,521.96 ms,  0.96 GB</span><br><span class="line">[helloworld:38788]        setup:   5,748.94 ms,  0.96 GB</span><br><span class="line">[helloworld:38788]     (clinit):     207.66 ms,  1.72 GB</span><br><span class="line">[helloworld:38788]   (typeflow):   4,566.81 ms,  1.72 GB</span><br><span class="line">[helloworld:38788]    (objects):   3,792.94 ms,  1.72 GB</span><br><span class="line">[helloworld:38788]   (features):   1,429.65 ms,  1.72 GB</span><br><span class="line">[helloworld:38788]     analysis:  10,383.54 ms,  1.72 GB</span><br><span class="line">[helloworld:38788]     universe:   1,208.89 ms,  1.72 GB</span><br><span class="line">[helloworld:38788]      (parse):   1,254.93 ms,  1.76 GB</span><br><span class="line">[helloworld:38788]     (inline):   1,320.43 ms,  1.76 GB</span><br><span class="line">[helloworld:38788]    (compile):  15,208.22 ms,  2.38 GB</span><br><span class="line">[helloworld:38788]      compile:  18,858.23 ms,  2.38 GB</span><br><span class="line">[helloworld:38788]        image:   1,381.92 ms,  2.38 GB</span><br><span class="line">[helloworld:38788]        write:     524.57 ms,  2.38 GB</span><br><span class="line">[helloworld:38788]      [total]:  40,024.02 ms,  2.38 GB</span><br><span class="line"><span class="meta">#</span><span class="bash"> Printing build artifacts to: /Users/cuishiying/work/desktop/helloworld.build_artifacts.txt</span></span><br></pre></td></tr></table></figure>
-<p>等待一段时间后，我们会发现文件生成了</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  desktop ll</span><br><span class="line">total 21224</span><br><span class="line">-rw-r--r--  1 cuishiying  staff   427B  6  3 11:59 HelloWorld.class</span><br><span class="line">-rw-r--r--  1 cuishiying  staff   117B  6  3 11:37 HelloWorld.java</span><br><span class="line">-rwxr-xr-x  1 cuishiying  staff    10M  6  3 12:03 helloworld</span><br><span class="line">-rw-r--r--  1 cuishiying  staff    25B  6  3 12:03 helloworld.build_artifacts.txt</span><br></pre></td></tr></table></figure>
-<p>完全没问题，再测试一下时间</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  desktop time ./helloworld</span><br><span class="line">Hello, World!</span><br><span class="line">./helloworld  0.01s user 0.01s system 1% cpu 0.762 total</span><br></pre></td></tr></table></figure>
+        <p>MongoClient配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-autoconfigure<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6.13<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>入口</strong></p>
+<p>2.3.7.RELEASE</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConditionalOnMissingBean(MongoClient.class)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> MongoClient <span class="title">mongo</span><span class="params">(MongoProperties properties, Environment environment,</span></span></span><br><span class="line"><span class="function"><span class="params">        ObjectProvider&lt;MongoClientSettingsBuilderCustomizer&gt; builderCustomizers,</span></span></span><br><span class="line"><span class="function"><span class="params">        ObjectProvider&lt;MongoClientSettings&gt; settings)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MongoClientFactory(properties, environment,</span><br><span class="line">            builderCustomizers.orderedStream().collect(Collectors.toList()))</span><br><span class="line">                    .createMongoClient(settings.getIfAvailable());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.6.13</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConditionalOnMissingBean(MongoClient.class)</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> MongoClient <span class="title">mongo</span><span class="params">(ObjectProvider&lt;MongoClientSettingsBuilderCustomizer&gt; builderCustomizers,</span></span></span><br><span class="line"><span class="function"><span class="params">        MongoClientSettings settings)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MongoClientFactory(builderCustomizers.orderedStream().collect(Collectors.toList()))</span><br><span class="line">            .createMongoClient(settings);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>mongoTemplate配置</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-mongodb<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.6.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>入口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.data.mongodb.config.AbstractMongoClientConfiguration</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> MongoTemplate <span class="title">mongoTemplate</span><span class="params">(MongoDatabaseFactory databaseFactory, MappingMongoConverter converter)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MongoTemplate(databaseFactory, converter);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>mongoTemplate自动注入</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-mongodb<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6.13<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>入口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -306,7 +289,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://idea360.cn/2023/06/03/spring-native/" title="GraalVM与Spring Native初体验" target="_blank" rel="external">https://idea360.cn/2023/06/03/spring-native/</a>
+      <a href="https://idea360.cn/2023/07/05/springboot-mongo-config/" title="SpringBoot Mongo配置" target="_blank" rel="external">https://idea360.cn/2023/07/05/springboot-mongo-config/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -352,13 +335,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2023/07/05/springboot-mongo-config/" title="SpringBoot Mongo配置"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2023/03/28/i18n/" title="手动实现参数国际化"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2023/06/03/spring-native/" title="GraalVM与Spring Native初体验"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
