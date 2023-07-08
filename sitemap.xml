@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://idea360.cn/2022/07/08/simple-multi-impl-router/</loc>
+    
+    <lastmod>2023-07-08</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://idea360.cn/2022/07/05/springboot-mongo-config/</loc>
     
     <lastmod>2023-07-08</lastmod>
@@ -4037,6 +4044,13 @@
   
   <url>
     <loc>https://idea360.cn/tags/HikariCP/</loc>
+    <lastmod>2023-07-08</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/tags/dynamic/</loc>
     <lastmod>2023-07-08</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
