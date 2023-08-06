@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  <meta name="google-site-verification" content="zo0LqAAU1ik3Yk5Gdqg2DpsQI1Xlhh7jC07I0IGeyVc" />
+  <meta name="baidu-site-verification" content="6LE45O63Sc" />
+  <!-- 谷歌广告-->
+  <!--<script data-ad-client="ca-pub-6442249173079218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+  
+  
+  <title>Docker实战之工作流认证 | 当我遇上你</title><meta name="robots" content="noindex">
+  <meta name="description" content="规划    角色 服务 域名 端口     认证中心 Keycloak auth.topblue.tech 8080   数据源 Postgres  5432   网关 Openresty  80   工作流 Camunnda erp.topblue.tech 8070    hosts 12127.0.0.1 erp.topblue.tech127.0.0.1 auth.topblue.tec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker实战之工作流认证">
+<meta property="og:url" content="https://idea360.cn/2023/08/06/docker-compose-keycloack-camunda/index.html">
+<meta property="og:site_name" content="当我遇上你">
+<meta property="og:description" content="规划    角色 服务 域名 端口     认证中心 Keycloak auth.topblue.tech 8080   数据源 Postgres  5432   网关 Openresty  80   工作流 Camunnda erp.topblue.tech 8070    hosts 12127.0.0.1 erp.topblue.tech127.0.0.1 auth.topblue.tec">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-06T06:57:51.000Z">
+<meta property="article:modified_time" content="2023-08-06T07:44:32.273Z">
+<meta property="article:author" content="当我遇上你">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="docker-compose">
+<meta property="article:tag" content="camunda">
+<meta property="article:tag" content="keycloak">
+<meta property="article:tag" content="openresty">
+<meta property="article:tag" content="postgres">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://idea360.cn/2023/08/06/docker-compose-keycloack-camunda/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-white" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/qidian360" target="_blank">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/qidian360" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%84%E5%88%92"><span class="toc-number">1.</span> <span class="toc-text"> 规划</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text"> 实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-number">2.0.1.</span> <span class="toc-text"> 结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-composeyml"><span class="toc-number">2.0.2.</span> <span class="toc-text"> docker-compose.yml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dockerfile"><span class="toc-number">2.0.3.</span> <span class="toc-text"> Dockerfile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker_postgres_initsql"><span class="toc-number">2.0.4.</span> <span class="toc-text"> docker_postgres_init.sql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#acclua"><span class="toc-number">2.0.5.</span> <span class="toc-text"> acc.lua</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#keycloakenv"><span class="toc-number">2.0.6.</span> <span class="toc-text"> keycloak.env</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#postgresenv"><span class="toc-number">2.0.7.</span> <span class="toc-text"> postgres.env</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginxconf"><span class="toc-number">2.0.8.</span> <span class="toc-text"> nginx.conf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#defaultconf"><span class="toc-number">2.0.9.</span> <span class="toc-text"> default.conf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#authtopbluetechconf"><span class="toc-number">2.0.10.</span> <span class="toc-text"> auth.topblue.tech.conf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#erptopbluetechconf"><span class="toc-number">2.0.11.</span> <span class="toc-text"> erp.topblue.tech.conf</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">3.</span> <span class="toc-text"> 测试</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-docker-compose-keycloack-camunda" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Docker实战之工作流认证
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2023/08/06/docker-compose-keycloack-camunda/" class="article-date">
+	  <time datetime="2023-08-06T06:57:51.000Z" itemprop="datePublished">2023-08-06</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/docker/">docker</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/docker/" rel="tag">docker</a>, <a class="article-tag-link-link" href="/tags/docker-compose/" rel="tag">docker-compose</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2023/08/06/docker-compose-keycloack-camunda/" class="leancloud_visitors"  data-flag-title="Docker实战之工作流认证">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/08/06/docker-compose-keycloack-camunda/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="规划"><a class="markdownIt-Anchor" href="#规划"></a> 规划</h1>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>服务</th>
+<th>域名</th>
+<th>端口</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>认证中心</td>
+<td>Keycloak</td>
+<td>auth.topblue.tech</td>
+<td>8080</td>
+</tr>
+<tr>
+<td>数据源</td>
+<td>Postgres</td>
+<td></td>
+<td>5432</td>
+</tr>
+<tr>
+<td>网关</td>
+<td>Openresty</td>
+<td></td>
+<td>80</td>
+</tr>
+<tr>
+<td>工作流</td>
+<td>Camunnda</td>
+<td>erp.topblue.tech</td>
+<td>8070</td>
+</tr>
+</tbody>
+</table>
+<p><strong>hosts</strong></p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1 erp.topblue.tech</span><br><span class="line">127.0.0.1 auth.topblue.tech</span><br></pre></td></tr></table></figure>
+<p><strong>https</strong></p>
+<p>mkcert添加根证书及生成ssl证书</p>
+<h1 id="实现"><a class="markdownIt-Anchor" href="#实现"></a> 实现</h1>
+<p><code>postgres</code> ddl 初始化 <code>keycloak</code> schema 未成功, 需要docker启动后手动创建 <code>keycloak</code> schema后,  keycloak相关 <code>table</code> 会自动创建.</p>
+<h3 id="结构"><a class="markdownIt-Anchor" href="#结构"></a> 结构</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">➜  keycloak git:(main) tree</span><br><span class="line">.</span><br><span class="line">├── Dockerfile</span><br><span class="line">├── README.md</span><br><span class="line">├── acc.lua</span><br><span class="line">├── docker-compose.yml</span><br><span class="line">├── docker_postgres_init.sql</span><br><span class="line">├── env</span><br><span class="line">│   ├── keycloak.env</span><br><span class="line">│   └── postgres.env</span><br><span class="line">│</span><br><span class="line">├── postgres</span><br><span class="line">└── openresty</span><br><span class="line">    ├── bak</span><br><span class="line">    │   ├── auth.topblue.tech.conf</span><br><span class="line">    │   ├── default.conf</span><br><span class="line">    │   └── erp.topblue.tech.conf</span><br><span class="line">    ├── cert</span><br><span class="line">    │   ├── _wildcard.topblue.tech+2-key.pem</span><br><span class="line">    │   ├── _wildcard.topblue.tech+2.pem</span><br><span class="line">    │   ├── auth.topblue.tech-key.pem</span><br><span class="line">    │   ├── auth.topblue.tech.pem</span><br><span class="line">    │   ├── erp.topblue.tech-key.pem</span><br><span class="line">    │   └── erp.topblue.tech.pem</span><br><span class="line">    ├── conf</span><br><span class="line">    │   ├── cert</span><br><span class="line">    │   └── nginx.conf</span><br><span class="line">    └── conf.d</span><br><span class="line">        ├── auth.topblue.tech.conf</span><br><span class="line">        ├── default.conf</span><br><span class="line">        └── erp.topblue.tech.conf</span><br></pre></td></tr></table></figure>
+<h3 id="docker-composeyml"><a class="markdownIt-Anchor" href="#docker-composeyml"></a> docker-compose.yml</h3>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3.9&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">postgres:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">postgres</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">postgres</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line">    <span class="attr">env_file:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./env/postgres.env</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;5432:5432&#x27;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./postgres:/var/lib/postgresql/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">custom-keycloak</span></span><br><span class="line">  <span class="attr">keycloak:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">keycloak</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">quay.io/keycloak/keycloak:22.0.1</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line">    <span class="attr">env_file:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./env/keycloak.env</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">postgres</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8080:8080&quot;</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">custom-keycloak</span></span><br><span class="line">    <span class="attr">command:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">start</span></span><br><span class="line">  <span class="attr">camunda:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">camunda</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">camunda/camunda-bpm-platform:latest</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">&quot;8070:8080&quot;</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line">  <span class="attr">openresty:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">openresty</span></span><br><span class="line">    <span class="attr">build:</span></span><br><span class="line">      <span class="attr">context:</span> <span class="string">./</span></span><br><span class="line">      <span class="attr">dockerfile:</span> <span class="string">./Dockerfile</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;80:80&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;443:443&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;./acc.lua:/opt/app/acc.lua&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./openresty/conf:/usr/local/openresty/nginx/conf/</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./openresty/conf.d:/etc/nginx/conf.d/</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./openresty/cert:/usr/local/openresty/nginx/conf/cert/</span></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">postgres:</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">local</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">custom-keycloak:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">custom-keycloak</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">bridge</span></span><br></pre></td></tr></table></figure>
+<h3 id="dockerfile"><a class="markdownIt-Anchor" href="#dockerfile"></a> Dockerfile</h3>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openresty/openresty:alpine-fat</span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> mkdir /var/<span class="built_in">log</span>/nginx</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk add --no-cache openssl-dev</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk add --no-cache git</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk add --no-cache gcc</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> /usr/<span class="built_in">local</span>/openresty/luajit/bin/luarocks install lua-resty-openidc</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">&quot;/usr/local/openresty/nginx/sbin/nginx&quot;</span>, <span class="string">&quot;-g&quot;</span>, <span class="string">&quot;daemon off;&quot;</span>]</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+<h3 id="docker_postgres_initsql"><a class="markdownIt-Anchor" href="#docker_postgres_initsql"></a> docker_postgres_init.sql</h3>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- CREATE USER postgres WITH PASSWORD &#x27;postgres&#x27;;</span></span><br><span class="line"><span class="keyword">create</span> database keycloak <span class="keyword">with</span> owner postgres;</span><br><span class="line"><span class="keyword">create</span> schema keycloak;</span><br><span class="line"><span class="keyword">alter</span> schema keycloak owner <span class="keyword">to</span> postgres;</span><br></pre></td></tr></table></figure>
+<h3 id="acclua"><a class="markdownIt-Anchor" href="#acclua"></a> acc.lua</h3>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> cjson = <span class="built_in">require</span>(<span class="string">&quot;cjson&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> opts = &#123;</span><br><span class="line">        redirect_uri_path = <span class="string">&quot;/redirect_uri&quot;</span>,</span><br><span class="line">        accept_none_alg = <span class="literal">true</span>,</span><br><span class="line">        discovery = <span class="string">&quot;https://auth.topblue.tech/realms/master/.well-known/openid-configuration&quot;</span>,</span><br><span class="line">        client_id = <span class="string">&quot;nginx&quot;</span>,</span><br><span class="line">        client_secret = <span class="string">&quot;e1YvD1JlIDV06qfNQPPLlQB50kbhebce&quot;</span>,</span><br><span class="line">        ssl_verify = <span class="string">&quot;no&quot;</span>,</span><br><span class="line">        redirect_uri_scheme = <span class="string">&quot;http&quot;</span>,</span><br><span class="line">        logout_path = <span class="string">&quot;/logout&quot;</span>,</span><br><span class="line">        redirect_after_logout_uri = <span class="string">&quot;https://auth.topblue.tech/realms/master/protocol/openid-connect/logout?redirect_uri=http://erp.topblue.tech/&quot;</span>,</span><br><span class="line">        redirect_after_logout_with_id_token_hint = <span class="literal">false</span>,</span><br><span class="line">        use_nonce = <span class="literal">false</span>,</span><br><span class="line">        session_contents = &#123;id_token = <span class="literal">true</span>&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> res, err = <span class="built_in">require</span>(<span class="string">&quot;resty.openidc&quot;</span>).authenticate(opts)</span><br><span class="line">    <span class="keyword">if</span> err <span class="keyword">then</span></span><br><span class="line">        ngx.<span class="built_in">status</span> = <span class="number">403</span></span><br><span class="line">        ngx.say(err)</span><br><span class="line">        ngx.<span class="built_in">exit</span>(ngx.HTTP_FORBIDDEN)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> init</span><br></pre></td></tr></table></figure>
+<h3 id="keycloakenv"><a class="markdownIt-Anchor" href="#keycloakenv"></a> keycloak.env</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">KEYCLOAK_ADMIN&#x3D;admin</span><br><span class="line">KEYCLOAK_ADMIN_PASSWORD&#x3D;admin</span><br><span class="line">KC_DB&#x3D;postgres</span><br><span class="line">KC_DB_SCHEMA&#x3D;keycloak</span><br><span class="line">KC_DB_USERNAME&#x3D;postgres</span><br><span class="line">KC_DB_PASSWORD&#x3D;postgres</span><br><span class="line">KC_DB_URL_PORT&#x3D;5432</span><br><span class="line">KC_DB_URL_HOST&#x3D;postgres</span><br><span class="line">KC_DB_URL_DATABASE&#x3D;keycloak</span><br><span class="line">KC_HTTP_ENABLED&#x3D;true</span><br><span class="line">KC_HOSTNAME_STRICT&#x3D;false</span><br><span class="line">KC_HOSTNAME_STRICT_HTTPS&#x3D;false</span><br></pre></td></tr></table></figure>
+<h3 id="postgresenv"><a class="markdownIt-Anchor" href="#postgresenv"></a> postgres.env</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">POSTGRES_USER&#x3D;postgres</span><br><span class="line">POSTGRES_PASSWORD&#x3D;postgres</span><br><span class="line">POSTGRES_DB&#x3D;keycloak</span><br></pre></td></tr></table></figure>
+<h3 id="nginxconf"><a class="markdownIt-Anchor" href="#nginxconf"></a> nginx.conf</h3>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nginx.conf  --  docker-openresty</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># This file is installed to:</span></span><br><span class="line"><span class="comment">#   `/usr/local/openresty/nginx/conf/nginx.conf`</span></span><br><span class="line"><span class="comment"># and is the file loaded by nginx at startup,</span></span><br><span class="line"><span class="comment"># unless the user specifies otherwise.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># It tracks the upstream OpenResty&#x27;s `nginx.conf`, but removes the `server`</span></span><br><span class="line"><span class="comment"># section and adds this directive:</span></span><br><span class="line"><span class="comment">#     `include /etc/nginx/conf.d/*.conf;`</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The `docker-openresty` file `nginx.vh.default.conf` is copied to</span></span><br><span class="line"><span class="comment"># `/etc/nginx/conf.d/default.conf`.  It contains the `server section</span></span><br><span class="line"><span class="comment"># of the upstream `nginx.conf`.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># See https://github.com/openresty/docker-openresty/blob/master/README.md#nginx-config-files</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#user  nobody;</span></span><br><span class="line"><span class="comment">#worker_processes 1;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Enables the use of JIT for regular expressions to speed-up their processing.</span></span><br><span class="line"><span class="attribute">pcre_jit</span> <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#error_log  logs/error.log;</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log  notice;</span></span><br><span class="line"><span class="comment">#error_log  logs/error.log  info;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#pid        logs/nginx.pid;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section">events</span> &#123;</span><br><span class="line">  <span class="attribute">worker_connections</span>  <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">  <span class="comment">#include       mime.types;</span></span><br><span class="line">  <span class="comment">#default_type  application/octet-stream;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Enables or disables the use of underscores in client request header fields.</span></span><br><span class="line">  <span class="comment"># When the use of underscores is disabled, request header fields whose names contain underscores are marked as invalid and become subject to the ignore_invalid_headers directive.</span></span><br><span class="line">  <span class="comment"># underscores_in_headers off;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">#log_format  main  &#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">  <span class="comment">#                  &#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">  <span class="comment">#                  &#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;;</span></span><br><span class="line">  <span class="comment">#access_log  logs/access.log  main;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Log in JSON Format</span></span><br><span class="line">  <span class="comment"># log_format nginxlog_json escape=json &#x27;&#123; &quot;timestamp&quot;: &quot;$time_iso8601&quot;, &#x27;</span></span><br><span class="line">  <span class="comment"># &#x27;&quot;remote_addr&quot;: &quot;$remote_addr&quot;, &#x27;</span></span><br><span class="line">  <span class="comment">#  &#x27;&quot;body_bytes_sent&quot;: $body_bytes_sent, &#x27;</span></span><br><span class="line">  <span class="comment">#  &#x27;&quot;request_time&quot;: $request_time, &#x27;</span></span><br><span class="line">  <span class="comment">#  &#x27;&quot;response_status&quot;: $status, &#x27;</span></span><br><span class="line">  <span class="comment">#  &#x27;&quot;request&quot;: &quot;$request&quot;, &#x27;</span></span><br><span class="line">  <span class="comment">#  &#x27;&quot;request_method&quot;: &quot;$request_method&quot;, &#x27;</span></span><br><span class="line">  <span class="comment">#  &#x27;&quot;host&quot;: &quot;$host&quot;,&#x27;</span></span><br><span class="line">  <span class="comment">#  &#x27;&quot;upstream_addr&quot;: &quot;$upstream_addr&quot;,&#x27;</span></span><br><span class="line">  <span class="comment">#  &#x27;&quot;http_x_forwarded_for&quot;: &quot;$http_x_forwarded_for&quot;,&#x27;</span></span><br><span class="line">  <span class="comment">#  &#x27;&quot;http_referrer&quot;: &quot;$http_referer&quot;, &#x27;</span></span><br><span class="line">  <span class="comment">#  &#x27;&quot;http_user_agent&quot;: &quot;$http_user_agent&quot;, &#x27;</span></span><br><span class="line">  <span class="comment">#  &#x27;&quot;http_version&quot;: &quot;$server_protocol&quot;, &#x27;</span></span><br><span class="line">  <span class="comment">#  &#x27;&quot;nginx_access&quot;: true &#125;&#x27;;</span></span><br><span class="line">  <span class="comment"># access_log /dev/stdout nginxlog_json;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># See Move default writable paths to a dedicated directory (#119)</span></span><br><span class="line">  <span class="comment"># https://github.com/openresty/docker-openresty/issues/119</span></span><br><span class="line">  <span class="attribute">client_body_temp_path</span> /var/run/openresty/nginx-client-body;</span><br><span class="line">  <span class="attribute">proxy_temp_path</span>       /var/run/openresty/nginx-proxy;</span><br><span class="line">  <span class="attribute">fastcgi_temp_path</span>     /var/run/openresty/nginx-fastcgi;</span><br><span class="line">  <span class="attribute">uwsgi_temp_path</span>       /var/run/openresty/nginx-uwsgi;</span><br><span class="line">  <span class="attribute">scgi_temp_path</span>        /var/run/openresty/nginx-scgi;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">sendfile</span>        <span class="literal">on</span>;</span><br><span class="line">  <span class="comment">#tcp_nopush     on;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">#keepalive_timeout  0;</span></span><br><span class="line">  <span class="attribute">keepalive_timeout</span>  <span class="number">65</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># lua</span></span><br><span class="line">  <span class="attribute">lua_package_path</span> <span class="string">&quot;/opt/app/?.lua;;&quot;</span>;</span><br><span class="line">  <span class="attribute">resolver</span> local=<span class="literal">on</span>;</span><br><span class="line">  <span class="attribute">lua_ssl_trusted_certificate</span> /etc/ssl/certs/ca-certificates.crt;</span><br><span class="line">  <span class="attribute">lua_ssl_verify_depth</span> <span class="number">5</span>;</span><br><span class="line">  <span class="attribute">lua_shared_dict</span> discovery <span class="number">1m</span>;</span><br><span class="line">  <span class="attribute">lua_shared_dict</span> jwks <span class="number">1m</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">#gzip  on;</span></span><br><span class="line"></span><br><span class="line">  <span class="attribute">include</span> /etc/nginx/conf.d/<span class="regexp">*.conf</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Don&#x27;t reveal OpenResty version to clients.</span></span><br><span class="line">  <span class="comment"># server_tokens off;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="defaultconf"><a class="markdownIt-Anchor" href="#defaultconf"></a> default.conf</h3>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nginx.vh.default.conf  --  docker-openresty</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># This file is installed to:</span></span><br><span class="line"><span class="comment">#   `/etc/nginx/conf.d/default.conf`</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># It tracks the `server` section of the upstream OpenResty&#x27;s `nginx.conf`.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># This config (and any other configs in `etc/nginx/conf.d/`) is loaded by</span></span><br><span class="line"><span class="comment"># default by the `include` directive in `/usr/local/openresty/nginx/conf/nginx.conf`.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># See https://github.com/openresty/docker-openresty/blob/master/README.md#nginx-config-files</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span>       <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">listen</span>       <span class="number">443</span> ssl;</span><br><span class="line">  <span class="attribute">server_name</span>  localhost;</span><br><span class="line"></span><br><span class="line">  <span class="comment">#charset koi8-r;</span></span><br><span class="line">  <span class="comment">#access_log  /var/log/nginx/host.access.log  main;</span></span><br><span class="line"></span><br><span class="line">  <span class="attribute">ssl_certificate</span>      /usr/local/openresty/nginx/conf/cert/_wildcard.topblue.tech+<span class="number">2</span>.pem;</span><br><span class="line">  <span class="attribute">ssl_certificate_key</span>  /usr/local/openresty/nginx/conf/cert/_wildcard.topblue.tech+<span class="number">2</span>-key.pem;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">root</span>   /usr/local/openresty/nginx/html;</span><br><span class="line">    <span class="attribute">index</span>  index.html index.htm;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># redirect server error pages to the static page /50x.html</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="attribute">error_page</span>   <span class="number">500</span> <span class="number">502</span> <span class="number">503</span> <span class="number">504</span>  /50x.html;</span><br><span class="line">  <span class="attribute">location</span> = /50x.html &#123;</span><br><span class="line">    <span class="attribute">root</span>   /usr/local/openresty/nginx/html;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># proxy the PHP scripts to Apache listening on 127.0.0.1:80</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#location ~ \.php$ &#123;</span></span><br><span class="line">  <span class="comment">#    proxy_pass   http://127.0.0.1;</span></span><br><span class="line">  <span class="comment">#&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment"># pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#location ~ \.php$ &#123;</span></span><br><span class="line">  <span class="comment">#    root           /usr/local/openresty/nginx/html;</span></span><br><span class="line">  <span class="comment">#    fastcgi_pass   127.0.0.1:9000;</span></span><br><span class="line">  <span class="comment">#    fastcgi_index  index.php;</span></span><br><span class="line">  <span class="comment">#    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span></span><br><span class="line">  <span class="comment">#    include        fastcgi_params;</span></span><br><span class="line">  <span class="comment">#&#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># deny access to .htaccess files, if Apache&#x27;s document root</span></span><br><span class="line">  <span class="comment"># concurs with nginx&#x27;s one</span></span><br><span class="line">  <span class="comment">#</span></span><br><span class="line">  <span class="comment">#location ~ /\.ht &#123;</span></span><br><span class="line">  <span class="comment">#    deny  all;</span></span><br><span class="line">  <span class="comment">#&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="authtopbluetechconf"><a class="markdownIt-Anchor" href="#authtopbluetechconf"></a> auth.topblue.tech.conf</h3>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="comment">#侦听80端口</span></span><br><span class="line">  <span class="attribute">listen</span>    <span class="number">80</span>;</span><br><span class="line">  <span class="comment">#定义使用 www.nginx.cn访问</span></span><br><span class="line">  <span class="attribute">server_name</span>  auth.topblue.tech;</span><br><span class="line">  <span class="comment">#默认请求</span></span><br><span class="line">  <span class="comment">#rewrite ^ https://$server_name$request_uri;</span></span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^</span> https://$server_name$request_uri? <span class="literal">permanent</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span>      <span class="number">443</span> ssl;</span><br><span class="line">  <span class="attribute">server_name</span>  auth.topblue.tech;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">ssl_certificate</span>      /usr/local/openresty/nginx/conf/cert/_wildcard.topblue.tech+<span class="number">2</span>.pem;</span><br><span class="line">  <span class="attribute">ssl_certificate_key</span>  /usr/local/openresty/nginx/conf/cert/_wildcard.topblue.tech+<span class="number">2</span>-key.pem;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">ssl_session_cache</span>    shared:SSL:<span class="number">1m</span>;</span><br><span class="line">  <span class="attribute">ssl_session_timeout</span>  <span class="number">5m</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">ssl_ciphers</span>  HIGH:!aNULL:!MD5;</span><br><span class="line">  <span class="attribute">ssl_prefer_server_ciphers</span>  <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span>  http://192.168.0.100:8080/;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="erptopbluetechconf"><a class="markdownIt-Anchor" href="#erptopbluetechconf"></a> erp.topblue.tech.conf</h3>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="comment">#侦听80端口</span></span><br><span class="line">  <span class="attribute">listen</span>    <span class="number">80</span>;</span><br><span class="line">  <span class="comment">#定义使用 www.nginx.cn访问</span></span><br><span class="line">  <span class="attribute">server_name</span>  erp.topblue.tech;</span><br><span class="line">  <span class="comment">#默认请求</span></span><br><span class="line">  <span class="comment">#rewrite ^ https://$server_name$request_uri;</span></span><br><span class="line">  <span class="attribute">rewrite</span><span class="regexp"> ^</span> https://$server_name$request_uri? <span class="literal">permanent</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span>      <span class="number">443</span> ssl;</span><br><span class="line">  <span class="attribute">server_name</span>  erp.topblue.tech;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">ssl_certificate</span>      /usr/local/openresty/nginx/conf/cert/_wildcard.topblue.tech+<span class="number">2</span>.pem;</span><br><span class="line">  <span class="attribute">ssl_certificate_key</span>  /usr/local/openresty/nginx/conf/cert/_wildcard.topblue.tech+<span class="number">2</span>-key.pem;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">ssl_session_cache</span>    shared:SSL:<span class="number">1m</span>;</span><br><span class="line">  <span class="attribute">ssl_session_timeout</span>  <span class="number">5m</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">ssl_ciphers</span>  HIGH:!aNULL:!MD5;</span><br><span class="line">  <span class="attribute">ssl_prefer_server_ciphers</span>  <span class="literal">on</span>;</span><br><span class="line"></span><br><span class="line">  <span class="section">access_by_lua_block</span> &#123;</span><br><span class="line">    require(&quot;acc&quot;)()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">root</span>   /usr/local/openresty/nginx/html;</span><br><span class="line">    <span class="attribute">index</span>  index.html index.htm;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> /camunda &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span>  http://192.168.0.100:8070/;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="测试"><a class="markdownIt-Anchor" href="#测试"></a> 测试</h1>
+<p>启动</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up</span><br></pre></td></tr></table></figure>
+<ol>
+<li>访问 <a target="_blank" rel="noopener" href="https://auth.topblue.tech">https://auth.topblue.tech</a> 跳转至 keycloak 登录页</li>
+<li>访问 <a target="_blank" rel="noopener" href="https://erp.topblue.tech">https://erp.topblue.tech</a> 跳转至 keycloak 登录页</li>
+<li>原始api <a target="_blank" rel="noopener" href="http://localhost:8070/camunda/api/engine/engine/">http://localhost:8070/camunda/api/engine/engine/</a>, 待认证api <a target="_blank" rel="noopener" href="https://erp.topblue.tech/camunda/api/engine/engine/">https://erp.topblue.tech/camunda/api/engine/engine/</a></li>
+</ol>
+<!-- flag of hidden posts -->
+      
+    </div>
+    <div class="article-footer">
+      <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-6442249173079218"
+     data-ad-slot="9150075714"></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://idea360.cn/2023/08/06/docker-compose-keycloack-camunda/" title="Docker实战之工作流认证" target="_blank" rel="external">https://idea360.cn/2023/08/06/docker-compose-keycloack-camunda/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/qidian360" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/qidian360" target="_blank"><span class="text-dark">当我遇上你</span><small class="ml-1x"></small></a></h3>
+        <div>勿在浮沙筑高楼</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="wechat" data-mobile-sites="wechat"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/qidian360" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2023 当我遇上你
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'nPtA4r7LjqdHMXOW4Gs9yQz0-gzGzoHsz',
+    appKey: 'UUYHyTz9su4cY3J1XDKWlxIH',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
