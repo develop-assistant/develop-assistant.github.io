@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://idea360.cn/2023/07/29/spring-boot-starter-oauth2-authorization-server/</loc>
-    <lastmod>2023-07-28</lastmod>
+    <loc>https://idea360.cn/2022/06/01/spring-regist-bean-of-interface/</loc>
+    <lastmod>2023-08-19</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2022/08/18/springboot-binder-properties/</loc>
+    <lastmod>2023-08-19</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2020/04/18/wechat-api-learning/</loc>
@@ -55,10 +59,6 @@
   <url>
     <loc>https://idea360.cn/2023/06/03/spring-native/</loc>
     <lastmod>2023-06-03</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2022/06/01/spring-regist-bean-of-interface/</loc>
-    <lastmod>2023-06-02</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2021/06/02/spring-bean-regist/</loc>
@@ -114,7 +114,7 @@
   </url>
   <url>
     <loc>https://idea360.cn/2020/04/21/dubbo-demo/</loc>
-    <lastmod>2023-04-21</lastmod>
+    <lastmod>2023-04-24</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2020/03/07/docker-kafka-cluster/</loc>
@@ -138,6 +138,10 @@
   </url>
   <url>
     <loc>https://idea360.cn/2022/06/26/spring-stream/</loc>
+    <lastmod>2023-04-13</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2021/08/22/RequestBodyAdvice/</loc>
     <lastmod>2023-04-13</lastmod>
   </url>
   <url>
@@ -531,10 +535,6 @@
   <url>
     <loc>https://idea360.cn/2021/08/20/spring-boot-mockmvc/</loc>
     <lastmod>2021-08-24</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2021/08/22/RequestBodyAdvice/</loc>
-    <lastmod>2021-08-22</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2021/08/15/java-parser-docs/</loc>
