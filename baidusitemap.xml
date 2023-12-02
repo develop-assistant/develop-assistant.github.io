@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2023/12/01/java-criteria/</loc>
+    <lastmod>2023-12-01</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2022/08/18/springboot-binder-properties/</loc>
-    <lastmod>2023-11-01</lastmod>
+    <lastmod>2023-11-25</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2020/11/14/spring-simple-http/</loc>
+    <lastmod>2023-11-25</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2022/06/16/h5-layout/</loc>
+    <lastmod>2023-11-25</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2023/08/19/spring-auto-init-sql-schema/</loc>
@@ -59,10 +71,6 @@
   <url>
     <loc>https://idea360.cn/2022/06/22/console-table/</loc>
     <lastmod>2023-06-22</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2022/06/16/h5-layout/</loc>
-    <lastmod>2023-06-18</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2022/06/11/springboot-jpa/</loc>
