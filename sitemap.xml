@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://idea360.cn/2023/02/01/producer-consumer/</loc>
+    
+    <lastmod>2024-02-01</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/2020/10/08/interview-java-15/</loc>
+    
+    <lastmod>2024-02-01</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://idea360.cn/2022/08/18/springboot-binder-properties/</loc>
     
     <lastmod>2024-02-01</lastmod>
@@ -1949,13 +1963,6 @@
   
   <url>
     <loc>https://idea360.cn/2020/10/08/interview-java-16/</loc>
-    
-    <lastmod>2020-10-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://idea360.cn/2020/10/08/interview-java-15/</loc>
     
     <lastmod>2020-10-08</lastmod>
     
@@ -4247,6 +4254,20 @@
   
   <url>
     <loc>https://idea360.cn/tags/%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C/</loc>
+    <lastmod>2024-02-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/tags/%E7%94%9F%E4%BA%A7%E8%80%85/</loc>
+    <lastmod>2024-02-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://idea360.cn/tags/%E6%B6%88%E8%B4%B9%E8%80%85/</loc>
     <lastmod>2024-02-01</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
