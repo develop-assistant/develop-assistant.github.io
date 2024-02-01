@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2022/08/18/springboot-binder-properties/</loc>
+    <lastmod>2024-02-01</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2023/01/23/springboot-validated/</loc>
+    <lastmod>2024-02-01</lastmod>
+  </url>
+  <url>
+    <loc>https://idea360.cn/2020/03/09/how-to-optimization-mysql-page/</loc>
+    <lastmod>2024-02-01</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2020/09/01/http-params-sign3/</loc>
     <lastmod>2023-12-23</lastmod>
   </url>
@@ -15,10 +27,6 @@
   <url>
     <loc>https://idea360.cn/2023/12/01/java-criteria/</loc>
     <lastmod>2023-12-01</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2022/08/18/springboot-binder-properties/</loc>
-    <lastmod>2023-11-25</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2020/11/14/spring-simple-http/</loc>
@@ -306,10 +314,6 @@
   </url>
   <url>
     <loc>https://idea360.cn/2020/03/08/how-to-fuck-markdown/</loc>
-    <lastmod>2022-04-16</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2020/03/09/how-to-optimization-mysql-page/</loc>
     <lastmod>2022-04-16</lastmod>
   </url>
   <url>
