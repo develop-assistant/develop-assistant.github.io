@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  <meta name="google-site-verification" content="zo0LqAAU1ik3Yk5Gdqg2DpsQI1Xlhh7jC07I0IGeyVc" />
+  <meta name="baidu-site-verification" content="6LE45O63Sc" />
+  <!-- 谷歌广告-->
+  <!--<script data-ad-client="ca-pub-6442249173079218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+  
+  
+  <title>Spring是如何将http请求参数转换为对象的 | 当我遇上你</title>
+  <meta name="description" content="前言 spring有着很多转换机制, eg  http请求中将json转换为vo对象 jdbc将数据库column转换为entity对象 spring-data-mongodb将entity对象转为document对象  现在就场景1做简单的源码分析, 场景中预设 @RequestBody 获取参数  源码分析  函数入口 org.springframework.web.method.suppo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring是如何将http请求参数转换为对象的">
+<meta property="og:url" content="https://idea360.cn/2024/03/07/spring-web-converter/index.html">
+<meta property="og:site_name" content="当我遇上你">
+<meta property="og:description" content="前言 spring有着很多转换机制, eg  http请求中将json转换为vo对象 jdbc将数据库column转换为entity对象 spring-data-mongodb将entity对象转为document对象  现在就场景1做简单的源码分析, 场景中预设 @RequestBody 获取参数  源码分析  函数入口 org.springframework.web.method.suppo">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-07T10:10:24.000Z">
+<meta property="article:modified_time" content="2024-03-07T13:26:56.523Z">
+<meta property="article:author" content="当我遇上你">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="源码">
+<meta property="article:tag" content="converter">
+<meta property="article:tag" content="HttpMessageConverter">
+<meta property="article:tag" content="LocalDateTime">
+<meta property="article:tag" content="格式化">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://idea360.cn/2024/03/07/spring-web-converter/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-white" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/develop-assistant" target="_blank">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/develop-assistant" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text"> 源码分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text"> 自定义实现</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-spring-web-converter" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring是如何将http请求参数转换为对象的
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/03/07/spring-web-converter/" class="article-date">
+	  <time datetime="2024-03-07T10:10:24.000Z" itemprop="datePublished">2024-03-07</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E6%BA%90%E7%A0%81/">源码</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/HttpMessageConverter/" rel="tag">HttpMessageConverter</a>, <a class="article-tag-link-link" href="/tags/LocalDateTime/" rel="tag">LocalDateTime</a>, <a class="article-tag-link-link" href="/tags/converter/" rel="tag">converter</a>, <a class="article-tag-link-link" href="/tags/spring/" rel="tag">spring</a>, <a class="article-tag-link-link" href="/tags/%E6%A0%BC%E5%BC%8F%E5%8C%96/" rel="tag">格式化</a>, <a class="article-tag-link-link" href="/tags/%E6%BA%90%E7%A0%81/" rel="tag">源码</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+	<span class="article-read hidden-xs">
+    	<i class="icon icon-eye-fill" aria-hidden="true"></i>
+    	<span id="/2024/03/07/spring-web-converter/" class="leancloud_visitors"  data-flag-title="Spring是如何将http请求参数转换为对象的">
+			<span class="leancloud-visitors-count">0</span>
+		</span>
+    </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/03/07/spring-web-converter/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>spring有着很多转换机制, eg</p>
+<ol>
+<li>http请求中将json转换为vo对象</li>
+<li>jdbc将数据库column转换为entity对象</li>
+<li>spring-data-mongodb将entity对象转为document对象</li>
+</ol>
+<p>现在就场景1做简单的源码分析, 场景中预设 @RequestBody 获取参数</p>
+<h1 id="源码分析"><a class="markdownIt-Anchor" href="#源码分析"></a> 源码分析</h1>
+<ol>
+<li>函数入口 <code>org.springframework.web.method.support.HandlerMethodArgumentResolver</code>， 接口定义如下</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HandlerMethodArgumentResolver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">supportsParameter</span><span class="params">(MethodParameter parameter)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nullable</span></span><br><span class="line">    <span class="function">Object <span class="title">resolveArgument</span><span class="params">(MethodParameter parameter, <span class="meta">@Nullable</span> ModelAndViewContainer mavContainer,</span></span></span><br><span class="line"><span class="function"><span class="params">            NativeWebRequest webRequest, <span class="meta">@Nullable</span> WebDataBinderFactory binderFactory)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发起请求后, 由于@RequestBody会命中如下实现 <code>org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor#supportsParameter</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public boolean supportsParameter(MethodParameter parameter) &#123;</span><br><span class="line">    return parameter.hasParameterAnnotation(RequestBody.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着进入到 <code>org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor#resolveArgument</code> 进行参数转换</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">resolveArgument</span><span class="params">(MethodParameter parameter, <span class="meta">@Nullable</span> ModelAndViewContainer mavContainer,</span></span></span><br><span class="line"><span class="function"><span class="params">        NativeWebRequest webRequest, <span class="meta">@Nullable</span> WebDataBinderFactory binderFactory)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    parameter = parameter.nestedIfOptional();</span><br><span class="line">    Object arg = readWithMessageConverters(webRequest, parameter, parameter.getNestedGenericParameterType());</span><br><span class="line">    String name = Conventions.getVariableNameForParameter(parameter);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (binderFactory != <span class="keyword">null</span>) &#123;</span><br><span class="line">        WebDataBinder binder = binderFactory.createBinder(webRequest, arg, name);</span><br><span class="line">        <span class="keyword">if</span> (arg != <span class="keyword">null</span>) &#123;</span><br><span class="line">            validateIfApplicable(binder, parameter);</span><br><span class="line">            <span class="keyword">if</span> (binder.getBindingResult().hasErrors() &amp;&amp; isBindExceptionRequired(binder, parameter)) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> MethodArgumentNotValidException(parameter, binder.getBindingResult());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (mavContainer != <span class="keyword">null</span>) &#123;</span><br><span class="line">            mavContainer.addAttribute(BindingResult.MODEL_KEY_PREFIX + name, binder.getBindingResult());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> adaptArgumentIfNecessary(arg, parameter);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>执行参数转换 <code>Object arg = readWithMessageConverters(webRequest, parameter, parameter.getNestedGenericParameterType());</code></li>
+</ol>
+<p>进入抽象类 <code>org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver#readWithMessageConverters(org.springframework.http.HttpInputMessage, org.springframework.core.MethodParameter, java.lang.reflect.Type)</code></p>
+<p>关键实现如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (HttpMessageConverter&lt;?&gt; converter : <span class="keyword">this</span>.messageConverters) &#123;</span><br><span class="line">    Class&lt;HttpMessageConverter&lt;?&gt;&gt; converterType = (Class&lt;HttpMessageConverter&lt;?&gt;&gt;) converter.getClass();</span><br><span class="line">    GenericHttpMessageConverter&lt;?&gt; genericConverter =</span><br><span class="line">            (converter <span class="keyword">instanceof</span> GenericHttpMessageConverter ? (GenericHttpMessageConverter&lt;?&gt;) converter : <span class="keyword">null</span>);</span><br><span class="line">    <span class="keyword">if</span> (genericConverter != <span class="keyword">null</span> ? genericConverter.canRead(targetType, contextClass, contentType) :</span><br><span class="line">            (targetClass != <span class="keyword">null</span> &amp;&amp; converter.canRead(targetClass, contentType))) &#123;</span><br><span class="line">        <span class="keyword">if</span> (message.hasBody()) &#123;</span><br><span class="line">            HttpInputMessage msgToUse =</span><br><span class="line">                    getAdvice().beforeBodyRead(message, parameter, targetType, converterType);</span><br><span class="line">            body = (genericConverter != <span class="keyword">null</span> ? genericConverter.read(targetType, contextClass, msgToUse) :</span><br><span class="line">                    ((HttpMessageConverter&lt;T&gt;) converter).read(targetClass, msgToUse));</span><br><span class="line">            body = getAdvice().afterBodyRead(body, msgToUse, parameter, targetType, converterType);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            body = getAdvice().handleEmptyBody(<span class="keyword">null</span>, message, parameter, targetType, converterType);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于请求头包含 <code>application/json;charset=UTF-8</code>， 会命中 <code>HttpMessageConverter</code> 的实现类 <code>org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter</code>, 然后通过bean中的 <code>ObjectMapper</code> 和方法中的对象class类型进行反序列化, 得到vo对象</p>
+<h1 id="自定义实现"><a class="markdownIt-Anchor" href="#自定义实现"></a> 自定义实现</h1>
+<ol>
+<li>定义注解</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> cuishiying</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2024-03-07</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Target(ElementType.PARAMETER)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> CustomRequestBody &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>实现自定义参数解析器</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> cuishiying</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2024-03-07</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomRequestResponseBodyMethodProcessor</span> <span class="keyword">implements</span> <span class="title">HandlerMethodArgumentResolver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supportsParameter</span><span class="params">(MethodParameter parameter)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> parameter.hasParameterAnnotation(CustomRequestBody.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">resolveArgument</span><span class="params">(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);</span><br><span class="line">        ServletServerHttpRequest inputMessage = <span class="keyword">new</span> ServletServerHttpRequest(servletRequest);</span><br><span class="line">        InputStream inputStream = StreamUtils.nonClosing(inputMessage.getBody());</span><br><span class="line"></span><br><span class="line">        JavaTimeModule javaTimeModule = <span class="keyword">new</span> JavaTimeModule();</span><br><span class="line">        <span class="comment">// formatter</span></span><br><span class="line">        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd&quot;</span>);</span><br><span class="line">        DateTimeFormatter dateTimeFormatter =  DateTimeFormatter.ofPattern(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// deserializers</span></span><br><span class="line">        javaTimeModule.addDeserializer(LocalDate.class, <span class="keyword">new</span> LocalDateDeserializer(dateFormatter));</span><br><span class="line">        javaTimeModule.addDeserializer(LocalDateTime.class, <span class="keyword">new</span> LocalDateTimeDeserializer(dateTimeFormatter));</span><br><span class="line"></span><br><span class="line">        ObjectMapper objectMapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        objectMapper.registerModule(javaTimeModule);</span><br><span class="line">        <span class="keyword">return</span> objectMapper.readValue(inputStream, parameter.getParameterType());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>注入自定义解析器</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> cuishiying</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2024-03-07</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomWebMvcConfigurer</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addArgumentResolvers</span><span class="params">(List&lt;HandlerMethodArgumentResolver&gt; resolvers)</span> </span>&#123;</span><br><span class="line">        resolvers.add(<span class="keyword">new</span> CustomRequestResponseBodyMethodProcessor());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>测试接口</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ResponseStatus(HttpStatus.CREATED)</span> <span class="comment">// 201</span></span><br><span class="line"><span class="meta">@PostMapping</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Book <span class="title">create</span><span class="params">(<span class="meta">@CustomRequestBody</span> Book book)</span> </span>&#123;</span><br><span class="line">    String title = messageSource.getMessage(<span class="string">&quot;user.name&quot;</span>, <span class="keyword">null</span>, LocaleContextHolder.getLocale());</span><br><span class="line">    book.setTitle(title);</span><br><span class="line">    <span class="keyword">return</span> bookService.save(book);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <div class="article-footer">
+      <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-6442249173079218"
+     data-ad-slot="9150075714"></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://idea360.cn/2024/03/07/spring-web-converter/" title="Spring是如何将http请求参数转换为对象的" target="_blank" rel="external">https://idea360.cn/2024/03/07/spring-web-converter/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/develop-assistant" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/develop-assistant" target="_blank"><span class="text-dark">当我遇上你</span><small class="ml-1x"></small></a></h3>
+        <div>勿在浮沙筑高楼</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2024/02/29/custom-pool/" title="自定义连接池"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="wechat" data-mobile-sites="wechat"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/develop-assistant" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2024 当我遇上你
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'nPtA4r7LjqdHMXOW4Gs9yQz0-gzGzoHsz',
+    appKey: 'UUYHyTz9su4cY3J1XDKWlxIH',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
