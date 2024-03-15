@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://idea360.cn/2022/07/05/springboot-datasource-config/</loc>
+    <lastmod>2024-03-15</lastmod>
+  </url>
+  <url>
     <loc>https://idea360.cn/2024/03/07/spring-web-converter/</loc>
     <lastmod>2024-03-14</lastmod>
   </url>
@@ -91,10 +95,6 @@
   <url>
     <loc>https://idea360.cn/2020/09/01/spring-cloud-gateway-auth/</loc>
     <lastmod>2023-07-23</lastmod>
-  </url>
-  <url>
-    <loc>https://idea360.cn/2022/07/05/springboot-datasource-config/</loc>
-    <lastmod>2023-07-22</lastmod>
   </url>
   <url>
     <loc>https://idea360.cn/2020/06/11/json-handle/</loc>
