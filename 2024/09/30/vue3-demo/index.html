@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  <meta name="google-site-verification" content="zo0LqAAU1ik3Yk5Gdqg2DpsQI1Xlhh7jC07I0IGeyVc" />
+  <meta name="baidu-site-verification" content="6LE45O63Sc" />
+  <!-- 谷歌广告-->
+  <script data-ad-client="ca-pub-6442249173079218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  
+  
+  <title>Vue3学习笔记 | 当我遇上你</title>
+  <meta name="description" content="自定义组件  为了让组件更具动态性，可以通过props传递数据给子组件，通过emit事件将数据传回父组件。  下边给一个具体的案例并进行详细讲解。我们将创建一个简单的待办事项列表组件。 首先,让我们创建一个TodoList.vue组件: 12345678910111213141516171819202122232425262728293031323334353637383940414243444">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue3学习笔记">
+<meta property="og:url" content="https://idea360.cn/2024/09/30/vue3-demo/index.html">
+<meta property="og:site_name" content="当我遇上你">
+<meta property="og:description" content="自定义组件  为了让组件更具动态性，可以通过props传递数据给子组件，通过emit事件将数据传回父组件。  下边给一个具体的案例并进行详细讲解。我们将创建一个简单的待办事项列表组件。 首先,让我们创建一个TodoList.vue组件: 12345678910111213141516171819202122232425262728293031323334353637383940414243444">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-30T09:31:51.000Z">
+<meta property="article:modified_time" content="2024-10-03T22:01:50.922Z">
+<meta property="article:author" content="当我遇上你">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="vue3">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://idea360.cn/2024/09/30/vue3-demo/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="当我遇上你" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="https://raw.githubusercontent.com/qidian360/oss/master/images/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center theme-white" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/develop-assistant" target="_blank">
+          <img class="img-circle img-rotate" src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">当我遇上你</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/develop-assistant" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p><div><img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wechat-qr-code.png" width="140px" height="140px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 固定广告位 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-6442249173079218"
+     data-ad-slot="7881226079"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    
+  </div>
+</aside>
+
+  
+  
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <nav id="toc" class="article-toc">
+      <h3 class="toc-title">文章目录</h3>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text"> 自定义组件</span></a></li></ol>
+    </nav>
+  </div>
+</aside>
+
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-vue3-demo" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vue3学习笔记
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2024/09/30/vue3-demo/" class="article-date">
+	  <time datetime="2024-09-30T09:31:51.000Z" itemprop="datePublished">2024-09-30</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/vue/" rel="tag">vue</a>, <a class="article-tag-link-link" href="/tags/vue3/" rel="tag">vue3</a>, <a class="article-tag-link-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2024/09/30/vue3-demo/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="自定义组件"><a class="markdownIt-Anchor" href="#自定义组件"></a> 自定义组件</h1>
+<blockquote>
+<p>为了让组件更具动态性，可以通过props传递数据给子组件，通过emit事件将数据传回父组件。</p>
+</blockquote>
+<p>下边给一个具体的案例并进行详细讲解。我们将创建一个简单的待办事项列表组件。<br />
+首先,让我们创建一个TodoList.vue组件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; ref &#125; from &#39;vue&#39;</span><br><span class="line">import TodoItem from &#39;.&#x2F;TodoItem.vue&#39;</span><br><span class="line"></span><br><span class="line">const newTodo &#x3D; ref(&#39;&#39;)</span><br><span class="line">const todos &#x3D; ref([])</span><br><span class="line"></span><br><span class="line">const addTodo &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  if (newTodo.value.trim()) &#123;</span><br><span class="line">    todos.value.push(&#123;</span><br><span class="line">      id: Date.now(),</span><br><span class="line">      text: newTodo.value,</span><br><span class="line">      completed: false</span><br><span class="line">    &#125;)</span><br><span class="line">    newTodo.value &#x3D; &#39;&#39;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const removeTodo &#x3D; (id) &#x3D;&gt; &#123;</span><br><span class="line">  todos.value &#x3D; todos.value.filter(todo &#x3D;&gt; todo.id !&#x3D;&#x3D; id)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const toggleTodo &#x3D; (id) &#x3D;&gt; &#123;</span><br><span class="line">  const todo &#x3D; todos.value.find(todo &#x3D;&gt; todo.id &#x3D;&#x3D;&#x3D; id)</span><br><span class="line">  if (todo) &#123;</span><br><span class="line">    todo.completed &#x3D; !todo.completed</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;待办事项列表&lt;&#x2F;h2&gt;</span><br><span class="line">    &lt;input v-model&#x3D;&quot;newTodo&quot; @keyup.enter&#x3D;&quot;addTodo&quot; placeholder&#x3D;&quot;添加新的待办事项&quot; &#x2F;&gt;</span><br><span class="line">    &lt;button @click&#x3D;&quot;addTodo&quot;&gt;添加&lt;&#x2F;button&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &lt;TodoItem</span><br><span class="line">        v-for&#x3D;&quot;todo in todos&quot;</span><br><span class="line">        :key&#x3D;&quot;todo.id&quot;</span><br><span class="line">        :todo&#x3D;&quot;todo&quot;</span><br><span class="line">        @remove&#x3D;&quot;removeTodo&quot;</span><br><span class="line">        @toggle&#x3D;&quot;toggleTodo&quot;</span><br><span class="line">      &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;ul&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+<p>然后,创建一个TodoItem.vue组件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">defineProps(&#123;</span><br><span class="line">  todo: &#123;</span><br><span class="line">    type: Object,</span><br><span class="line">    required: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const emit &#x3D; defineEmits([&#39;remove&#39;, &#39;toggle&#39;])</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;input</span><br><span class="line">      type&#x3D;&quot;checkbox&quot;</span><br><span class="line">      :checked&#x3D;&quot;todo.completed&quot;</span><br><span class="line">      @change&#x3D;&quot;emit(&#39;toggle&#39;, todo.id)&quot;</span><br><span class="line">    &#x2F;&gt;</span><br><span class="line">    &lt;span :class&#x3D;&quot;&#123; completed: todo.completed &#125;&quot;&gt;&#123;&#123; todo.text &#125;&#125;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;button @click&#x3D;&quot;emit(&#39;remove&#39;, todo.id)&quot;&gt;删除&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">.completed &#123;</span><br><span class="line">  text-decoration: line-through;</span><br><span class="line">  color: #999;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+<p>现在,让我们来详细讲解这个案例:</p>
+<ul>
+<li>组件结构:
+<ul>
+<li>我们有一个主要的TodoList组件和一个子组件TodoItem。</li>
+<li>TodoList负责整体逻辑和状态管理,而TodoItem负责单个待办事项的显示和交互。</li>
+</ul>
+</li>
+<li>状态管理:
+<ul>
+<li>在TodoList中,我们使用ref来创建响应式状态:
+<ul>
+<li>newTodo: 用于存储新待办事项的输入。</li>
+<li>todos: 用于存储所有待办事项的数组。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>方法:
+<ul>
+<li>addTodo: 添加新的待办事项到列表中。</li>
+<li>removeTodo: 从列表中删除指定的待办事项。</li>
+<li>toggleTodo: 切换指定待办事项的完成状态。</li>
+</ul>
+</li>
+<li>Props传递:
+<ul>
+<li>在TodoItem组件中,我们通过defineProps定义了一个todoprop,用于接收单个待办事项的数据。</li>
+</ul>
+</li>
+<li>事件发射:
+<ul>
+<li>在TodoItem组件中,我们使用defineEmits定义了两个事件:remove和toggle。</li>
+<li>这些事件在用户点击删除按钮或切换复选框时触发,并将相应的todo.id传递给父组件。</li>
+</ul>
+</li>
+<li>组件通信:
+<ul>
+<li>父组件(TodoList)通过props向子组件(TodoItem)传递数据。</li>
+<li>子组件通过事件向父组件发送信息,实现了双向通信。</li>
+</ul>
+</li>
+<li>列表渲染:
+<ul>
+<li>在TodoList组件中,我们使用v-for指令来渲染TodoItem组件列表。</li>
+</ul>
+</li>
+<li>样式:
+<ul>
+<li>在TodoItem组件中,我们使用了scoped样式,确保样式只应用于当前组件。</li>
+<li>我们还使用了动态类绑定来为已完成的待办事项添加删除线样式。</li>
+</ul>
+</li>
+</ul>
+<p>这个案例展示了Vue 3组件的多个重要概念,包括组件组合、状态管理、props传递、事件处理等。通过这种方式,我们可以创建可复用、可维护的组件,从而构建复杂的应用程序。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-6442249173079218"
+     data-ad-slot="9150075714"></ins>
+<script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://idea360.cn/2024/09/30/vue3-demo/" title="Vue3学习笔记" target="_blank" rel="external">https://idea360.cn/2024/09/30/vue3-demo/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/develop-assistant" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/one.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/develop-assistant" target="_blank"><span class="text-dark">当我遇上你</span><small class="ml-1x"></small></a></h3>
+        <div>勿在浮沙筑高楼</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2024/11/06/java-async/" title="Java异步任务案例"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2024/09/30/flex-case/" title="Flex布局案例"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+    <li class="toggle-toc">
+      <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false" title="文章目录" role="button">
+        <span>[&nbsp;</span><span>文章目录</span>
+        <i class="text-collapsed icon icon-anchor"></i>
+        <i class="text-in icon icon-close"></i>
+        <span>]</span>
+      </a>
+    </li>
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="wechat" data-mobile-sites="wechat"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/zfbsk.JPG" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="https://raw.githubusercontent.com/qidian360/oss/master/images/wxsk.JPG" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/develop-assistant" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        &copy; 2020-2025 当我遇上你
+        
+
+        <!-- 备案号 -->  
+
+        
+            <div><a href="http://beian.miit.gov.cn/" target="_blank">京ICP备2024065666号-1</a></div>
+            <img src="/images/gongan_beian_icon.png"/> 京公网安备11011202100636号
+        
+
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+
+
+
+
+
+
+</body>
+</html>
